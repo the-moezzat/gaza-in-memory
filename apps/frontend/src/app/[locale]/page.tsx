@@ -1,9 +1,9 @@
 import React from "react";
 import { Spotlight } from "@/components/ui/spotlight";
 import { FlipWords } from "@/components/ui/flip-words";
-import Search from "@/app/_components/search";
+import Search from "@/app/[locale]/_components/search";
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: string } }) {
   return (
     <main className={"p-6"}>
       <div className="h-[40rem] w-full rounded-xl flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden flex-col gap-20">
