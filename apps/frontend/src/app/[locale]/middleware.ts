@@ -4,15 +4,13 @@ import {
   NextRequest,
   NextResponse,
 } from "next/server";
+import { defaultLocale, supportedLocales } from "@/lib/supportedLanguages";
 
 export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
   return (request: NextRequest, event: NextFetchEvent) => {
     const path = request.nextUrl.pathname;
     console.log(path);
     if (path === "/") {
-      const defaultLocale = "en"; // Default language for your site
-      const supportedLocales = ["en", "de", "fr", "es", "ar"]; // Your supported languages
-
       // Get the preferred languages from the 'Accept-Language' header
       const preferredLanguages = request.headers.get("accept-language");
       const preferredLocale = parseAcceptLanguage(
@@ -34,8 +32,6 @@ export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
     return middleware(request, event);
   };
 }
-
-export function middleware(request: NextRequest) {}
 
 function parseAcceptLanguage(
   header: string,
