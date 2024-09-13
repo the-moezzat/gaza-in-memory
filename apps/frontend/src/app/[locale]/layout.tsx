@@ -12,13 +12,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+  params: { locale },
+}: {
   children: React.ReactNode;
-}>) {
+  params: { locale: string };
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <Navbar locale={locale} />
         {children}
       </body>
     </html>

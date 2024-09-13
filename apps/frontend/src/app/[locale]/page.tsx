@@ -3,6 +3,8 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { FlipWords } from "@/components/ui/flip-words";
 import Search from "@/app/[locale]/_components/search";
 import { supportedLocales } from "@/lib/supportedLanguages";
+import AnimatedQuoteBubbles from "@/app/[locale]/_components/animated-quote-bubbles";
+import MartyrCard from "@/app/[locale]/_components/martyr-card";
 
 export function generateStaticParams() {
   return supportedLocales.map((locale) => ({ locale }));
@@ -32,17 +34,20 @@ export default function Home({ params }: { params: { locale: string } }) {
             />
           </h1>
         </div>
-
-        <Search />
-
-        <div
-          className={
-            "w-fit h-fit bg-[#2FCC59] rounded-full after:content-[''] after:ml-0.5 after:w-6 after:h-5 after:bottom-0 after:absolute after:bg-transparent after:-right-6 after:rounded-b-xl after:shadow-[-8px_0_0_0_#2FCC59] px-4 py-1 text-white text-2xl absolute bottom-20 right-20 font-medium -z-10"
-          }
-        >
-          كلنا مشروع شهيد يازلمه
+        <div className={"z-10"}>
+          <Search />
         </div>
+        <AnimatedQuoteBubbles /> {/* Add the new component here */}
       </div>
+
+      <section className={" mt-16 space-y-6"}>
+        <h2 className={"text-2xl text-gray-800 font-bold"}>Martyrs</h2>
+        <div className={"flex gap-4"}>
+          <MartyrCard />
+          <MartyrCard />
+          <MartyrCard />
+        </div>
+      </section>
     </main>
   );
 }

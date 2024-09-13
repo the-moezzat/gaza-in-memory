@@ -124,7 +124,7 @@ function Search() {
           )}
         />
 
-        <Separator orientation={"vertical"} />
+        <div className={"h-9 bg-gray-100 w-0.5"} />
 
         <FormField
           control={form.control}
@@ -145,7 +145,7 @@ function Search() {
           )}
         />
 
-        <Separator orientation={"vertical"} />
+        <div className={"h-9 bg-gray-100 w-0.5"} />
 
         <FormField
           control={form.control}
@@ -166,8 +166,7 @@ function Search() {
           )}
         />
 
-        <Separator orientation={"vertical"} />
-
+        <div className={"h-9 bg-gray-100 w-0.5"} />
         <FormField
           control={form.control}
           name="gender"
