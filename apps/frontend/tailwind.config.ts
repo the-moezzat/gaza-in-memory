@@ -1,13 +1,13 @@
 import type { Config } from "tailwindcss";
+import { withUt } from "uploadthing/tw";
+import svgToDataUri from "mini-svg-data-uri";
+import colors from "tailwindcss/colors";
 
-const svgToDataUri = require("mini-svg-data-uri");
-
-const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
-const config = {
+const config = withUt({
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -95,6 +95,7 @@ const config = {
   plugins: [
     require("@xpd/tailwind-3dtransforms"),
     require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
@@ -122,7 +123,7 @@ const config = {
       );
     },
   ],
-} satisfies Config;
+}) satisfies Config;
 
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));

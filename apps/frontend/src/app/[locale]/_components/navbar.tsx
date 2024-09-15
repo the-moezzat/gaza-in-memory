@@ -3,11 +3,10 @@ import React from "react";
 import Link from "next/link";
 import { Globe, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export const appTabs = [
   { name: "Home", relative: "", absoluteLink: "/" },
@@ -32,10 +31,10 @@ export const appTabs = [
 function Navbar({ locale }: { locale: string }) {
   const pathname = usePathname();
 
-  pathname.split("/").at(1);
+  console.log(pathname.split("/").at(2));
 
   const activeLink = appTabs.find(
-    (tab) => tab.relative === pathname.split("/").at(1),
+    (tab) => tab.relative === pathname.split("/").at(2),
   );
 
   return (
@@ -69,21 +68,32 @@ function Navbar({ locale }: { locale: string }) {
           <Globe size={18} />
         </Button>
 
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          className={"flex items-center gap-2"}
-        >
-          <Plus />
-          <span>Add person</span>
-        </Button>
+        <SignedOut>
+          <SignInButton mode={"modal"}>
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              className={"flex items-center gap-2"}
+            >
+              <Plus />
+              <span>Add person</span>
+            </Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <Link href={`/${locale}/add-martyrs`}>
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              className={"flex items-center gap-2"}
+            >
+              <Plus />
+              <span>Add a Person</span>
+            </Button>
+          </Link>
 
-<SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+          <UserButton />
+        </SignedIn>
         {/* <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>

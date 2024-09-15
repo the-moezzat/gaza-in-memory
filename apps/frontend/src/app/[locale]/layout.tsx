@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import Navbar from "@/app/[locale]/_components/navbar";
-
-const inter = Inter({ subsets: ["latin"] });
+import "@mantine/core/styles.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,11 +16,9 @@ export default function RootLayout({
   params: { locale: string };
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar locale={locale} />
-        {children}
-      </body>
-    </html>
+    <main className=" max-w-[1750px] mx-auto">
+      <Navbar locale={locale} />
+      {children}
+    </main>
   );
 }

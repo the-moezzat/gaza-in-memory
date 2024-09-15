@@ -1,14 +1,13 @@
 import { ReactNode } from "react";
-import {
-  ClerkProvider,
-} from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
+import { MantineProvider } from "@mantine/core";
 
-function Providers({children}: {children: ReactNode}) {
-    return (
-        <ClerkProvider>
-            {children}
-        </ClerkProvider>
-    );
+function Providers({ children }: { children: ReactNode }) {
+  return (
+    <ClerkProvider>
+      <MantineProvider>{children}</MantineProvider>
+    </ClerkProvider>
+  );
 }
 
 export default Providers;
