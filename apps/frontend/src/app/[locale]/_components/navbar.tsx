@@ -39,13 +39,15 @@ function Navbar({ locale }: { locale: string }) {
 
   return (
     <nav className={"flex items-center justify-between border-b px-6 py-3 "}>
-      <Image
-        src={"/logo/logo.svg"}
-        width={80}
-        height={40}
-        alt={"Palestine Logo"}
-        className={"h-10"}
-      />
+      <Link href={"/"}>
+        <Image
+          src={"/logo/logo.svg"}
+          width={80}
+          height={40}
+          alt={"Palestine Logo"}
+          className={"h-10"}
+        />
+      </Link>
 
       <ul className={"flex item-center gap-8"}>
         {appTabs.map((link) => (
