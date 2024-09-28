@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { useFormContext } from "react-hook-form";
@@ -16,14 +16,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 
 const GallerySection = () => {
-  const { control, setValue } = useFormContext();
-  const [files, setFiles] = useState<File[]>([]);
+  const { control, setValue, watch } = useFormContext();
+  const files: File[] = watch("gallery") || [];
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
       setValue("gallery", [...files, ...acceptedFiles]);
     },
     [files, setValue],
@@ -33,6 +34,12 @@ const GallerySection = () => {
     onDrop,
     accept: { "image/*": [] },
   });
+
+  const removeImage = (index: number) => {
+    const newFiles = [...files];
+    newFiles.splice(index, 1);
+    setValue("gallery", newFiles);
+  };
 
   return (
     <FormField
@@ -51,7 +58,7 @@ const GallerySection = () => {
                       className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                     >
                       <Card className="border-0 shadow-none">
-                        <CardContent className="flex aspect-square items-center justify-center p-0">
+                        <CardContent className="flex aspect-square items-center justify-center p-0 relative">
                           <div className="relative h-full w-full">
                             <Image
                               src={URL.createObjectURL(file)}
@@ -60,6 +67,15 @@ const GallerySection = () => {
                               className="object-cover rounded-md"
                             />
                           </div>
+                          <Button
+                            variant="destructive"
+                            size="icon"
+                            type={"button"}
+                            className="absolute top-2 right-2 rounded-full"
+                            onClick={() => removeImage(index)}
+                          >
+                            <X size={16} />
+                          </Button>
                         </CardContent>
                       </Card>
                     </CarouselItem>
@@ -68,7 +84,7 @@ const GallerySection = () => {
                 <CarouselPrevious className="left-2" />
                 <CarouselNext className="right-2" />
               </Carousel>
-              <div className="absolute top-2 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded z-10">
+              <div className="absolute top-2 left-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded z-10">
                 {files.length} image{files.length !== 1 ? "s" : ""}
               </div>
             </div>

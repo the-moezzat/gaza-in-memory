@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useChildStore } from "@/app/[locale]/add-martyrs/_store/childStore";
+import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
 
 const formSchema = z.object({
   firstName: z.string({ required_error: "First name is required" }),
@@ -11,6 +13,7 @@ const formSchema = z.object({
   city: z.string({ required_error: "City is required" }),
   storyType: z.enum(["free", "guided"]),
   story: z.any(), // for free-style
+  profileImage: z.instanceof(File).optional(),
   guidedStory: z
     .object({
       dream: z.string().optional(),
@@ -46,6 +49,19 @@ const formSchema = z.object({
     .optional(),
   gallery: z.array(z.instanceof(File)).optional(),
   married: z.boolean().default(false),
+  spouseFirstName: z.string().optional(),
+  spouseLastName: z.string().optional(),
+  children: z
+    .array(
+      z.object({
+        name: z.string().min(1, "Name is required"),
+        age: z.number().min(0, "Age must be a positive number"),
+        gender: z.enum(["male", "female"]),
+        status: z.enum(["alive", "dead"]),
+        dod: z.date().optional(),
+      }),
+    )
+    .optional(),
 });
 
 export type AddPersonFormValues = z.infer<typeof formSchema>;
@@ -80,8 +96,12 @@ export function useAddPersonForm() {
     },
   });
 
+  const { children } = useChildStore();
+  const { events } = useEventStore();
+
   function onSubmit(values: AddPersonFormValues) {
-    console.log(values);
+    const updatedValues = { ...values, children, events };
+    console.log(updatedValues);
   }
 
   return { form, onSubmit };
