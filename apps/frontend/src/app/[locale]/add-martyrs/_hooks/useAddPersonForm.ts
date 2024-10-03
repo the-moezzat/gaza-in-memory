@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useChildStore } from "@/app/[locale]/add-martyrs/_store/childStore";
 import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
+import { addMartyr } from "@/app/[locale]/add-martyrs/_actions/addMartyr";
 
 const formSchema = z.object({
   firstName: z.string({ required_error: "First name is required" }),
@@ -99,9 +100,31 @@ export function useAddPersonForm() {
   const { children } = useChildStore();
   const { events } = useEventStore();
 
-  function onSubmit(values: AddPersonFormValues) {
+  async function onSubmit(values: AddPersonFormValues) {
     const updatedValues = { ...values, children, events };
+
+    console.log(values.profileImage);
+
+    //   const data = await addMartyr({
+    //   first_name: values.firstName,
+    //   last_name: values.lastName,
+    //   middle_name: values.middleName,
+    //   date_of_birth: values.dob.toDateString(),
+    //   story_type: values.storyType,
+    //   story: JSON.stringify(values.story),
+    //   gender: values.gender,
+    //   city: values.city,
+    //   status: values.status,
+    //   married: values.married,
+    //   spouse_first_name: values.spouseFirstName,
+    //   spouse_last_name: values.spouseLastName,
+    //   date_of_death: values.dod?.toDateString(),
+    //   cause_of_death: values.cause,
+    // });
+
     console.log(updatedValues);
+
+    // console.log(data);
   }
 
   return { form, onSubmit };

@@ -13,7 +13,7 @@ export default function MartyrsFormWrapper() {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-[12fr,22fr] gap-4"
+        className="grid grid-cols-[9fr,25fr] gap-4"
       >
         <div className="sticky top-4 self-start space-y-8">
           <MartyrsImageUploader />
@@ -26,7 +26,7 @@ export default function MartyrsFormWrapper() {
               className={"w-full flex-grow"}
               disabled={!form.formState.isValid}
             >
-              Submit
+              Add
             </Button>
             <Button
               type="button"

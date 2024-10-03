@@ -41,7 +41,6 @@ function MartyrsImageUploader() {
       name="profileImage"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Profile Image</FormLabel>
           <div className="flex flex-col items-center">
             <div className="relative w-72 h-72 rounded-full">
               <Image

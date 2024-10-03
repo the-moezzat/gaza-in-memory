@@ -8,16 +8,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
 import { useFormContext } from "react-hook-form";
 import { Switch } from "@/components/ui/switch";
 import ChildSection from "@/app/[locale]/add-martyrs/_components/form-sections/child-section";
@@ -197,7 +187,7 @@ function PersonalDetails() {
 
               <FormField
                 control={control}
-                name="spouseFamilyName"
+                name="spouseLastName"
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-2">
                     <div
