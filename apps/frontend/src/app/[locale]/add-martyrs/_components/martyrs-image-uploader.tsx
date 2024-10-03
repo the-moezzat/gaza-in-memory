@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -28,7 +27,7 @@ function MartyrsImageUploader() {
     setValue("profileImage", null);
     // Reset the file input
     const fileInput = document.getElementById(
-      "martyrs-image",
+      "martyrs-image"
     ) as HTMLInputElement;
     if (fileInput) {
       fileInput.value = "";

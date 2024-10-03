@@ -126,6 +126,7 @@ function PersonalDetails() {
             </FormItem>
           )}
         />
+
         <FormField
           control={control}
           name="city"
