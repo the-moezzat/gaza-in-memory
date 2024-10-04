@@ -12,6 +12,7 @@
     "update_types": "npx supabase gen types typescript --project-id \"fdpofesaenruvsismooa\" > src/types/db.ts"
   },
   "dependencies": {
+    "execution-pipeline": "workspace:*",
     "@clerk/nextjs": "^5.5.2",
     "@hookform/resolvers": "^3.6.0",
     "@mantine/core": "^7.12.2",

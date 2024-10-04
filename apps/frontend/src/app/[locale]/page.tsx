@@ -5,6 +5,9 @@ import Search from "@/app/[locale]/_components/search";
 import { supportedLocales } from "@/lib/supportedLanguages";
 import AnimatedQuoteBubbles from "@/app/[locale]/_components/animated-quote-bubbles";
 import MartyrCard from "@/app/[locale]/_components/martyr-card";
+import { pipeline } from "execution-pipeline";
+
+console.log("pipeline", pipeline("uploadthing"));
 
 export function generateStaticParams() {
   return supportedLocales.map((locale) => ({ locale }));
