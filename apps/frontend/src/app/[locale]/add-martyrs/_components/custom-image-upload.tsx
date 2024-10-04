@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Camera } from "lucide-react";
 import { useUploadThing } from "@/app/[locale]/add-martyrs/_hooks/useUploadThing";
+import Image from "next/image";
 
 interface CustomImageUploadProps {
   // onUploadComplete?: (res: UploadFileResponse[] | undefined) => void;
@@ -47,7 +48,7 @@ const CustomImageUpload: React.FC<CustomImageUploadProps> = () => {
     <div className="flex flex-col items-center">
       {preview ? (
         <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4">
-          <img
+          <Image
             src={preview}
             alt="Preview"
             className="w-full h-full object-cover"
