@@ -3,7 +3,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useChildStore } from "@/app/[locale]/add-martyrs/_store/childStore";
 import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
-import { addMartyr } from "@/app/[locale]/add-martyrs/_actions/addMartyr";
+import {
+  addChildren,
+  addEvents,
+  addInterests,
+  createBasicMartyr,
+  updateProfileImage,
+} from "../_actions/martyr";
+import { FileUploadData, UploadFileResult } from "uploadthing/types";
 
 const formSchema = z.object({
   firstName: z.string({ required_error: "First name is required" }),
@@ -45,7 +52,7 @@ const formSchema = z.object({
       z.object({
         category: z.string(),
         tags: z.array(z.string()),
-      }),
+      })
     )
     .optional(),
   gallery: z.array(z.instanceof(File)).optional(),
@@ -60,7 +67,7 @@ const formSchema = z.object({
         gender: z.enum(["male", "female"]),
         status: z.enum(["alive", "dead"]),
         dod: z.date().optional(),
-      }),
+      })
     )
     .optional(),
 });
@@ -102,30 +109,83 @@ export function useAddPersonForm() {
 
   async function onSubmit(values: AddPersonFormValues) {
     const updatedValues = { ...values, children, events };
-
-    console.log(values.profileImage);
-
-    //   const data = await addMartyr({
-    //   first_name: values.firstName,
-    //   last_name: values.lastName,
-    //   middle_name: values.middleName,
-    //   date_of_birth: values.dob.toDateString(),
-    //   story_type: values.storyType,
-    //   story: JSON.stringify(values.story),
-    //   gender: values.gender,
-    //   city: values.city,
-    //   status: values.status,
-    //   married: values.married,
-    //   spouse_first_name: values.spouseFirstName,
-    //   spouse_last_name: values.spouseLastName,
-    //   date_of_death: values.dod?.toDateString(),
-    //   cause_of_death: values.cause,
-    // });
-
     console.log(updatedValues);
 
-    // console.log(data);
+    const data = await createBasicMartyr({
+      first_name: values.firstName,
+      last_name: values.lastName,
+      middle_name: values.middleName,
+      date_of_birth: values.dob.toDateString(),
+      gender: values.gender,
+      status: values.status,
+      city: values.city,
+      story_type: values.storyType,
+      story: JSON.stringify(values.story),
+      married: values.married,
+      spouse_first_name: values.spouseFirstName,
+      spouse_last_name: values.spouseLastName,
+      date_of_death: values.dod?.toDateString(),
+      cause_of_death: values.cause,
+      guided_story: JSON.stringify(values.guidedStory),
+      social_media: JSON.stringify(values.socialMedia),
+    });
+
+    const [timeline, childData, interests, profileImage] = await Promise.all([
+      addEvents(
+        events.map((event) => ({
+          title: event.title,
+          description: event.description,
+          event_date: event.eventDate.toDateString(),
+          martyr_id: data?.id,
+        }))
+      ),
+      addChildren(
+        children.map((child) => ({
+          name: child.name,
+          age: child.age,
+          gender: child.gender,
+          status: child.status,
+          date_of_death: child.dod?.toDateString(),
+          martyr_id: data?.id,
+        }))
+      ),
+      addInterests(
+        values.interestsAndHobbies?.map((interest) => ({
+          category: interest.category,
+          tags: interest.tags,
+          martyr_id: data?.id,
+        })) ?? []
+      ),
+      addProfileImage(values.profileImage as File, data?.id!),
+    ]);
+
+    console.log("data", data);
+    console.log("timeline", timeline);
+    console.log("childData", childData);
+    console.log("interests", interests);
+    console.log("profileImage", profileImage);
   }
 
   return { form, onSubmit };
+}
+
+async function uploadImage(file: File): Promise<{ url: UploadFileResult[] }> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await fetch("/api/upload-image", {
+    method: "POST",
+    body: formData,
+  });
+  return response.json();
+}
+
+async function addProfileImage(file: File, martyrId: string) {
+  const { url } = await uploadImage(file);
+
+  console.log(url);
+  console.log(martyrId);
+
+  const data = await updateProfileImage(url[0].data?.url!, martyrId);
+
+  return data;
 }

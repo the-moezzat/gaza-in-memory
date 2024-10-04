@@ -18,6 +18,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 
 const GallerySection = () => {
   const { control, setValue, watch } = useFormContext();
@@ -25,14 +26,34 @@ const GallerySection = () => {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
+      if (files.length + acceptedFiles.length > 5) {
+        toast.error("You can only upload a maximum of 5 images.");
+        return;
+      }
       setValue("gallery", [...files, ...acceptedFiles]);
     },
-    [files, setValue],
+    [files, setValue]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "image/*": [] },
+    maxFiles: 5,
+    maxSize: 5 * 1024 * 1024, // 5MB limit per file
+    onDropRejected: (rejectedFiles) => {
+      if (
+        rejectedFiles.some((file) => file.errors[0]?.code === "too-many-files")
+      ) {
+        toast.error("You can only upload a maximum of 5 images.");
+      } else if (
+        rejectedFiles.some((file) => file.errors[0]?.code === "file-too-large")
+      ) {
+        toast.error(
+          "One or more files are too large. Maximum file size is 5MB."
+        );
+      }
+    },
+    disabled: files.length >= 5, // Disable dropzone if 5 or more files
   });
 
   const removeImage = (index: number) => {
@@ -50,7 +71,7 @@ const GallerySection = () => {
           {/* Preview Area */}
           {files.length > 0 && (
             <div className="relative w-full">
-              <Carousel className="w-full">
+              <Carousel className="w-full rounded-md overflow-hidden">
                 <CarouselContent className="-ml-2 md:-ml-4">
                   {files.map((file, index) => (
                     <CarouselItem
@@ -81,8 +102,8 @@ const GallerySection = () => {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-2" />
-                <CarouselNext className="right-2" />
+                <CarouselPrevious className="left-2" type="button" />
+                <CarouselNext className="right-2" type="button" />
               </Carousel>
               <div className="absolute top-2 left-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded z-10">
                 {files.length} image{files.length !== 1 ? "s" : ""}
@@ -93,15 +114,19 @@ const GallerySection = () => {
           {/* Dropzone */}
           <div
             {...getRootProps()}
-            className={`border-2 border-dashed rounded-md p-8 text-center cursor-pointer ${
+            className={`border border-dashed rounded-md p-8 text-center cursor-pointer ${
               isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
-            }`}
+            } ${files.length >= 5 ? "cursor-not-allowed opacity-50" : ""}`}
           >
             <input {...getInputProps()} />
             {isDragActive ? (
               <p>Drop the files here ...</p>
             ) : (
-              <p>Drag and drop some files here, or click to select files</p>
+              <p>
+                {files.length >= 5
+                  ? "Maximum number of images reached"
+                  : "Drag and drop some files here, or click to select files"}
+              </p>
             )}
           </div>
 

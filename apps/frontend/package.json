@@ -12,7 +12,6 @@
     "update_types": "npx supabase gen types typescript --project-id \"fdpofesaenruvsismooa\" > src/types/db.ts"
   },
   "dependencies": {
-    "execution-pipeline": "workspace:*",
     "@clerk/nextjs": "^5.5.2",
     "@hookform/resolvers": "^3.6.0",
     "@mantine/core": "^7.12.2",
@@ -62,6 +61,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.1.5",
+    "execution-pipeline": "workspace:*",
     "framer-motion": "^11.2.10",
     "geist": "^1.3.1",
     "input-otp": "^1.2.4",
@@ -104,6 +104,8 @@
     "eslint-config-next": "14.2.4",
     "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8.4.31",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "storybook": "^8.1.7",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
