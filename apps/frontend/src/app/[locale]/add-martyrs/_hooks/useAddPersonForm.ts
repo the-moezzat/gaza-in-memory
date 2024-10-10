@@ -6,6 +6,7 @@ import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
 import {
   addChildren,
   addEvents,
+  addImageToGallery,
   addInterests,
   createBasicMartyr,
   updateProfileImage,
@@ -52,7 +53,7 @@ const formSchema = z.object({
       z.object({
         category: z.string(),
         tags: z.array(z.string()),
-      })
+      }),
     )
     .optional(),
   gallery: z.array(z.instanceof(File)).optional(),
@@ -67,7 +68,7 @@ const formSchema = z.object({
         gender: z.enum(["male", "female"]),
         status: z.enum(["alive", "dead"]),
         dod: z.date().optional(),
-      })
+      }),
     )
     .optional(),
 });
@@ -111,6 +112,8 @@ export function useAddPersonForm() {
     const updatedValues = { ...values, children, events };
     console.log(updatedValues);
 
+    console.log(values.gallery);
+
     const data = await createBasicMartyr({
       first_name: values.firstName,
       last_name: values.lastName,
@@ -130,40 +133,43 @@ export function useAddPersonForm() {
       social_media: JSON.stringify(values.socialMedia),
     });
 
-    const [timeline, childData, interests, profileImage] = await Promise.all([
-      addEvents(
-        events.map((event) => ({
-          title: event.title,
-          description: event.description,
-          event_date: event.eventDate.toDateString(),
-          martyr_id: data?.id,
-        }))
-      ),
-      addChildren(
-        children.map((child) => ({
-          name: child.name,
-          age: child.age,
-          gender: child.gender,
-          status: child.status,
-          date_of_death: child.dod?.toDateString(),
-          martyr_id: data?.id,
-        }))
-      ),
-      addInterests(
-        values.interestsAndHobbies?.map((interest) => ({
-          category: interest.category,
-          tags: interest.tags,
-          martyr_id: data?.id,
-        })) ?? []
-      ),
-      addProfileImage(values.profileImage as File, data?.id!),
-    ]);
+    const [timeline, childData, interests, profileImage, gallery] =
+      await Promise.all([
+        addEvents(
+          events.map((event) => ({
+            title: event.title,
+            description: event.description,
+            event_date: event.eventDate.toDateString(),
+            martyr_id: data?.id,
+          })),
+        ),
+        addChildren(
+          children.map((child) => ({
+            name: child.name,
+            age: child.age,
+            gender: child.gender,
+            status: child.status,
+            date_of_death: child.dod?.toDateString(),
+            martyr_id: data?.id,
+          })),
+        ),
+        addInterests(
+          values.interestsAndHobbies?.map((interest) => ({
+            category: interest.category,
+            tags: interest.tags,
+            martyr_id: data?.id,
+          })) ?? [],
+        ),
+        addProfileImage(values.profileImage as File, data?.id!),
+        uploadGallery(values.gallery as File[], data?.id!),
+      ]);
 
     console.log("data", data);
     console.log("timeline", timeline);
     console.log("childData", childData);
     console.log("interests", interests);
     console.log("profileImage", profileImage);
+    console.log("gallery", gallery);
   }
 
   return { form, onSubmit };
@@ -181,11 +187,18 @@ async function uploadImage(file: File): Promise<{ url: UploadFileResult[] }> {
 
 async function addProfileImage(file: File, martyrId: string) {
   const { url } = await uploadImage(file);
-
-  console.log(url);
-  console.log(martyrId);
-
   const data = await updateProfileImage(url[0].data?.url!, martyrId);
+  return data;
+}
+
+async function uploadGallery(files: File[], martyrId: string) {
+  const data = await Promise.all(
+    files.map(async (file) => {
+      const { url } = await uploadImage(file);
+      console.log(url);
+      return addImageToGallery(url[0].data?.url!, martyrId);
+    }),
+  );
 
   return data;
 }

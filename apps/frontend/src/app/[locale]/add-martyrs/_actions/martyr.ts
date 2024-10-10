@@ -94,3 +94,17 @@ export async function updateProfileImage(url: string, martyrId: string) {
 
   return data;
 }
+
+export async function addImageToGallery(url: string, martyrId: string) {
+  const client = createClerkSupabaseClientSsr();
+
+  const { data, error } = await client
+    .from("gallery")
+    .insert({ image_url: url, martyr_id: martyrId })
+    .select("*");
+
+  console.log(data);
+  console.log(error);
+
+  return data;
+}
