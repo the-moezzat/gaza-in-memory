@@ -24,6 +24,7 @@ const GallerySection = () => {
   const { control, setValue, watch } = useFormContext();
   const files: File[] = useMemo(
     () => watch("gallery") || [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [watch("gallery")],
   );
 
