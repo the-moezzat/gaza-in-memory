@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import path from "path";
 
 export const appTabs = [
-  { name: "Home", relative: "", absoluteLink: "/" },
+  { name: "Home", relative: "home", absoluteLink: "/" },
   {
     name: "Eye on Gaza",
     relative: "eye-on-gaza",
@@ -34,11 +35,15 @@ function Navbar({ locale }: { locale: string }) {
   console.log(pathname.split("/").at(2));
 
   const activeLink = appTabs.find(
-    (tab) => tab.relative === pathname.split("/").at(2),
+    (tab) =>
+      tab.relative ===
+      (pathname.split("/").at(2) ? pathname.split("/").at(2) : "home"),
   );
 
+  console.log(activeLink);
+
   return (
-    <nav className={"flex items-center justify-between border-b px-6 py-3 "}>
+    <nav className={"flex items-center justify-between border-b px-6 py-3"}>
       <Link href={"/"}>
         <Image
           src={"/logo/logo.svg"}
@@ -49,13 +54,13 @@ function Navbar({ locale }: { locale: string }) {
         />
       </Link>
 
-      <ul className={"flex item-center gap-8"}>
+      <ul className={"item-center flex gap-8"}>
         {appTabs.map((link) => (
           <li key={link.name}>
             <Link
               href={`/${locale}${link.absoluteLink}`}
               className={cn({
-                "text-gray-900 font-medium": activeLink?.name === link.name,
+                "font-medium text-gray-900": activeLink?.name === link.name,
                 "text-gray-500": activeLink?.name !== link.name,
               })}
             >
@@ -65,7 +70,7 @@ function Navbar({ locale }: { locale: string }) {
         ))}
       </ul>
 
-      <div className={"text-gray-800 flex items-center gap-4"}>
+      <div className={"flex items-center gap-4 text-gray-800"}>
         <Button variant={"ghost"} size={"icon"}>
           <Globe size={18} />
         </Button>

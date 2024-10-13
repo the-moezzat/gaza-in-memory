@@ -1,6 +1,15 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
-import { NextFetchEvent, NextMiddleware, NextRequest } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextMiddleware, NextResponse } from "next/server";
 
-export function authMiddleware(middleware: NextMiddleware): NextMiddleware {
-      return clerkMiddleware();
+export function authMiddleware(): NextMiddleware {
+  const isProtectedRoute = createRouteMatcher([
+    "/(.*)/dashboard(.*)",
+    "/(.*)/add-martyrs(.*)",
+  ]);
+
+  return clerkMiddleware((auth, req) => {
+    if (!auth().userId && isProtectedRoute(req)) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+  });
 }

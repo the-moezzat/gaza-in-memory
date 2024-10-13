@@ -7,13 +7,23 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "utfs.io",
+        pathname: "/f/**",
+      },
+      {
+        protocol: "https",
         hostname: "thispersondoesnotexist.com",
         pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "utfs.io",
-        pathname: "/a/j864ltn36v/*",
+        pathname: "/a/j864ltn36v/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+        pathname: "/**",
       },
     ],
   },

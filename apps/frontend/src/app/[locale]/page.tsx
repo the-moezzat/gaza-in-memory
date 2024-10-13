@@ -1,10 +1,10 @@
-import React from "react";
+import { Suspense } from "react";
 import { Spotlight } from "@/components/ui/spotlight";
-import { FlipWords } from "@/components/ui/flip-words";
 import Search from "@/app/[locale]/_components/search";
 import { supportedLocales } from "@/lib/supportedLanguages";
 import AnimatedQuoteBubbles from "@/app/[locale]/_components/animated-quote-bubbles";
-import MartyrCard from "@/app/[locale]/_components/martyr-card";
+import LatestMayrtes from "./_components/latest-mayrtes";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function generateStaticParams() {
   return supportedLocales.map((locale) => ({ locale }));
@@ -39,16 +39,12 @@ export default function Home({ params }: { params: { locale: string } }) {
         <div className={"z-10"}>
           <Search />
         </div>
-        <AnimatedQuoteBubbles /> {/* Add the new component here */}
+        <AnimatedQuoteBubbles />
       </div>
 
       <section className={"mt-16 space-y-6"}>
-        <h2 className={"text-2xl font-bold text-gray-800"}>Martyrs</h2>
-        <div className={"flex gap-4"}>
-          <MartyrCard />
-          <MartyrCard />
-          <MartyrCard />
-        </div>
+        <h2 className={"text-2xl font-bold text-gray-800"}>Latest Martyrs</h2>
+        <LatestMayrtes />
       </section>
     </main>
   );

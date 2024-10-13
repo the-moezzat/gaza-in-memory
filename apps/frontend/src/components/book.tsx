@@ -1,17 +1,13 @@
-"use client";
-import { motion } from "framer-motion";
 import Image from "next/image";
+import React from "react";
 
-interface BookProps {
+interface BookMotionProps {
   width?: number;
   height?: number;
   depth?: number;
   coverImage?: string;
   backgroundColor?: string;
   spineColor?: string;
-  title?: string;
-  author?: string;
-  isHovered?: boolean;
 }
 
 export default function Book({
@@ -20,98 +16,95 @@ export default function Book({
   depth = 24,
   coverImage = "https://thispersondoesnotexist.com",
   backgroundColor = "#2e2e2e",
-  spineColor = "#444",
-  isHovered = false,
-}: BookProps) {
+}: BookMotionProps) {
   const coverWidth = width - depth;
+  const darkBackgroundColor = darkenHexColor(backgroundColor, 40); // Adjust the amount as needed
 
   return (
-    <div className="perspective-800 w-fit">
-      <motion.div
-        className="relative [transform-style:preserve-3d]"
+    <div className="w-fit perspective-400">
+      <div
         style={{ width, height }}
-        animate={isHovered ? "hover" : "rest"}
-        variants={{
-          rest: { rotateY: 0, scale: 1, x: 0 },
-          hover: {
-            rotateY: -20,
-            scale: 1.066,
-            x: 8,
-            transition: {
-              type: "spring",
-              stiffness: 300,
-              damping: 25,
-            },
-          },
-        }}
+        className="book-container relative rotate-0 transform cursor-pointer shadow-none duration-500 transform-style-3d group-hover:translate-x-2 group-hover:scale-[1.066] group-hover:rotate-y-[-20deg]"
       >
         <div
-          className="absolute flex items-stretch justify-start rounded-s-sm rounded-e-md bg-gradient-to-b from-white/10 via-transparent to-transparent shadow-[0_1.8px_3.6px_rgba(0,0,0,0.05),0_10.8px_21.6px_rgba(0,0,0,0.08),inset_0_-0.9px_0_rgba(0,0,0,0.1),inset_0_1.8px_1.8px_hsla(0,0%,100%,0.1),inset_3.6px_0_3.6px_rgba(0,0,0,0.1)]"
           style={{ width, height, backgroundColor }}
+          className="book-first-cover absolute flex flex-initial items-stretch justify-start rounded-e-md rounded-s-sm bg-[#2e2e2e] bg-gradient-to-b from-white/10 via-transparent to-transparent"
         >
-          <BookSpine width={depth} />
+          <div
+            className="h-full from-transparent via-white/25 to-transparent opacity-20 [background-image:linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,0)_12%,hsla(0,0%,100%,0.25)_29.25%,hsla(0,0%,100%,0)_50.5%,hsla(0,0%,100%,0)_75.25%,hsla(0,0%,100%,0.25)_91%,hsla(0,0%,100%,0)),linear-gradient(90deg,rgba(0,0,0,0.03),rgba(0,0,0,0.1)_12%,transparent_30%,rgba(0,0,0,0.02)_50%,rgba(0,0,0,0.2)_73.5%,rgba(0,0,0,0.5)_75.25%,rgba(0,0,0,0.15)_85.25%,transparent)] [background-size:100%_100%,100%_100%]"
+            style={{ width: depth }}
+          ></div>
 
-          <div className="flex-1 flex flex-col justify-center items-center text-white">
+          <div className="flex flex-1 flex-col items-center justify-center text-white">
             <div
               className="relative"
               style={{
-                width: Math.min(coverWidth, height * 0.8),
-                height: Math.min(coverWidth, height * 0.8),
-                marginLeft: -Math.min(depth * 0.7, height * 0.3),
+                width: Math.min(coverWidth * 1, height * 0.75),
+                height: Math.min(coverWidth * 1, height * 0.75),
+                marginLeft: -Math.min(depth * 0.2, height),
               }}
             >
               <div
-                className="absolute inset-[3px] rounded-full shadow-[inset_0_2px_4px_rgba(255,255,255,0.2)]"
+                className="absolute inset-[2px] shrink-0 grow rounded-full shadow-[inset_0px_0px_10px_rgba(255,255,255,0.7)]"
                 style={{ backgroundColor }}
               ></div>
-              <div className="absolute inset-[5px] rounded-full overflow-hidden select-none">
+              <div className="absolute inset-[3px] select-none overflow-hidden rounded-full">
                 <Image
                   src={coverImage}
                   fill
                   alt="Book cover"
-                  className="w-full h-full object-cover"
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
+                  className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 rounded-full blur-[2px]"></div>
               </div>
             </div>
           </div>
+          {/* <div className="cover-content">Book</div> */}
         </div>
 
-        <div
-          className="absolute top-[5px] bg-gradient-to-r to-transparent to-30% from-black"
+        {/* <div
+          className="book-content"
           style={{
-            height: height - 10,
-            width: depth,
-            backgroundColor: spineColor,
-            transform: `translateX(${coverWidth}px) rotateY(90deg) translateX(${
-              depth / 2
-            }px)`,
+            transform: `translateX(100%) rotateY(80deg) translateY(-50%)`,
+            right: `8%`,
+            width: `calc(${depth}px)`,
+            height: `95%`,
+            top: "50%",
           }}
-        />
-
+        /> */}
         <div
-          className="absolute left-0 rounded-s-lg rounded-e-md"
           style={{
             width,
             height,
-            backgroundColor,
-            transform: `translateZ(-${depth}px)`,
+            background: `linear-gradient(to right, ${backgroundColor}, ${darkBackgroundColor})`,
+            transform: `translateZ(calc(-1 * ${depth + 4}px))`,
           }}
+          className="absolute left-0 rounded-e-md rounded-s-sm"
         ></div>
-      </motion.div>
+      </div>
     </div>
   );
 }
 
-interface BookSpineProps {
-  width: number;
-}
+export function darkenHexColor(hex: string, amount: number): string {
+  let color = hex.replace("#", "");
 
-function BookSpine({ width }: BookSpineProps) {
-  return (
-    <div
-      className="h-full from-transparent via-white/25 to-transparent opacity-20 [background-size:100%_100%,100%_100%] [background-image:linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,0)_12%,hsla(0,0%,100%,0.25)_29.25%,hsla(0,0%,100%,0)_50.5%,hsla(0,0%,100%,0)_75.25%,hsla(0,0%,100%,0.25)_91%,hsla(0,0%,100%,0)),linear-gradient(90deg,rgba(0,0,0,0.03),rgba(0,0,0,0.1)_12%,transparent_30%,rgba(0,0,0,0.02)_50%,rgba(0,0,0,0.2)_73.5%,rgba(0,0,0,0.5)_75.25%,rgba(0,0,0,0.15)_85.25%,transparent)]"
-      style={{ width }}
-    ></div>
-  );
+  if (color.length === 3) {
+    color = color
+      .split("")
+      .map((c) => c + c)
+      .join("");
+  }
+
+  const num = parseInt(color, 16);
+  let r = (num >> 16) - amount;
+  let g = ((num >> 8) & 0x00ff) - amount;
+  let b = (num & 0x0000ff) - amount;
+
+  r = r < 0 ? 0 : r;
+  g = g < 0 ? 0 : g;
+  b = b < 0 ? 0 : b;
+
+  return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
 }

@@ -1,44 +1,93 @@
-"use client";
 import Image from "next/image";
 import Book from "@/components/book";
-import { useState } from "react";
+import { Mayrter } from "../_types/Mayrter";
+import { clerkClient } from "@clerk/nextjs/server";
+import { CalendarClock, MapPin } from "lucide-react";
+import { differenceInYears, parseISO } from "date-fns";
+import Link from "next/link";
+import { getLocaleFromUrl } from "../_utils/getLocale";
 
-function MartyrCard() {
-  const [isHovered, setIsHovered] = useState(false);
+type MartyrCardProps = {
+  martyr: Mayrter;
+};
+
+async function MartyrCard({ martyr }: MartyrCardProps) {
+  const user = await clerkClient.users.getUser(martyr.creator_id);
+  const locale = getLocaleFromUrl();
+
+  console.log(user);
 
   return (
-    <div
-      className="flex flex-col gap-4 rounded-xl bg-white w-fit"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <Link
+      href={`/${locale}/in-memory/${martyr.id}`}
+      className="flex w-fit flex-col gap-2 rounded-xl bg-white"
     >
-      <div className="relative h-64 aspect-square rounded-xl overflow-hidden">
+      <div className="group relative aspect-square h-64 overflow-hidden rounded-xl">
         <Image
-          src="https://thispersondoesnotexist.com/"
-          alt="Martyr"
+          src={martyr.profile_image_url!}
+          alt={`${martyr.first_name} ${martyr.last_name}`}
           className="object-cover"
           fill
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
+          quality={100}
         />
+
+        <div className="absolute left-2 top-2 rounded-full bg-white/70 px-3 py-1 text-sm font-medium shadow-md backdrop-blur-lg">
+          <span className="bg-striped-gradient bg-clip-text text-transparent">
+            Verified
+          </span>
+        </div>
 
         <div className="absolute bottom-3 left-3">
           <Book
+            coverImage={user.imageUrl}
             width={60}
-            height={72}
-            depth={10}
+            height={68}
+            depth={8}
             backgroundColor="#afafaf"
             spineColor="#333"
-            author="John Doe"
-            isHovered={isHovered}
           />
         </div>
       </div>
 
       <div>
-        <p className="text-gray-800 font-medium text-lg">Esmail Haneya</p>
-        <p className="text-gray-600 text-sm">5/7/2024</p>
+        <p className="text-lg font-medium text-gray-800">
+          {(
+            martyr.first_name +
+            " " +
+            (martyr.middle_name ? martyr.middle_name + " " : "") +
+            martyr.last_name
+          ).length > 25
+            ? (
+                martyr.first_name +
+                " " +
+                (martyr.middle_name ? martyr.middle_name + " " : "") +
+                martyr.last_name
+              ).substring(0, 22) + "..."
+            : martyr.first_name +
+              " " +
+              (martyr.middle_name ? martyr.middle_name + " " : "") +
+              martyr.last_name}
+        </p>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 text-sm text-gray-600">
+            <MapPin className="h-4 w-4" />
+            <span>{martyr.city}</span>
+          </div>
+
+          <div className="flex items-center gap-1 text-sm text-gray-600">
+            <CalendarClock className="h-4 w-4" />
+            <span>{calculateAge(martyr.date_of_birth)}yrs</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
+}
+
+function calculateAge(dateOfBirth: string): number {
+  return differenceInYears(new Date(), parseISO(dateOfBirth));
 }
 
 export default MartyrCard;
