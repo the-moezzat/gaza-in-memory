@@ -1,21 +1,20 @@
 import Image from "next/image";
 import Book from "@/components/book";
-import { Mayrter } from "../_types/Mayrter";
 import { clerkClient } from "@clerk/nextjs/server";
 import { CalendarClock, MapPin } from "lucide-react";
 import { differenceInYears, parseISO } from "date-fns";
 import Link from "next/link";
 import { getLocaleFromUrl } from "../_utils/getLocale";
+import { Martyr } from "../_types/Mayrter";
+import { calculateAge } from "../_utils/calculateAge";
 
 type MartyrCardProps = {
-  martyr: Mayrter;
+  martyr: Martyr;
 };
 
 async function MartyrCard({ martyr }: MartyrCardProps) {
   const user = await clerkClient.users.getUser(martyr.creator_id);
   const locale = getLocaleFromUrl();
-
-  console.log(user);
 
   return (
     <Link
@@ -84,10 +83,6 @@ async function MartyrCard({ martyr }: MartyrCardProps) {
       </div>
     </Link>
   );
-}
-
-function calculateAge(dateOfBirth: string): number {
-  return differenceInYears(new Date(), parseISO(dateOfBirth));
 }
 
 export default MartyrCard;

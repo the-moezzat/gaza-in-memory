@@ -2,7 +2,6 @@ import { createClerkSupabaseClientSsr } from "@/lib/client";
 import MartyrCard from "./martyr-card";
 import MartyrCardSkeleton from "./martyr-card-skeleton";
 import { Suspense } from "react";
-import { headers } from "next/headers";
 
 type LatestMayrtesProps = {};
 

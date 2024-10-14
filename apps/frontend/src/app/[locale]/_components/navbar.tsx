@@ -32,15 +32,11 @@ export const appTabs = [
 function Navbar({ locale }: { locale: string }) {
   const pathname = usePathname();
 
-  console.log(pathname.split("/").at(2));
-
   const activeLink = appTabs.find(
     (tab) =>
       tab.relative ===
       (pathname.split("/").at(2) ? pathname.split("/").at(2) : "home"),
   );
-
-  console.log(activeLink);
 
   return (
     <nav className={"flex items-center justify-between border-b px-6 py-3"}>

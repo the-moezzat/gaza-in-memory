@@ -76,6 +76,37 @@
 }
 
 @layer components {
+  .prose h1 {
+    @apply mb-3 text-3xl font-bold;
+  }
+  .prose h2 {
+    @apply mb-2 mt-4 text-2xl font-semibold;
+  }
+  .prose h3 {
+    @apply mb-2 text-xl font-medium;
+  }
+  .prose p {
+    @apply mb-2;
+  }
+  .prose ul {
+    @apply mb-2 list-inside list-disc pl-4;
+  }
+  .prose ol {
+    @apply mb-2 list-inside list-decimal pl-4;
+  }
+  .prose li {
+    @apply mb-1;
+  }
+  .prose [data-text-align="left"] {
+    @apply text-left;
+  }
+  .prose [data-text-align="center"] {
+    @apply text-center;
+  }
+  .prose [data-text-align="right"] {
+    @apply text-right;
+  }
+
   .ProseMirror ul {
     list-style-type: disc;
     padding-left: 1.5em;
