@@ -1,7 +1,9 @@
-import React from 'react'
+import { Martyr } from "@/app/[locale]/_types/Mayrter";
 
-export default function TimelineSection() {
-  return (
-    <div>Timeline-section</div>
-  )
+interface TimelineSectionProps {
+  martyr: Martyr;
+}
+
+export default function TimelineSection({ martyr }: TimelineSectionProps) {
+  return <div>Timeline-section</div>;
 }
