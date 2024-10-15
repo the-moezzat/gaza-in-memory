@@ -9,7 +9,7 @@ interface ProfileCardProps {
 
 export default function ProfileCard({ martyr }: ProfileCardProps) {
   return (
-    <div className="grid w-full grid-cols-[9fr,3fr] gap-4 rounded-2xl bg-white p-4 shadow-[0_0_18px_rgb(0,0,0,0.1)]">
+    <div className="grid w-full grid-cols-[9fr,3fr] gap-4 rounded-2xl bg-white p-4 shadow-[0_0_10px_rgb(0,0,0,0.07)]">
       <div className="flex flex-col items-center gap-4">
         <div className="relative h-40 w-40">
           <Image
@@ -31,7 +31,7 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
           </p>
           <div className="flex items-center gap-2 text-center text-base text-gray-600">
             <Medal size={16} />
-            <span>Championship</span>
+            <span>Champion</span>
           </div>
         </div>
       </div>

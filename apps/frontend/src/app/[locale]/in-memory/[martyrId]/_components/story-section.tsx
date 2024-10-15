@@ -62,7 +62,7 @@ export default function StorySection({ martyr }: StorySectionProps) {
   }
 
   return (
-    <div className="h-96 overflow-auto rounded-lg border p-4">
+    <div className="h-96 overflow-auto">
       <EditorContent editor={editor} className="[&_.ProseMirror]:!p-0" />
     </div>
   );
