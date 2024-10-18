@@ -6,13 +6,14 @@ import ConfirmationCard from "./_components/confirmation-card";
 import StorySection from "./_components/story-section";
 import TimelineSection from "./_components/timeline-section";
 import TimelineSkeleton from "./_components/timeline-skeleton";
+import TestimonialSection from "./_components/testimonial-section";
 
 export default async function Page({
   params,
 }: {
   params: { martyrId: string };
 }) {
-  const client = createClerkSupabaseClientSsr();
+  const client = createClerkSupabaseClientSsr(false);
 
   const { data: martyr, error } = await client
     .from("martyrs")
@@ -43,6 +44,11 @@ export default async function Page({
             <TimelineSection martyr={martyr} />
           </Suspense>
         </Section>
+
+        <TestimonialSection
+          martyrId={martyr.id}
+          martyrName={martyr.first_name}
+        />
       </div>
     </div>
   );

@@ -230,24 +230,24 @@ export type Database = {
       testimonials: {
         Row: {
           author_id: string | null
-          author_name: string
-          content: string
+          author_name: string | null
+          content: string[]
           created_at: string | null
           id: string
           martyr_id: string | null
         }
         Insert: {
           author_id?: string | null
-          author_name: string
-          content: string
+          author_name?: string | null
+          content?: string[]
           created_at?: string | null
           id?: string
           martyr_id?: string | null
         }
         Update: {
           author_id?: string | null
-          author_name?: string
-          content?: string
+          author_name?: string | null
+          content?: string[]
           created_at?: string | null
           id?: string
           martyr_id?: string | null
@@ -361,4 +361,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
