@@ -6,8 +6,6 @@ export async function addMemory(prevState: any, formData: FormData) {
   const memories = formData.get("memory") as string;
   const martyrId = formData.get("martyrId") as string;
 
-  console.log(memories, martyrId);
-
   const client = createClerkSupabaseClientSsr();
   const { data, error } = await client
     .from("testimonials")
@@ -17,8 +15,6 @@ export async function addMemory(prevState: any, formData: FormData) {
     })
     .select()
     .single();
-
-  console.log(data, error);
 
   return {
     data: data,
