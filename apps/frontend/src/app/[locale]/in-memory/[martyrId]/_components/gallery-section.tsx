@@ -30,11 +30,11 @@ export default async function GallerySection({
       <h2 className="text-xl font-semibold text-gray-800">Gallery</h2>
 
       <Carousel className="w-full overflow-hidden rounded-md">
-        <CarouselContent className="-ml-2 md:-ml-4">
+        <CarouselContent className="">
           {data?.map((image, index) => (
             <CarouselItem
               key={image.id}
-              className="basis-full pl-2 sm:basis-1/2 md:basis-1/3 md:pl-4 lg:basis-1/4"
+              className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
             >
               <Card className="border-0 shadow-none">
                 <CardContent className="relative flex aspect-square items-center justify-center p-0">

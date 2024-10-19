@@ -9,6 +9,7 @@ import TimelineSkeleton from "./_components/timeline-skeleton";
 import TestimonialSection from "./_components/testimonial-section";
 import GallerySection from "./_components/gallery-section";
 import GallerySkeleton from "./_components/gallery-skeleton";
+import InterestSection from "./_components/interest-section";
 
 export default async function Page({
   params,
@@ -55,6 +56,8 @@ export default async function Page({
         <Suspense fallback={<GallerySkeleton />}>
           <GallerySection martyrId={martyr.id} />
         </Suspense>
+
+        <InterestSection martyr={martyr} />
       </div>
     </div>
   );
