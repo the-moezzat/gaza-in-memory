@@ -234,6 +234,41 @@ export type Database = {
         }
         Relationships: []
       }
+      memories: {
+        Row: {
+          author_id: string | null
+          content: string[]
+          created_at: string | null
+          id: string
+          martyr_id: string | null
+          relationship: string | null
+        }
+        Insert: {
+          author_id?: string | null
+          content?: string[]
+          created_at?: string | null
+          id?: string
+          martyr_id?: string | null
+          relationship?: string | null
+        }
+        Update: {
+          author_id?: string | null
+          content?: string[]
+          created_at?: string | null
+          id?: string
+          martyr_id?: string | null
+          relationship?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "testimonials_martyr_id_fkey"
+            columns: ["martyr_id"]
+            isOneToOne: false
+            referencedRelation: "martyrs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           id: number
@@ -251,41 +286,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
-      }
-      testimonials: {
-        Row: {
-          author_id: string | null
-          author_name: string | null
-          content: string[]
-          created_at: string | null
-          id: string
-          martyr_id: string | null
-        }
-        Insert: {
-          author_id?: string | null
-          author_name?: string | null
-          content?: string[]
-          created_at?: string | null
-          id?: string
-          martyr_id?: string | null
-        }
-        Update: {
-          author_id?: string | null
-          author_name?: string | null
-          content?: string[]
-          created_at?: string | null
-          id?: string
-          martyr_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "testimonials_martyr_id_fkey"
-            columns: ["martyr_id"]
-            isOneToOne: false
-            referencedRelation: "martyrs"
-            referencedColumns: ["id"]
-          },
-        ]
       }
     }
     Views: {

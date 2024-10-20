@@ -15,13 +15,6 @@ import { Link, Plus } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import useMemoryStore from "../_store/memoryStore";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const FormSchema = z.object({
   memory: z
@@ -32,29 +25,9 @@ const FormSchema = z.object({
     .max(2500, {
       message: "Memory must be at most 2500 characters.",
     }),
-  relationship: z.string({ required_error: "Please select a relationship" }),
 });
 
-const relationshipOptions = [
-  "Family Member",
-  "Close Friend",
-  "Colleague",
-  "Classmate",
-  "Neighbor",
-  "Teacher/Student",
-  "Religious Community Member",
-  "Childhood Friend",
-  "Sports Team Member",
-  "Volunteer/Charity Work Associate",
-  "Medical Care Provider",
-  "Social Media Friend",
-  "Extended Family",
-  "Community Leader",
-  "Other",
-];
-
 export default function MemoriesForm() {
-  //   const [memories, setMemories] = useState<string[]>([]);
   const { memories, addMemory } = useMemoryStore();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -77,32 +50,6 @@ export default function MemoriesForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col gap-6"
       >
-        {/* Form field for relationship to martyr */}
-        <FormField
-          control={form.control}
-          name="relationship"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Relationship to martyr</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a relationship" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {relationshipOptions.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <div className="flex flex-col gap-1">
           <FormField
             control={form.control}

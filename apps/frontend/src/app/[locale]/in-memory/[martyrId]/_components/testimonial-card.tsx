@@ -1,17 +1,17 @@
 import React from "react";
-import { Testimonial } from "../_types/Testimonial";
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { format } from "date-fns";
+import { Memory } from "../_types/Memory";
 
 interface TestimonialCardProps {
-  testimonial: Testimonial;
+  memory: Memory;
 }
 
 export default async function TestimonialCard({
-  testimonial,
+  memory,
 }: TestimonialCardProps) {
-  const user = await clerkClient().users.getUser(testimonial.author_id!);
+  const user = await clerkClient().users.getUser(memory.author_id!);
 
   return (
     <div className="grid grid-cols-[auto,1fr] grid-rows-[auto,1fr] gap-x-4 gap-y-2 self-stretch justify-self-stretch rounded-lg border p-4">
@@ -25,10 +25,10 @@ export default async function TestimonialCard({
       <div className="">
         <p className="font-medium text-gray-800">{user.fullName}</p>
         <p className="text-sm text-gray-500">
-          {format(testimonial.created_at!, "dd MMM yyyy")}
+          {format(memory.created_at!, "dd MMM yyyy")}
         </p>
       </div>
-      <p className="leading-relaxed text-gray-700">{testimonial.content}</p>
+      <p className="leading-relaxed text-gray-700">{memory.content}</p>
     </div>
   );
 }

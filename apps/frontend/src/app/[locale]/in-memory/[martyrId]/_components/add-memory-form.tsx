@@ -24,10 +24,35 @@ import {
 import useAddMemoryForm from "../_hooks/useAddMemoryForm";
 import useMemoryStore from "../_store/memoryStore";
 import MemoriesForm from "./memories-form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface AddMemoryFormProps {
   onCancel: () => void;
 }
+
+const relationshipOptions = [
+  "Family Member",
+  "Close Friend",
+  "Colleague",
+  "Classmate",
+  "Neighbor",
+  "Teacher/Student",
+  "Religious Community Member",
+  "Childhood Friend",
+  "Sports Team Member",
+  "Volunteer/Charity Work Associate",
+  "Medical Care Provider",
+  "Social Media Friend",
+  "Extended Family",
+  "Community Leader",
+  "Other",
+];
 
 export default function AddMemoryForm({ onCancel }: AddMemoryFormProps) {
   const { martyrId } = useParams();
@@ -44,6 +69,34 @@ export default function AddMemoryForm({ onCancel }: AddMemoryFormProps) {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex w-full flex-col gap-6"
         >
+          <FormField
+            control={form.control}
+            name="relationship"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Relationship to martyr</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a relationship" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {relationshipOptions.map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <MemoriesForm />
 
           <input type="hidden" name="martyrId" value={martyrId} />

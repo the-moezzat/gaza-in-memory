@@ -19,6 +19,7 @@ const FormSchema = z.object({
     })
     .array(),
   martyrId: z.string(),
+  relationship: z.string({ required_error: "Please select a relationship" }),
 });
 
 const initialState: {
@@ -46,7 +47,7 @@ export default function useAddMemoryForm() {
     const formData = new FormData();
     formData.set("memory", JSON.stringify(memoriesStore));
     formData.set("martyrId", data.martyrId);
-
+    formData.set("relationship", data.relationship);
     formAction(formData);
   }
 
