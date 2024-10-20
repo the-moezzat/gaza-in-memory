@@ -73,6 +73,7 @@ export default function AddMemoryForm({ onCancel }: AddMemoryFormProps) {
     </div>
   );
 }
+
 function ChainOfMemoriesCarousel() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
