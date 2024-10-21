@@ -35,7 +35,13 @@ export default async function TestimonialSection({
   return (
     <div className="flex flex-col gap-4">
       {memories.length > 0 ? (
-        <Carousel className="space-y-6">
+        <Carousel
+          className="space-y-6"
+          opts={{
+            align: "start",
+            dragFree: true,
+          }}
+        >
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-gray-800">
               {martyrName}&apos;s friends
@@ -51,17 +57,15 @@ export default async function TestimonialSection({
               </div>
             )}
           </div>
-          <CarouselContent className="h-full select-none">
+          <CarouselContent className="h-fit select-none">
             {memories?.map((memory) =>
               memory.content.length > 0 ? (
-                <CarouselItem key={memory.id} className="h-full basis-[550px]">
+                <CarouselItem key={memory.id} className="h-full basis-5/12">
                   <TestimonialCard memory={memory} />
                 </CarouselItem>
               ) : null,
             )}
           </CarouselContent>
-          {/* <CarouselPrevious />
-            <CarouselNext /> */}
         </Carousel>
       ) : (
         <div className="flex flex-col items-center justify-center gap-4">
