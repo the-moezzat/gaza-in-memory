@@ -32,7 +32,7 @@ export default async function Page({
   }
 
   return (
-    <div className="grid grid-cols-[9fr,26fr] gap-8 p-4">
+    <div className="grid w-full grid-cols-[9fr,26fr] gap-8 p-4">
       <div className="space-y-8">
         <ProfileCard martyr={martyr} />
         <ConfirmationCard martyr={martyr} />

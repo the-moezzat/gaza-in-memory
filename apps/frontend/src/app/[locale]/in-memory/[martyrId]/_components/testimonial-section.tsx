@@ -9,8 +9,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "./grid-carousel";
 import ShareMemoryButton from "./share-memory-button";
+import { auth } from "@clerk/nextjs/server";
 
 interface TestimonialSectionProps {
   martyrId: string;
@@ -23,6 +24,10 @@ export default async function TestimonialSection({
 }: TestimonialSectionProps) {
   const client = createClerkSupabaseClientSsr(false);
 
+  const { userId } = auth();
+
+  console.log("userId", userId);
+
   const { data: memories, error } = await client
     .from("memories")
     .select("*")
@@ -33,13 +38,16 @@ export default async function TestimonialSection({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-4">
       {memories.length > 0 ? (
         <Carousel
-          className="space-y-6"
+          className="max-w-full space-y-6"
           opts={{
             align: "start",
+            watchSlides: false,
+            // container: "div",
             dragFree: true,
+            containScroll: false,
           }}
         >
           <div className="flex items-center justify-between">
@@ -60,7 +68,7 @@ export default async function TestimonialSection({
           <CarouselContent className="h-fit select-none">
             {memories?.map((memory) =>
               memory.content.length > 0 ? (
-                <CarouselItem key={memory.id} className="h-full basis-5/12">
+                <CarouselItem key={memory.id} className="h-full w-full">
                   <TestimonialCard memory={memory} />
                 </CarouselItem>
               ) : null,

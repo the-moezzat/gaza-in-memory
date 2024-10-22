@@ -34,7 +34,7 @@ export default async function TestimonialCard({
           {format(memory.created_at!, "dd MMM yyyy")}
         </p>
       </div>
-      <div className="self-start justify-self-start">
+      <div className="self-start justify-self-stretch">
         <MemoryChainCarousel memories={memory.content} />
       </div>
       {/* <p className="leading-relaxed text-gray-700">{memory.content}</p> */}

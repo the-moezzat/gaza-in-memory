@@ -66,7 +66,10 @@ export default function AddMemoryForm({ onCancel }: AddMemoryFormProps) {
       <ChainOfMemoriesCarousel />
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit((data) => {
+            onCancel();
+            onSubmit(data);
+          })}
           className="flex w-full flex-col gap-6"
         >
           <FormField

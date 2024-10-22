@@ -15,5 +15,7 @@ export default async function TimelineSection({
     .select("*")
     .eq("martyr_id", martyr.id);
 
-  return error ? null : <TimelineViewer events={events} />;
+  if (error || events.length === 0 || !events) return null;
+
+  return <TimelineViewer events={events} />;
 }

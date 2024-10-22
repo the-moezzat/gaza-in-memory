@@ -26,15 +26,21 @@ export default async function GallerySection({
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-800">Gallery</h2>
+      <Carousel
+        className="w-full space-y-6 [&>div]:rounded-xl"
+        opts={{ dragFree: true }}
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-800">Gallery</h2>
 
-      <Carousel className="w-full overflow-hidden rounded-md">
-        <CarouselContent className="">
+          <div className="flex items-center gap-2">
+            <CarouselPrevious className="relative inset-0 -translate-y-0" />
+            <CarouselNext className="relative inset-0 -translate-y-0" />
+          </div>
+        </div>
+        <CarouselContent>
           {data?.map((image, index) => (
-            <CarouselItem
-              key={image.id}
-              className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
-            >
+            <CarouselItem key={image.id} className="basis-1/4">
               <Card className="border-0 shadow-none">
                 <CardContent className="relative flex aspect-square items-center justify-center p-0">
                   <div className="relative h-full w-full">
@@ -42,7 +48,7 @@ export default async function GallerySection({
                       src={image.image_url}
                       alt={`Preview ${index + 1}`}
                       fill
-                      className="rounded-md object-cover"
+                      className="rounded-xl object-cover"
                     />
                   </div>
                 </CardContent>
@@ -50,8 +56,6 @@ export default async function GallerySection({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2" type="button" />
-        <CarouselNext className="right-2" type="button" />
       </Carousel>
     </div>
   );

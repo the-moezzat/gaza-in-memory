@@ -7,6 +7,9 @@ import { useFormState } from "react-dom";
 import { addMemory } from "../_actions/addMemory";
 import { Memory } from "../_types/Memory";
 import { PostgrestError } from "@supabase/supabase-js";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
 
 const FormSchema = z.object({
   memories: z
@@ -22,18 +25,28 @@ const FormSchema = z.object({
   relationship: z.string({ required_error: "Please select a relationship" }),
 });
 
-const initialState: {
-  data: Memory | null;
-  error: PostgrestError | null;
-} = {
-  data: null,
-  error: null,
-};
-
 export default function useAddMemoryForm() {
   const { martyrId } = useParams();
   const { memories: memoriesStore } = useMemoryStore();
-  const [state, formAction] = useFormState(addMemory, initialState);
+
+  const { mutate: addMemoryMutation, isPending, isSuccess, isError } = useMutation({
+    mutationFn: addMemory,
+    onMutate: () => {
+      toast.loading("Adding memory...", {
+        id: "add-memory",
+      });
+    },
+    onSuccess: () => {
+      toast.success("Memory added successfully", {
+        id: "add-memory",
+      });
+    },
+    onError: () => {
+      toast.error("Failed to add memory", {
+        id: "add-memory",
+      });
+    },
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -44,12 +57,13 @@ export default function useAddMemoryForm() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const formData = new FormData();
-    formData.set("memory", JSON.stringify(memoriesStore));
-    formData.set("martyrId", data.martyrId);
-    formData.set("relationship", data.relationship);
-    formAction(formData);
+
+    addMemoryMutation({
+      memories: memoriesStore,
+      martyrId: data.martyrId,
+      relationship: data.relationship,
+    });
   }
 
-  return { form, onSubmit };
+  return { form, onSubmit, isSubmitting: isPending, isSuccess, isError };
 }
