@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import React from "react";
-import TestimonialCard from "./testimonial-card";
+import TestimonialCard from "./memory-card";
 import { createClerkSupabaseClientSsr } from "@/lib/client";
 import {
   Carousel,
@@ -12,6 +12,7 @@ import {
 } from "./grid-carousel";
 import ShareMemoryButton from "./share-memory-button";
 import { auth } from "@clerk/nextjs/server";
+import { Memory } from "../../_types/Memory";
 
 interface TestimonialSectionProps {
   martyrId: string;
@@ -26,8 +27,6 @@ export default async function TestimonialSection({
 
   const { userId } = auth();
 
-  console.log("userId", userId);
-
   const { data: memories, error } = await client
     .from("memories")
     .select("*")
@@ -37,6 +36,8 @@ export default async function TestimonialSection({
     return <div>Error: {error.message}</div>;
   }
 
+  const userMemory = getCurrentUserMemory(memories);
+
   return (
     <div className="flex w-full flex-col gap-4">
       {memories.length > 0 ? (
@@ -44,10 +45,7 @@ export default async function TestimonialSection({
           className="max-w-full space-y-6"
           opts={{
             align: "start",
-            watchSlides: false,
-            // container: "div",
             dragFree: true,
-            containScroll: false,
           }}
         >
           <div className="flex items-center justify-between">
@@ -56,7 +54,11 @@ export default async function TestimonialSection({
             </h2>
             {memories.length > 0 && (
               <div className="relative flex items-center gap-6">
-                <ShareMemoryButton />
+                {userMemory ? (
+                  <Button variant="outline">Edit your shared memory</Button>
+                ) : (
+                  <ShareMemoryButton />
+                )}
 
                 <div className="flex items-center gap-2">
                   <CarouselPrevious className="relative inset-0 -translate-y-0" />
@@ -86,4 +88,14 @@ export default async function TestimonialSection({
       )}
     </div>
   );
+}
+
+function getCurrentUserMemory(memories: Memory[]) {
+  const { userId } = auth();
+
+  if (!userId) {
+    return undefined;
+  }
+
+  return memories.find((memory) => memory.author_id === userId);
 }

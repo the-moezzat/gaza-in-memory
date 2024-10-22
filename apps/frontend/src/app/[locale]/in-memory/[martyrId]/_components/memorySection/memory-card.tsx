@@ -2,7 +2,7 @@ import React from "react";
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { format } from "date-fns";
-import { Memory } from "../_types/Memory";
+import { Memory } from "../../_types/Memory";
 import MemoryChainCarousel from "./memory-chain-carousel";
 
 interface TestimonialCardProps {

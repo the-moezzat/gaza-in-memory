@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { Link, Plus } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import useMemoryStore from "../_store/memoryStore";
+import useMemoryStore from "../../_store/memoryStore";
 
 const FormSchema = z.object({
   memory: z

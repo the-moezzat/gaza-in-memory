@@ -29,7 +29,12 @@ export default function useAddMemoryForm() {
   const { martyrId } = useParams();
   const { memories: memoriesStore } = useMemoryStore();
 
-  const { mutate: addMemoryMutation, isPending, isSuccess, isError } = useMutation({
+  const {
+    mutate: addMemoryMutation,
+    isPending,
+    isSuccess,
+    isError,
+  } = useMutation({
     mutationFn: addMemory,
     onMutate: () => {
       toast.loading("Adding memory...", {
@@ -41,9 +46,10 @@ export default function useAddMemoryForm() {
         id: "add-memory",
       });
     },
-    onError: () => {
+    onError: (error) => {
       toast.error("Failed to add memory", {
         id: "add-memory",
+        description: error.message,
       });
     },
   });
@@ -57,7 +63,6 @@ export default function useAddMemoryForm() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-
     addMemoryMutation({
       memories: memoriesStore,
       martyrId: data.martyrId,

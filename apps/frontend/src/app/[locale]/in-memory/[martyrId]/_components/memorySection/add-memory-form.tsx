@@ -21,8 +21,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import useAddMemoryForm from "../_hooks/useAddMemoryForm";
-import useMemoryStore from "../_store/memoryStore";
+import useAddMemoryForm from "../../_hooks/useAddMemoryForm";
+import useMemoryStore from "../../_store/memoryStore";
 import MemoriesForm from "./memories-form";
 import {
   Select,
