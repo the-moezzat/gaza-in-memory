@@ -13,6 +13,7 @@ import {
 import ShareMemoryButton from "./share-memory-button";
 import { auth } from "@clerk/nextjs/server";
 import { Memory } from "../../_types/Memory";
+import DeleteMemoryButton from "./delete-memory-button";
 
 interface TestimonialSectionProps {
   martyrId: string;
@@ -54,11 +55,7 @@ export default async function TestimonialSection({
             </h2>
             {memories.length > 0 && (
               <div className="relative flex items-center gap-6">
-                {userMemory ? (
-                  <Button variant="outline">Edit your shared memory</Button>
-                ) : (
-                  <ShareMemoryButton />
-                )}
+                {userMemory ? <DeleteMemoryButton /> : <ShareMemoryButton />}
 
                 <div className="flex items-center gap-2">
                   <CarouselPrevious className="relative inset-0 -translate-y-0" />
