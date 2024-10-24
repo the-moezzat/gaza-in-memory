@@ -1,7 +1,7 @@
-import { headers } from "next/headers";
+import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 
 export function getLocaleFromUrl(): string {
-  const headersList = headers();
+  const headersList = (headers() as unknown as UnsafeUnwrappedHeaders);
   const host = headersList.get("host") || "";
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const fullUrl = `${protocol}://${host}${headersList.get("x-invoke-path") || ""}`;

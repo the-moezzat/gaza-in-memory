@@ -8,14 +8,23 @@ export const metadata: Metadata = {
   description: "Not Just a Numbers, They Are Stories Unfinished",
 };
 
-export default function RootLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
+export default async function RootLayout(
+  props: {
+    children: React.ReactNode;
 
-  params: { locale: string };
-}) {
+    params: Promise<{ locale: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   return (
     <main className="mx-auto max-w-[1750px]">
       <Navbar locale={locale} />

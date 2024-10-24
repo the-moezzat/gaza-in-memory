@@ -12,11 +12,12 @@ import GallerySkeleton from "./_components/gallery-skeleton";
 import InterestSection from "./_components/interest-section";
 import AdditionalInfoSection from "./_components/additional-info-section";
 
-export default async function Page({
-  params,
-}: {
-  params: { martyrId: string };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{ martyrId: string }>;
+  }
+) {
+  const params = await props.params;
   const client = createClerkSupabaseClientSsr(false);
 
   const { data: martyr, error } = await client
