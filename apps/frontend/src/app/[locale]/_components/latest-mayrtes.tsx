@@ -3,8 +3,6 @@ import MartyrCard from "./martyr-card";
 import MartyrCardSkeleton from "./martyr-card-skeleton";
 import { Suspense } from "react";
 
-type LatestMayrtesProps = {};
-
 function LatestMayrtesSkeleton() {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4">
@@ -36,7 +34,7 @@ async function LatestMayrtesContent() {
   );
 }
 
-export default function LatestMayrtes({}: LatestMayrtesProps) {
+export default function LatestMayrtes() {
   return (
     <Suspense fallback={<LatestMayrtesSkeleton />}>
       <LatestMayrtesContent />

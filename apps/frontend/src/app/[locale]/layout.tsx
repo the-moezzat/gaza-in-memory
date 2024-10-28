@@ -26,9 +26,9 @@ export default async function RootLayout(
   } = props;
 
   return (
-    <main className="mx-auto max-w-[1750px]">
+    <main className="mx-auto grid h-dvh max-w-[1750px] grid-rows-[auto,1fr]">
       <Navbar locale={locale} />
-      {children}
+      <div className="h-full">{children}</div>
     </main>
   );
 }

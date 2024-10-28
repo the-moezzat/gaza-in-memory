@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getLocaleFromUrl } from "../_utils/getLocale";
 import { Martyr } from "../_types/Mayrter";
 import { calculateAge } from "../_utils/calculateAge";
+import LocaleLinkWrapper from "./locale-link-wrapper";
 
 type MartyrCardProps = {
   martyr: Martyr;
@@ -14,11 +15,10 @@ type MartyrCardProps = {
 
 async function MartyrCard({ martyr }: MartyrCardProps) {
   const user = await clerkClient.users.getUser(martyr.creator_id);
-  const locale = getLocaleFromUrl();
 
   return (
-    <Link
-      href={`/${locale}/in-memory/${martyr.id}`}
+    <LocaleLinkWrapper
+      href={`/in-memory/${martyr.id}`}
       className="flex w-fit flex-col gap-2 rounded-xl bg-white"
     >
       <div className="group relative aspect-square h-64 overflow-hidden rounded-xl">
@@ -81,7 +81,7 @@ async function MartyrCard({ martyr }: MartyrCardProps) {
           </div>
         </div>
       </div>
-    </Link>
+    </LocaleLinkWrapper>
   );
 }
 

@@ -49,7 +49,7 @@ export default async function TestimonialSection({
             dragFree: true,
           }}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-center justify-between md:flex-row">
             <h2 className="text-xl font-semibold text-gray-800">
               {martyrName}&apos;s friends
             </h2>

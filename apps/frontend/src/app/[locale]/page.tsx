@@ -5,6 +5,7 @@ import { supportedLocales } from "@/lib/supportedLanguages";
 import AnimatedQuoteBubbles from "@/app/[locale]/_components/animated-quote-bubbles";
 import LatestMayrtes from "./_components/latest-mayrtes";
 import { Skeleton } from "@/components/ui/skeleton";
+import { headers } from "next/headers";
 
 export function generateStaticParams() {
   return supportedLocales.map((locale) => ({ locale }));
@@ -13,6 +14,16 @@ export function generateStaticParams() {
 export const revalidate = 900;
 
 export default function Home({ params }: { params: { locale: string } }) {
+  const mainHeader = headers();
+  const headersList = Array.from(headers().keys());
+
+  // const referer = headersList.get("referer");
+
+  for (const header of headersList) {
+    console.log(header, mainHeader.get(header));
+    // console.log(mainHeader.get(header));
+  }
+
   return (
     <main className={"p-4"}>
       <div className="relative flex h-[40rem] w-full flex-col gap-20 overflow-hidden rounded-xl bg-black/[0.96] antialiased bg-grid-white/[0.02] md:items-center md:justify-center">

@@ -1,17 +1,27 @@
-import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
+// lib/getLocaleFromUrl.ts
+import { headers } from "next/headers";
+import { defaultLocale } from "@/lib/supportedLanguages";
 
 export function getLocaleFromUrl(): string {
-  const headersList = (headers() as unknown as UnsafeUnwrappedHeaders);
-  const host = headersList.get("host") || "";
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const fullUrl = `${protocol}://${host}${headersList.get("x-invoke-path") || ""}`;
-
   try {
-    const url = new URL(fullUrl);
-    const pathSegments = url.pathname.split("/").filter(Boolean);
-    return pathSegments[0] || "en"; // Default to 'en' if no locale found
+    // Get the header list
+    const headersList = headers();
+
+    // Get the URL directly from the referer header
+    const fullUrl = headersList.get("referer") || "";
+    console.log("Full URL:", fullUrl); // For debugging
+
+    // Extract pathname from the URL
+    const pathname = new URL(fullUrl).pathname;
+    console.log("Pathname:", pathname); // For debugging
+
+    // Get the first segment as locale
+    const locale = pathname.split("/").filter(Boolean)[0];
+    console.log("Detected locale:", locale); // For debugging
+
+    return locale || defaultLocale;
   } catch (error) {
-    console.error("Error parsing URL:", error);
-    return "en"; // Default to 'en' in case of error
+    console.error("Error getting locale from URL:", error);
+    return defaultLocale;
   }
 }

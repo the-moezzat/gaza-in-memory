@@ -9,7 +9,6 @@ import { defaultLocale, supportedLocales } from "@/lib/supportedLanguages";
 export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
   return (request: NextRequest, event: NextFetchEvent) => {
     const path = request.nextUrl.pathname;
-    console.log(path);
     if (path === "/") {
       // Get the preferred languages from the 'Accept-Language' header
       const preferredLanguages = request.headers.get("accept-language");
@@ -25,8 +24,6 @@ export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
         url.pathname = `/${preferredLocale}${url.pathname}`;
         return NextResponse.redirect(url);
       }
-
-      console.log(preferredLocale);
     }
 
     return middleware(request, event);
@@ -48,7 +45,10 @@ function parseAcceptLanguage(
     })
     .sort((a, b) => b.q - a.q); // Sort by quality score
 
+  console.log(languages);
+
   for (const language of languages) {
+    console.log(language);
     const locale = language.locale.split("-")[0]; // Convert 'en-US' to 'en'
     if (supportedLocales.includes(locale)) {
       return locale;

@@ -92,12 +92,13 @@ const QuoteBubble = ({
     exit={{ opacity: 0, scale: 0.8, y: -50 }}
     transition={{ duration: 0.5 }}
     dir={"rtl"}
+    lang="ar"
     className={classNames(
-      `dir max-w-80 w-fit h-fit bg-[#9B9B9B] rounded-3xl after:content-[''] after:w-6 after:h-5 after:bottom-0 after:absolute after:bg-transparent after:rounded-b-xl px-6 py-2 text-white text-xl relative`,
+      `dir relative h-fit w-fit max-w-80 rounded-3xl bg-[#9B9B9B] px-6 py-2 text-base text-white after:absolute after:bottom-0 after:h-5 after:w-6 after:rounded-b-xl after:bg-transparent after:content-['']`,
       {
-        "after:ml-0.5 after:-right-6 after:shadow-[-8px_0_0_0_#9B9B9B]":
+        "after:-right-6 after:ml-0.5 after:shadow-[-8px_0_0_0_#9B9B9B]":
           direction === "right",
-        "after:mr-0.5 after:-left-6 after:shadow-[8px_0_0_0_#9B9B9B]":
+        "after:-left-6 after:mr-0.5 after:shadow-[8px_0_0_0_#9B9B9B]":
           direction === "left",
       },
     )}
@@ -118,7 +119,7 @@ const AnimatedQuoteBubbles = () => {
   }, []);
 
   return (
-    <div className="absolute bottom-10 flex items-end right-10 h-15">
+    <div className="h-15 absolute bottom-10 right-10 flex items-end">
       <AnimatePresence mode="wait">
         <QuoteBubble
           key={currentQuoteIndex}

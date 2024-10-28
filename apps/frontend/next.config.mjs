@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
   },
+  transpilePackages: ["geist"],
   images: {
     remotePatterns: [
       {

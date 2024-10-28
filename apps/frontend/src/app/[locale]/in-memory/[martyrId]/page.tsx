@@ -33,37 +33,39 @@ export default async function Page(
   }
 
   return (
-    <div className="grid w-full grid-cols-[9fr,26fr] gap-8 p-4">
-      <div className="space-y-8">
-        <ProfileCard martyr={martyr} />
-        <ConfirmationCard martyr={martyr} />
-        <CreateorCard creatorId={martyr.creator_id} />
-      </div>
-      <div className="space-y-8">
-        <Section title="Story">
-          <StorySection martyr={martyr} />
-        </Section>
+    <div className="container mx-auto px-4 py-8 lg:py-12">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr,3fr]">
+        <div className="space-y-8">
+          <ProfileCard martyr={martyr} />
+          <ConfirmationCard martyr={martyr} />
+          <CreateorCard creatorId={martyr.creator_id} />
+        </div>
+        <div className="space-y-8">
+          <Section title="Story">
+            <StorySection martyr={martyr} />
+          </Section>
 
-        <Section title="Timeline">
-          <Suspense fallback={<TimelineSkeleton />}>
-            <TimelineSection martyr={martyr} />
+          <Section title="Timeline">
+            <Suspense fallback={<TimelineSkeleton />}>
+              <TimelineSection martyr={martyr} />
+            </Suspense>
+          </Section>
+
+          <TestimonialSection
+            martyrId={martyr.id}
+            martyrName={martyr.first_name}
+          />
+
+          <Suspense fallback={<GallerySkeleton />}>
+            <GallerySection martyrId={martyr.id} />
           </Suspense>
-        </Section>
 
-        <TestimonialSection
-          martyrId={martyr.id}
-          martyrName={martyr.first_name}
-        />
+          <Section title="Additional Info">
+            <AdditionalInfoSection martyr={martyr} />
+          </Section>
 
-        <Suspense fallback={<GallerySkeleton />}>
-          <GallerySection martyrId={martyr.id} />
-        </Suspense>
-
-        <Section title="Additional Info">
-          <AdditionalInfoSection martyr={martyr} />
-        </Section>
-
-        <InterestSection martyr={martyr} />
+          <InterestSection martyr={martyr} />
+        </div>
       </div>
     </div>
   );
@@ -77,9 +79,11 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-2">
-      <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
-      <div className="rounded-lg border p-4">{children}</div>
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-gray-800 sm:text-2xl">
+        {title}
+      </h2>
+      <div className="rounded-lg border p-4 sm:p-6">{children}</div>
     </div>
   );
 }
