@@ -1,5 +1,5 @@
-import type { Definition } from "../definition";
 import { createTranslation } from "@/utils/uktiUtils";
+import { Definition } from "../Definition";
 
 export const translations_EN = createTranslation<Definition>({
   home: "Home",

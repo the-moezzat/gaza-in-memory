@@ -1,5 +1,5 @@
 import { translations_AR } from "./languages/ar";
-import { Definition } from "./definition";
+import { Definition } from "./Definition";
 import { translations_EN } from "./languages/en";
 import { createTranslator } from "@/utils/uktiUtils";
 
