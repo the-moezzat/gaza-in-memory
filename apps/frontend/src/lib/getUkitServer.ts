@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { supportedLocales } from "./supportedLanguages";
+import { supportedLocale } from "./supportedLanguages";
 export function getUktiTranslatorServer() {
   const headersList = headers();
   const referer = headersList.get("referer");
