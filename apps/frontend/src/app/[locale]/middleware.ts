@@ -4,7 +4,7 @@ import {
   NextRequest,
   NextResponse,
 } from "next/server";
-import { defaultLocale, supportedLocales } from "@/lib/supportedLanguages";
+import { defaultLocale, supportedLocale } from "@/lib/supportedLanguages";
 
 export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
   return (request: NextRequest, event: NextFetchEvent) => {
@@ -14,7 +14,7 @@ export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
       const preferredLanguages = request.headers.get("accept-language");
       const preferredLocale = parseAcceptLanguage(
         preferredLanguages!,
-        supportedLocales,
+        supportedLocale,
         defaultLocale,
       );
 
