@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "infisical run --env=dev -- next dev --turbopack --port 7010",
+    "dev": "infisical run --env=dev -- next dev --turbo --port 7010",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

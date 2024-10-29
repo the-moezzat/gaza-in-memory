@@ -13,7 +13,7 @@ export function generateStaticParams() {
 
 export const revalidate = 900;
 
-export default function Home({ params }: { params: { locale: string } }) {
+export default function Home() {
   const mainHeader = headers();
   const headersList = Array.from(headers().keys());
 
