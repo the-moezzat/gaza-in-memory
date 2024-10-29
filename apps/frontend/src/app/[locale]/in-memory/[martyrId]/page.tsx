@@ -11,12 +11,14 @@ import GallerySection from "./_components/gallery-section";
 import GallerySkeleton from "./_components/gallery-skeleton";
 import InterestSection from "./_components/interest-section";
 import AdditionalInfoSection from "./_components/additional-info-section";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
+import { ArrowLeft, Share } from "lucide-react";
 
-export default async function Page(
-  props: {
-    params: Promise<{ martyrId: string }>;
-  }
-) {
+export default async function Page(props: {
+  params: Promise<{ martyrId: string }>;
+}) {
   const params = await props.params;
   const client = createClerkSupabaseClientSsr(false);
 
@@ -33,7 +35,20 @@ export default async function Page(
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 lg:py-12">
+    <div className="space-y-4 px-4 py-2">
+      <div className="flex justify-between">
+        <Button variant="ghost" asChild>
+          <LocaleLinkWrapper href={`/`} className="flex gap-2">
+            <ArrowLeft size={16} />
+            Discover
+          </LocaleLinkWrapper>
+        </Button>
+
+        <Button variant={"outline"} className="flex items-center gap-2">
+          <Share size={16} />
+          Share
+        </Button>
+      </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr,3fr]">
         <div className="space-y-8">
           <ProfileCard martyr={martyr} />

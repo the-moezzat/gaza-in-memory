@@ -19,7 +19,7 @@ export default function LanguageSwitcherDialog() {
           <Globe size={18} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-xl md:max-w-3xl lg:max-w-[80%]">
+      <DialogContent className="max-w-xl md:max-w-3xl lg:max-w-[60%]">
         <DialogHeader>
           <DialogTitle>Choose a language</DialogTitle>
         </DialogHeader>

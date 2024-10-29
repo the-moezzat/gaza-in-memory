@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { Spotlight } from "@/components/ui/spotlight";
 import Search from "@/app/[locale]/_components/search";
-import { supportedLocales } from "@/lib/supportedLanguages";
+import { supportedLocale } from "@/lib/supportedLanguages";
 import AnimatedQuoteBubbles from "@/app/[locale]/_components/animated-quote-bubbles";
 import LatestMayrtes from "./_components/latest-mayrtes";
 import { Skeleton } from "@/components/ui/skeleton";
 import { headers } from "next/headers";
 
 export function generateStaticParams() {
-  return supportedLocales.map((locale) => ({ locale }));
+  return supportedLocale.map((locale) => ({ locale }));
 }
 
 export const revalidate = 900;

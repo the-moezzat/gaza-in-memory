@@ -8,30 +8,36 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import LanguageSwitcher from "./language-switcher/language-switcher";
+import translator from "../_glossary/translator";
+import { type SupportedLocale } from "@/lib/supportedLanguages";
 
-export const appTabs = [
-  { name: "Home", relative: "home", absoluteLink: "/" },
-  {
-    name: "Eye on Gaza",
-    relative: "eye-on-gaza",
-    absoluteLink: "/eye-on-gaza",
-  },
-  {
-    name: "Sound of Gaza",
-    relative: "sound-of-gaza",
-    absoluteLink: "/sound-of-gaza",
-  },
-  { name: "Shop", relative: "shop", absoluteLink: "/shop" },
-  {
-    name: "Boycott and supporters ",
-    relative: "boycott",
-    absoluteLink: "/boycott",
-  },
-];
-
-function Navbar({ locale }: { locale: string }) {
+function Navbar({ locale }: { locale: SupportedLocale }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  console.log(locale);
+
+  const t = translator(locale);
+
+  const appTabs = [
+    { name: t.home(), relative: "home", absoluteLink: "/" },
+    {
+      name: t.eyeOnGaza(),
+      relative: "eye-on-gaza",
+      absoluteLink: "/eye-on-gaza",
+    },
+    {
+      name: t.soundOfGaza(),
+      relative: "sound-of-gaza",
+      absoluteLink: "/sound-of-gaza",
+    },
+    { name: t.shop(), relative: "shop", absoluteLink: "/shop" },
+    {
+      name: t.boycott(),
+      relative: "boycott",
+      absoluteLink: "/boycott",
+    },
+  ];
 
   const activeLink = appTabs.find(
     (tab) =>

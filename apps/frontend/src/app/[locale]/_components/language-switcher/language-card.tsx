@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 
@@ -33,10 +34,12 @@ export default function LanguageCard({ language, locale }: LanguageCardProps) {
   };
 
   return (
-    <div
+    <Button
+      variant={"ghost"}
+      size={"lg"}
       onClick={handleLanguageChange}
       className={cn(
-        "flex cursor-pointer items-center gap-2 rounded-lg p-4 transition-all hover:bg-gray-100",
+        "flex h-fit cursor-pointer flex-col items-start justify-start rounded-lg p-4 text-base font-normal transition-all",
         isActive && "border border-gray-800",
       )}
       lang={locale}
@@ -50,6 +53,6 @@ export default function LanguageCard({ language, locale }: LanguageCardProps) {
       }}
     >
       {language}
-    </div>
+    </Button>
   );
 }

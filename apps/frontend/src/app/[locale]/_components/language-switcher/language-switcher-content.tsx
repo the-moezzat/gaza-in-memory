@@ -1,42 +1,39 @@
 import LanguageCard from "./language-card";
-import { supportedLocales } from "@/lib/supportedLanguages";
+import {
+  languageNames,
+  type SupportedLocale,
+  supportedLocale,
+} from "@/lib/supportedLanguages";
 import { useState, useEffect } from "react";
 
-const languagesObject = {
-  ar: "العربية",
-  en: "English",
-  fr: "Français",
-  es: "Español",
-  de: "Deutsch",
-};
-
 export default function LanguageSwitcherContent() {
-  const [recommendedLanguages, setRecommendedLanguages] = useState<string[]>(
-    [],
-  );
-  const [otherLanguages, setOtherLanguages] = useState<string[]>([]);
+  const [recommendedLanguages, setRecommendedLanguages] = useState<
+    SupportedLocale[]
+  >([]);
+  const [otherLanguages, setOtherLanguages] = useState<SupportedLocale[]>([]);
 
   useEffect(() => {
-    // Get browser languages and process them
-    const browserRecommendedLanguages = navigator.languages.map(
-      (language) => language.split("-")[0],
-    );
+    const browserRecommendedLanguages: SupportedLocale[] =
+      navigator.languages.map(
+        (language) => language.split("-")[0] as SupportedLocale,
+      );
 
     // Remove duplicates
     const uniqueRecommended = Array.from(new Set(browserRecommendedLanguages))
       // Filter to only include supported languages
-      .filter((lang) => Object.keys(languagesObject).includes(lang));
+      .filter((lang) => Object.keys(languageNames).includes(lang));
 
     // Set recommended languages
     setRecommendedLanguages(uniqueRecommended);
 
     // Set other languages
     setOtherLanguages(
-      supportedLocales.filter(
+      supportedLocale.filter(
         (language) => !uniqueRecommended.includes(language),
       ),
     );
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
+
   return (
     <div className="mt-4 space-y-6">
       {recommendedLanguages.length > 0 && (
@@ -48,9 +45,7 @@ export default function LanguageSwitcherContent() {
             {recommendedLanguages.map((language) => (
               <LanguageCard
                 key={language}
-                language={
-                  languagesObject[language as keyof typeof languagesObject]
-                }
+                language={languageNames[language]}
                 locale={language}
               />
             ))}
@@ -66,9 +61,7 @@ export default function LanguageSwitcherContent() {
           {otherLanguages.map((language) => (
             <LanguageCard
               key={language}
-              language={
-                languagesObject[language as keyof typeof languagesObject]
-              }
+              language={languageNames[language]}
               locale={language}
             />
           ))}
