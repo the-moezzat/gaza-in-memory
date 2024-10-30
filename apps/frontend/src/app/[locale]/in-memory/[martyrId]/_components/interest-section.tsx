@@ -18,11 +18,11 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
 
   return (
     <Carousel
-      className="space-y-6"
+      className="space-y-4 lg:space-y-6"
       opts={{ loop: false, dragFree: true, align: "start" }}
     >
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-800">
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-lg font-semibold text-gray-800 md:text-xl">
           What{" "}
           {martyr.first_name.charAt(0).toUpperCase() +
             martyr.first_name.slice(1)}{" "}
@@ -37,9 +37,12 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
 
       <CarouselContent className="w-full">
         {data?.map((interest) => (
-          <CarouselItem key={interest.id} className="basis-[35%]">
+          <CarouselItem
+            key={interest.id}
+            className="basis-10/12 pl-2 md:basis-[55%] lg:basis-[35%] lg:pl-4"
+          >
             <div className="space-y-4 rounded-xl border p-4">
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="text-base font-semibold text-gray-800 md:text-lg">
                 {interest.category}
               </h3>
               <div className="flex flex-wrap gap-2">

@@ -35,9 +35,9 @@ export default async function Page(props: {
   }
 
   return (
-    <div className="space-y-4 px-4 py-2">
-      <div className="flex justify-between">
-        <Button variant="ghost" asChild>
+    <div className="space-y-4 px-2 py-2 lg:px-4">
+      <div className="flex items-center justify-between">
+        <Button variant="ghost" asChild className="h-fit px-2 py-1">
           <LocaleLinkWrapper href={`/`} className="flex gap-2">
             <ArrowLeft size={16} />
             Discover
@@ -50,8 +50,9 @@ export default async function Page(props: {
         </Button>
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr,3fr]">
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-6 lg:space-y-8">
           <ProfileCard martyr={martyr} />
+
           <ConfirmationCard martyr={martyr} />
           <CreateorCard creatorId={martyr.creator_id} />
         </div>
@@ -94,8 +95,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-800 sm:text-2xl">
+    <div className="space-y-2 md:space-y-4">
+      <h2 className="text-lg font-semibold text-gray-800 sm:text-2xl md:text-xl">
         {title}
       </h2>
       <div className="rounded-lg border p-4 sm:p-6">{children}</div>

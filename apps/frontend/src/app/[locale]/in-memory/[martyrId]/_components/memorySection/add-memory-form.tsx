@@ -109,14 +109,14 @@ export default function AddMemoryForm({ onCancel }: AddMemoryFormProps) {
               <Button
                 variant="ghost"
                 type="button"
-                className="self-end"
+                className="hidden self-end lg:block"
                 onClick={onCancel}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
-                className="self-end"
+                className="w-full self-end lg:w-fit"
                 disabled={form.formState.isSubmitting}
               >
                 Share{" "}

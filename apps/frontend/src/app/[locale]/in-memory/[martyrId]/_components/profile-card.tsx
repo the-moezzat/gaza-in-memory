@@ -15,7 +15,7 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
   return (
     <div className="grid w-full grid-cols-[9fr,3fr] gap-4 rounded-2xl bg-white p-4 shadow-[0_0_10px_rgb(0,0,0,0.07)]">
       <div className="flex flex-col items-center gap-4">
-        <div className="relative h-40 w-40">
+        <div className="relative h-32 w-32 md:h-40 md:w-40">
           <Image
             src={martyr.profile_image_url!}
             alt={martyr.first_name}
@@ -23,14 +23,14 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
             className="rounded-full object-cover"
           />
           <BadgeCheck
-            size={38}
+            size={32}
             fill="green"
             stroke="white"
-            className="absolute bottom-0 right-0"
+            className="md:size-38 absolute bottom-0 right-0"
           />
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-center text-xl font-bold text-gray-800">
+        <div className="flex flex-col items-center gap-1 md:gap-2">
+          <p className="text-center text-lg font-bold text-gray-800 md:text-xl">
             {martyr.first_name} {martyr.middle_name} {martyr.last_name}
           </p>
           <div className="flex items-center gap-2 text-center text-base text-gray-600">
@@ -60,10 +60,10 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
           label="Age"
           value={calculateAge(martyr.date_of_birth)}
         />
-        <Separator />
+        <Separator orientation="horizontal" />
 
         <ProfileDataItem label="City" value={martyr.city} />
-        <Separator />
+        <Separator orientation="horizontal" />
 
         <ProfileDataItem
           label="Gender"
@@ -82,8 +82,12 @@ interface ProfileDataItemProps {
 function ProfileDataItem({ label, value }: ProfileDataItemProps) {
   return (
     <div className="flex flex-col">
-      <span className="text-lg font-bold text-gray-800">{value}</span>
-      <span className="text-base font-medium text-gray-600">{label}</span>
+      <span className="text-base font-bold text-gray-800 md:text-lg">
+        {value}
+      </span>
+      <span className="text-sm font-medium text-gray-600 md:text-base">
+        {label}
+      </span>
     </div>
   );
 }

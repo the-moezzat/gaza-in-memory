@@ -25,38 +25,41 @@ export default async function GallerySection({
     .eq("martyr_id", martyrId);
 
   return (
-    <div className="space-y-4">
-      <Carousel
-        className="w-full space-y-6 [&>div]:rounded-xl"
-        opts={{ dragFree: true }}
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-800">Gallery</h2>
+    <Carousel
+      className="w-full space-y-2 md:space-y-4 lg:space-y-6 [&>div]:rounded-xl"
+      opts={{ dragFree: true, align: "start", loop: false }}
+    >
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-gray-800 md:text-xl">
+          Gallery
+        </h2>
 
-          <div className="flex items-center gap-2">
-            <CarouselPrevious className="relative inset-0 -translate-y-0" />
-            <CarouselNext className="relative inset-0 -translate-y-0" />
-          </div>
+        <div className="flex items-center gap-2">
+          <CarouselPrevious className="relative inset-0 -translate-y-0" />
+          <CarouselNext className="relative inset-0 -translate-y-0" />
         </div>
-        <CarouselContent>
-          {data?.map((image, index) => (
-            <CarouselItem key={image.id} className="basis-1/4">
-              <Card className="border-0 shadow-none">
-                <CardContent className="relative flex aspect-square items-center justify-center p-0">
-                  <div className="relative h-full w-full">
-                    <Image
-                      src={image.image_url}
-                      alt={`Preview ${index + 1}`}
-                      fill
-                      className="rounded-xl object-cover"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
+      </div>
+      <CarouselContent>
+        {data?.map((image, index) => (
+          <CarouselItem
+            key={image.id}
+            className="basis-9/12 pl-2 md:basis-1/3 md:pl-4 lg:basis-1/4"
+          >
+            <Card className="border-0 shadow-none">
+              <CardContent className="relative flex aspect-square items-center justify-center p-0">
+                <div className="relative h-full w-full">
+                  <Image
+                    src={image.image_url}
+                    alt={`Preview ${index + 1}`}
+                    fill
+                    className="rounded-xl object-cover"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 }

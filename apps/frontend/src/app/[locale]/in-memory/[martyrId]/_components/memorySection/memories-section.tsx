@@ -49,22 +49,21 @@ export default async function TestimonialSection({
             dragFree: true,
           }}
         >
-          <div className="flex flex-col items-center justify-between md:flex-row">
-            <h2 className="text-xl font-semibold text-gray-800">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+            <h2 className="text-lg font-semibold text-gray-800 lg:text-xl">
               {martyrName}&apos;s friends
             </h2>
-            {memories.length > 0 && (
-              <div className="relative flex items-center gap-6">
-                {userMemory ? <DeleteMemoryButton /> : <ShareMemoryButton />}
 
-                <div className="flex items-center gap-2">
-                  <CarouselPrevious className="relative inset-0 -translate-y-0" />
-                  <CarouselNext className="relative inset-0 -translate-y-0" />
-                </div>
+            <div className="relative flex items-center justify-between gap-6 md:justify-normal">
+              {userMemory ? <DeleteMemoryButton /> : <ShareMemoryButton />}
+
+              <div className="flex items-center gap-2">
+                <CarouselPrevious className="relative inset-0 -translate-y-0" />
+                <CarouselNext className="relative inset-0 -translate-y-0" />
               </div>
-            )}
+            </div>
           </div>
-          <CarouselContent className="h-fit select-none">
+          <CarouselContent className="h-fit select-none auto-cols-[90%] md:auto-cols-[70%] lg:auto-cols-[40%]">
             {memories?.map((memory) =>
               memory.content.length > 0 ? (
                 <CarouselItem key={memory.id} className="h-full w-full">
