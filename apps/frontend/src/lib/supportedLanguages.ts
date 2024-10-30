@@ -48,3 +48,5 @@ export const languageNames: Record<SupportedLocale, string> = {
   ru: "Русский",
   zh: "中文",
 };
+
+export const enabledLanguages: SupportedLocale[] = ["en", "ar"];

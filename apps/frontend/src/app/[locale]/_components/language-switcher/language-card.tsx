@@ -7,9 +7,14 @@ import { useParams, useRouter } from "next/navigation";
 interface LanguageCardProps {
   language: string;
   locale: string;
+  enabled: boolean;
 }
 
-export default function LanguageCard({ language, locale }: LanguageCardProps) {
+export default function LanguageCard({
+  language,
+  locale,
+  enabled,
+}: LanguageCardProps) {
   const router = useRouter();
   const { locale: currentLocale } = useParams();
   const isActive = locale === currentLocale;
@@ -51,8 +56,10 @@ export default function LanguageCard({ language, locale }: LanguageCardProps) {
           handleLanguageChange();
         }
       }}
+      disabled={!enabled}
     >
       {language}
+      {!enabled && <span className="text-xs text-gray-500">Coming soon</span>}
     </Button>
   );
 }

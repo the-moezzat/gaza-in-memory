@@ -1,5 +1,6 @@
 import LanguageCard from "./language-card";
 import {
+  enabledLanguages,
   languageNames,
   type SupportedLocale,
   supportedLocale,
@@ -47,6 +48,7 @@ export default function LanguageSwitcherContent() {
                 key={language}
                 language={languageNames[language]}
                 locale={language}
+                enabled={enabledLanguages.includes(language)}
               />
             ))}
           </div>
@@ -63,6 +65,7 @@ export default function LanguageSwitcherContent() {
               key={language}
               language={languageNames[language]}
               locale={language}
+              enabled={enabledLanguages.includes(language)}
             />
           ))}
         </div>
