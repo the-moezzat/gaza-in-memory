@@ -1,0 +1,8 @@
+import { createTranslation } from "@/utils/uktiUtils";
+import type { Definition } from "../Definition";
+
+export const translations_{{uppercase lang}} = createTranslation<Definition>({
+  {{#each translationKeys}}
+  {{this}}: "{{#if isArabic}}{{arabicPlaceholder this}}{{else}}{{this}}{{/if}}"{{#unless @last}},{{/unless}}
+  {{/each}}
+});

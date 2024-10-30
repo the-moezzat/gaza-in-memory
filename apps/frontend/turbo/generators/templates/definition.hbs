@@ -1,0 +1,6 @@
+// turbo/generators/templates/definition.hbs
+export type Definition = {
+  {{#each translationKeys}}
+  {{this}}: undefined;
+  {{/each}}
+};

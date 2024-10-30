@@ -1,0 +1,14 @@
+// turbo/generators/templates/translator.hbs
+import { Definition } from "./Definition";
+import { createTranslator } from "@/utils/uktiUtils";
+{{#each languages}}
+import { translations_{{uppercase this}} } from "./languages/{{this}}";
+{{/each}}
+
+const translator = createTranslator<Definition>({
+  {{#each languages}}
+  {{this}}: translations_{{uppercase this}}{{#unless @last}},{{/unless}}
+  {{/each}}
+});
+
+export default translator;
