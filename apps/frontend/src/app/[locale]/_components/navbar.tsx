@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { Globe, Plus, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,29 +15,30 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  console.log(locale);
-
   const t = translator(locale);
 
-  const appTabs = [
-    { name: t.home(), relative: "home", absoluteLink: "/" },
-    {
-      name: t.eyeOnGaza(),
-      relative: "eye-on-gaza",
-      absoluteLink: "/eye-on-gaza",
-    },
-    {
-      name: t.soundOfGaza(),
-      relative: "sound-of-gaza",
-      absoluteLink: "/sound-of-gaza",
-    },
-    { name: t.shop(), relative: "shop", absoluteLink: "/shop" },
-    {
-      name: t.boycott(),
-      relative: "boycott",
-      absoluteLink: "/boycott",
-    },
-  ];
+  const appTabs = useMemo(
+    () => [
+      { name: t.home(), relative: "home", absoluteLink: "/" },
+      {
+        name: t.eyeOnGaza(),
+        relative: "eye-on-gaza",
+        absoluteLink: "/eye-on-gaza",
+      },
+      {
+        name: t.soundOfGaza(),
+        relative: "sound-of-gaza",
+        absoluteLink: "/sound-of-gaza",
+      },
+      { name: t.shop(), relative: "shop", absoluteLink: "/shop" },
+      {
+        name: t.boycott(),
+        relative: "boycott",
+        absoluteLink: "/boycott",
+      },
+    ],
+    [],
+  );
 
   const activeLink = appTabs.find(
     (tab) =>
@@ -67,10 +68,12 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
             <li key={link.name}>
               <Link
                 href={`/${locale}${link.absoluteLink}`}
-                className={cn({
+                className={cn("relative", {
                   "font-medium text-gray-900": activeLink?.name === link.name,
                   "text-gray-500 hover:text-gray-700":
                     activeLink?.name !== link.name,
+                  "after:absolute after:-bottom-2 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:bg-gray-900 after:content-['']":
+                    activeLink?.name === link.name,
                 })}
               >
                 {link.name}
