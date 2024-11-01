@@ -49,7 +49,7 @@ export default async function Page(props: { params: { martyrId: string } }) {
           Share
         </Button>
       </div>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr,3fr]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[12fr,24fr] lg:gap-6 xl:grid-cols-[9fr,27fr] xl:gap-8">
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
           <ProfileCard martyr={martyr} />
 
@@ -95,7 +95,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="space-y-2 md:space-y-4">
+    <div className="w-full space-y-2 md:space-y-4">
       <h2 className="text-lg font-semibold text-gray-800 sm:text-2xl md:text-xl">
         {title}
       </h2>
