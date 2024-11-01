@@ -37,7 +37,7 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
         absoluteLink: "/boycott",
       },
     ],
-    [],
+    [t],
   );
 
   const activeLink = appTabs.find(
