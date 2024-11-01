@@ -94,7 +94,7 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
                 className="flex items-center gap-2"
               >
                 <Plus size={16} />
-                <span>Add person</span>
+                <span>{t.addPerson()}</span>
               </Button>
             </SignInButton>
           </SignedOut>
@@ -107,7 +107,7 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
                 className="flex items-center gap-2"
               >
                 <Plus size={16} />
-                <span>Add a Person</span>
+                <span>{t.addPerson()}</span>
               </Button>
             </Link>
             <UserButton />

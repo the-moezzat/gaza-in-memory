@@ -6,15 +6,20 @@ import { Toaster } from "./ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { arSA, enUS } from "@clerk/localizations";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
 
 // const queryClient = new QueryClient();
 
 function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
+  const locale = useCurrentLocale();
+
+  const localization = locale === "ar" ? arSA : enUS;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ClerkProvider>
+      <ClerkProvider localization={localization}>
         <Analytics />
         <SpeedInsights />
         <Toaster richColors />

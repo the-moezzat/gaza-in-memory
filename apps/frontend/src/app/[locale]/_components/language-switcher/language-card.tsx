@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
+import translator from "../../_glossary/translator";
+import { SupportedLocale } from "@/lib/supportedLanguages";
 
 interface LanguageCardProps {
   language: string;
@@ -18,6 +20,7 @@ export default function LanguageCard({
   const router = useRouter();
   const { locale: currentLocale } = useParams();
   const isActive = locale === currentLocale;
+  const t = translator(currentLocale as SupportedLocale);
 
   const handleLanguageChange = () => {
     // Get the current URL
@@ -59,7 +62,9 @@ export default function LanguageCard({
       disabled={!enabled}
     >
       {language}
-      {!enabled && <span className="text-xs text-gray-500">Coming soon</span>}
+      {!enabled && (
+        <span className="text-xs text-gray-500">{t.comingSoon()}</span>
+      )}
     </Button>
   );
 }

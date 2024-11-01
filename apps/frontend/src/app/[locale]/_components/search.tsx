@@ -14,7 +14,8 @@ import {
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../_glossary/translator";
 const formSchema = z.object({
   name: z.string().optional(),
   age: z.string().optional(),
@@ -22,8 +23,117 @@ const formSchema = z.object({
   gender: z.string().optional(),
 });
 
+const palestinianNamesAR = [
+  "أحمد المصري",
+  "فاطمة حسين",
+  "محمد خليل",
+  "ليلى ناصر",
+  "عمر أبو صالح",
+  "ياسمين جابر",
+  "حسن زياد",
+  "هدى عبد الرحمن",
+  "خالد سمير",
+  "نادية القاضي",
+  "علي مصطفى",
+  "عائشة سليم",
+  "مازن فرح",
+  "زينب عوض",
+  "محمود إسماعيل",
+  "سارة كمال",
+  "سمير قاسم",
+  "رانيا درويش",
+  "إبراهيم طه",
+  "منى سعيد",
+  "طارق منصور",
+  "نور فتحي",
+  "يوسف حمد",
+  "أميرة عدنان",
+  "حسام رعد",
+  "سلمى خوري",
+  "فادي هشام",
+  "ريما ماهر",
+  "وليد نعيم",
+  "دينا نجار",
+  "جمال بسام",
+  "لينا راشد",
+  "بلال كرم",
+  "ندى صايغ",
+  "هاني خلف",
+  "سحر أمين",
+  "عادل بركات",
+  "ليلى أمين",
+  "نبيل ضاهر",
+  "هناء فارس",
+  "سامي شاهين",
+  "علاء صالح",
+  "فرح جبران",
+  "رشيد نادر",
+  "ريم أسعد",
+  "كريم مراد",
+  "نور أبو علي",
+  "أنور سلامة",
+  "سوسن إبراهيم",
+  "باسم قاسم",
+];
+
+const palestinianNamesEN = [
+  "Ahmed Al-Masri",
+  "Fatima Hussein",
+  "Mohammed Khalil",
+  "Layla Nasser",
+  "Omar Abu-Saleh",
+  "Yasmin Jaber",
+  "Hassan Ziad",
+  "Huda Abdulrahman",
+  "Khaled Samir",
+  "Nadia Al-Qadi",
+  "Ali Mustafa",
+  "Aisha Salim",
+  "Mazen Farah",
+  "Zainab Awad",
+  "Mahmoud Ismail",
+  "Sara Kamal",
+  "Samir Qasim",
+  "Rania Darwish",
+  "Ibrahim Taha",
+  "Mona Saeed",
+  "Tariq Mansour",
+  "Nour Fathi",
+  "Yousef Hamad",
+  "Amira Adnan",
+  "Hussam Raad",
+  "Salma Khoury",
+  "Fadi Hisham",
+  "Rima Maher",
+  "Walid Naim",
+  "Dina Najjar",
+  "Jamal Bassam",
+  "Lina Rashed",
+  "Bilal Karam",
+  "Nada Sayegh",
+  "Hani Khalaf",
+  "Sahar Amin",
+  "Adel Barakat",
+  "Laila Ameen",
+  "Nabil Daher",
+  "Hana Fares",
+  "Sami Shaheen",
+  "Alaa Saleh",
+  "Farah Jubran",
+  "Rashid Nader",
+  "Reem Asad",
+  "Kareem Murad",
+  "Noor Abu-Ali",
+  "Anwar Salameh",
+  "Sawsan Ibrahim",
+  "Basim Qassem",
+];
+
 function Search() {
+  const locale = useCurrentLocale();
   const [enableSubmit, setEnableSubmit] = React.useState(true);
+
+  const t = translator(locale);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,59 +151,6 @@ function Search() {
 
   const watchAllFields = form.watch();
 
-  const palestinianNames = [
-    "Ahmed Al-Masri",
-    "Fatima Hussein",
-    "Mohammed Khalil",
-    "Layla Nasser",
-    "Omar Abu-Saleh",
-    "Yasmin Jaber",
-    "Hassan Ziad",
-    "Huda Abdulrahman",
-    "Khaled Samir",
-    "Nadia Al-Qadi",
-    "Ali Mustafa",
-    "Aisha Salim",
-    "Mazen Farah",
-    "Zainab Awad",
-    "Mahmoud Ismail",
-    "Sara Kamal",
-    "Samir Qasim",
-    "Rania Darwish",
-    "Ibrahim Taha",
-    "Mona Saeed",
-    "Tariq Mansour",
-    "Nour Fathi",
-    "Yousef Hamad",
-    "Amira Adnan",
-    "Hussam Raad",
-    "Salma Khoury",
-    "Fadi Hisham",
-    "Rima Maher",
-    "Walid Naim",
-    "Dina Najjar",
-    "Jamal Bassam",
-    "Lina Rashed",
-    "Bilal Karam",
-    "Nada Sayegh",
-    "Hani Khalaf",
-    "Sahar Amin",
-    "Adel Barakat",
-    "Laila Ameen",
-    "Nabil Daher",
-    "Hana Fares",
-    "Sami Shaheen",
-    "Alaa Saleh",
-    "Farah Jubran",
-    "Rashid Nader",
-    "Reem Asad",
-    "Kareem Murad",
-    "Noor Abu-Ali",
-    "Anwar Salameh",
-    "Sawsan Ibrahim",
-    "Basim Qassem",
-  ];
-
   React.useEffect(() => {
     const isAllFieldsEmpty = Object.values(watchAllFields).every(
       (field) => field === "",
@@ -106,17 +163,19 @@ function Search() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex gap-4 items-center bg-white rounded-full pl-6 border py-2 shadow-md w-fit relative pr-12"
+        className={`relative ${locale === "ar" ? "pl-12 pr-6" : "pl-6 pr-12"} flex w-fit items-center gap-2 rounded-full border bg-white py-2 shadow-md md:gap-4`}
       >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem className={"space-y-0"}>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{t.name()}</FormLabel>
               <FormControl>
                 <PlaceholdersAndVanishInput
-                  placeholders={palestinianNames}
+                  placeholders={
+                    locale === "ar" ? palestinianNamesAR : palestinianNamesEN
+                  }
                   onChange={(e) => field.onChange(e)}
                 />
               </FormControl>
@@ -124,20 +183,20 @@ function Search() {
           )}
         />
 
-        <div className={"h-9 bg-gray-100 w-0.5"} />
+        <div className={"h-9 w-0.5 bg-gray-100"} />
 
         <FormField
           control={form.control}
           name="age"
           render={({ field }) => (
             <FormItem className={"space-y-0"}>
-              <FormLabel>Age</FormLabel>
+              <FormLabel>{t.age()}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Add age "
+                  placeholder={t.addAge()}
                   {...field}
                   className={
-                    "border-none px-0 py-1 h-fit focus-visible:ring-0 rounded-none w-24"
+                    "h-fit w-24 rounded-none border-none px-0 py-1 focus-visible:ring-0"
                   }
                 />
               </FormControl>
@@ -145,20 +204,20 @@ function Search() {
           )}
         />
 
-        <div className={"h-9 bg-gray-100 w-0.5"} />
+        <div className={"h-9 w-0.5 bg-gray-100"} />
 
         <FormField
           control={form.control}
           name="status"
           render={({ field }) => (
             <FormItem className={"space-y-0"}>
-              <FormLabel>Status</FormLabel>
+              <FormLabel>{t.status()}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Add Status "
+                  placeholder={t.addStatus()}
                   {...field}
                   className={
-                    "border-none px-0 py-1 h-fit focus-visible:ring-0 rounded-none w-min"
+                    "h-fit w-min rounded-none border-none px-0 py-1 focus-visible:ring-0"
                   }
                 />
               </FormControl>
@@ -166,19 +225,19 @@ function Search() {
           )}
         />
 
-        <div className={"h-9 bg-gray-100 w-0.5"} />
+        <div className={"h-9 w-0.5 bg-gray-100"} />
         <FormField
           control={form.control}
           name="gender"
           render={({ field }) => (
             <FormItem className={"space-y-0"}>
-              <FormLabel>Gender</FormLabel>
+              <FormLabel>{t.gender()}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Gender"
+                  placeholder={t.addGender()}
                   {...field}
                   className={
-                    "border-none px-0 py-1 h-fit focus-visible:ring-0 rounded-none w-min"
+                    "h-fit w-min rounded-none border-none px-0 py-1 focus-visible:ring-0"
                   }
                 />
               </FormControl>
@@ -189,7 +248,7 @@ function Search() {
         <button
           disabled={enableSubmit}
           type="submit"
-          className="absolute right-1 top-1/2 z-50 -translate-y-1/2 h-14 w-14 rounded-full disabled:bg-gray-100 bg-green-700 dark:disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"
+          className={`absolute ${locale === "ar" ? "left-1 rotate-180" : "right-1"} top-1/2 z-50 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-green-700 transition duration-200 disabled:bg-gray-100 dark:disabled:bg-zinc-800`}
         >
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +260,7 @@ function Search() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`${!enableSubmit ? "text-green-100" : "text-gray-300"}  h-6 w-6`}
+            className={`${!enableSubmit ? "text-green-100" : "text-gray-300"} h-6 w-6`}
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <motion.path

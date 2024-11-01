@@ -154,12 +154,12 @@ export function PlaceholdersAndVanishInput({
   return (
     <div
       className={cn(
-        "w-fit relative  bg-white   overflow-hidden transition duration-200",
+        "relative w-fit overflow-hidden bg-white transition duration-200",
       )}
     >
       <canvas
         className={cn(
-          "absolute pointer-events-none  text-base transform scale-50 -top-0.5 -left-0.5  origin-top-left filter invert dark:invert-0 pr-20",
+          "pointer-events-none absolute -left-0.5 -top-0.5 origin-top-left scale-50 transform pr-20 text-base invert filter dark:invert-0",
           !animating ? "opacity-0" : "opacity-100",
         )}
         ref={canvasRef}
@@ -177,12 +177,12 @@ export function PlaceholdersAndVanishInput({
         value={value}
         type="text"
         className={cn(
-          "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full focus:outline-none focus:ring-0  pr-10",
+          "relative z-50 h-full w-full border-none bg-transparent text-sm text-black focus:outline-none focus:ring-0 dark:text-white sm:text-base",
           animating && "text-transparent dark:text-transparent",
         )}
       />
 
-      <div className="absolute inset-0 flex items-center l pointer-events-none">
+      <div className="l pointer-events-none absolute inset-0 flex items-center">
         <AnimatePresence mode="wait">
           {!value && (
             <motion.p
@@ -203,7 +203,7 @@ export function PlaceholdersAndVanishInput({
                 duration: 0.3,
                 ease: "linear",
               }}
-              className="dark:text-zinc-500 text-sm sm:text-base font-normal text-neutral-500 pl-0 text-left w-[calc(100%-2rem)] truncate"
+              className="truncate pl-0 text-left text-sm font-normal text-neutral-500 dark:text-zinc-500 sm:text-base"
             >
               {placeholders[currentPlaceholder]}
             </motion.p>

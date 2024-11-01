@@ -2,12 +2,13 @@ import Image from "next/image";
 import Book from "@/components/book";
 import { clerkClient } from "@clerk/nextjs/server";
 import { CalendarClock, MapPin } from "lucide-react";
-import { differenceInYears, parseISO } from "date-fns";
 import Link from "next/link";
-import { getLocaleFromUrl } from "../_utils/getLocale";
 import { Martyr } from "../_types/Mayrter";
 import { calculateAge } from "../_utils/calculateAge";
 import LocaleLinkWrapper from "./locale-link-wrapper";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
+import translator from "../_glossary/translator";
+import { SupportedLocale } from "@/lib/supportedLanguages";
 
 type MartyrCardProps = {
   martyr: Martyr;
@@ -15,6 +16,8 @@ type MartyrCardProps = {
 
 async function MartyrCard({ martyr }: MartyrCardProps) {
   const user = await clerkClient.users.getUser(martyr.creator_id);
+  const locale = getCurrentLocale();
+  const t = translator(locale);
 
   return (
     <LocaleLinkWrapper
@@ -32,13 +35,15 @@ async function MartyrCard({ martyr }: MartyrCardProps) {
           quality={100}
         />
 
-        <div className="absolute left-2 top-2 rounded-full bg-white/70 px-3 py-1 text-sm font-medium shadow-md backdrop-blur-lg">
+        <div
+          className={`absolute top-2 rounded-full bg-white/70 px-3 py-1 text-sm font-medium shadow-md backdrop-blur-lg ltr:left-2 rtl:right-2`}
+        >
           <span className="bg-striped-gradient bg-clip-text text-transparent">
-            Verified
+            {t.verified()}
           </span>
         </div>
 
-        <div className="absolute bottom-3 left-3">
+        <div className="absolute bottom-3 left-3" dir="ltr">
           <Book
             coverImage={user.imageUrl}
             width={60}

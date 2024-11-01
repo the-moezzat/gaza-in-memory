@@ -10,5 +10,22 @@ export const translations_ES = createTranslation<Definition>({
   eyeOnGaza: "eyeOnGaza",
   soundOfGaza: "soundOfGaza",
   shop: "shop",
-  boycott: "boycott"
+  boycott: "boycott",
+  latestMartyrs: "latestMartyrs",
+  notJustNumbers: "notJustNumbers",
+  storiesUnfinished: "storiesUnfinished",
+  addPerson: "addPerson",
+  name: "name",
+  age: "age",
+  gender: "gender",
+  status: "status",
+  verified: "verified",
+  addAge: "addAge",
+  addGender: "addGender",
+  addStatus: "addStatus",
+  yrs: "yrs",
+  chooseLanguage: "chooseLanguage",
+  recommendedLanguages: "recommendedLanguages",
+  supportedLanguages: "supportedLanguages",
+  comingSoon: "comingSoon"
 });

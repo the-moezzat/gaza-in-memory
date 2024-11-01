@@ -5,6 +5,7 @@ import { Rubik } from "next/font/google";
 import "@mantine/core/styles.css";
 import { ColorSchemeScript } from "@mantine/core";
 import Providers from "@/components/providers";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
 
 export const metadata: Metadata = {
   title: "Gaza in Memory",
@@ -23,8 +24,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const locale = getCurrentLocale();
   return (
-    <html lang="en" dir="auto">
+    <html lang={locale} dir="auto">
       <head>
         <ColorSchemeScript />
       </head>

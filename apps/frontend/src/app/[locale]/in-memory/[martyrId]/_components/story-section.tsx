@@ -1,5 +1,6 @@
 "use client";
 import { Martyr } from "@/app/[locale]/_types/Mayrter";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "@tiptap/extension-link";
 import Strike from "@tiptap/extension-strike";
 import TextAlign from "@tiptap/extension-text-align";
@@ -62,8 +63,8 @@ export default function StorySection({ martyr }: StorySectionProps) {
   }
 
   return (
-    <div className="max-h-96 min-h-fit overflow-auto">
+    <ScrollArea className="h-[500px] min-h-fit">
       <EditorContent editor={editor} className="[&_.ProseMirror]:!p-0" />
-    </div>
+    </ScrollArea>
   );
 }

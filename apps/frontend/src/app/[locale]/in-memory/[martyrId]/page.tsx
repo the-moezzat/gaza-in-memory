@@ -15,12 +15,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
 import { ArrowLeft, Share } from "lucide-react";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
 
-export default async function Page(props: {
-  params: Promise<{ martyrId: string }>;
-}) {
-  const params = await props.params;
+export default async function Page(props: { params: { martyrId: string } }) {
+  const params = props.params;
   const client = createClerkSupabaseClientSsr(false);
+  const locale = getCurrentLocale();
 
   const { data: martyr, error } = await client
     .from("martyrs")
