@@ -1,5 +1,7 @@
+import { getCurrentLocale } from "@/utils/getLocaleServer";
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
+import translator from "../_glossary/translator";
 
 interface CreateorCardProps {
   creatorId: string;
@@ -7,6 +9,9 @@ interface CreateorCardProps {
 
 export default async function CreateorCard({ creatorId }: CreateorCardProps) {
   const user = await clerkClient().users.getUser(creatorId);
+  const locale = getCurrentLocale();
+  const t = translator(locale);
+
   return (
     <div className="flex items-center gap-2">
       {/* <div className="relative h-10 w-10"> */}
@@ -25,7 +30,7 @@ export default async function CreateorCard({ creatorId }: CreateorCardProps) {
       {/* </div> */}
 
       <div>
-        <p className="text-base text-gray-500">Created by</p>
+        <p className="text-base text-gray-500">{t.creator()}</p>
         <p className="text-base font-semibold text-gray-700 underline">
           {user.fullName}
         </p>

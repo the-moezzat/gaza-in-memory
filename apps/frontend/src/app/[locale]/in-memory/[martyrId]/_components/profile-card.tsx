@@ -5,15 +5,23 @@ import { BadgeCheck, Medal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { socialMediaIconsMapper } from "../_utils/socialMediaIconsMapper";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
+import translator from "../_glossary/translator";
 interface ProfileCardProps {
   martyr: Martyr;
 }
 
 export default function ProfileCard({ martyr }: ProfileCardProps) {
   const socialMediaPlatforms = Object.keys(martyr.social_media ?? {});
+  const locale = getCurrentLocale();
+
+  const t = translator(locale);
 
   return (
-    <div className="grid w-full grid-cols-[9fr,3fr] gap-4 rounded-2xl bg-white p-4 shadow-[0_0_10px_rgb(0,0,0,0.07)]">
+    <div
+      dir="ltr"
+      className="grid w-full grid-cols-[9fr,3fr] gap-4 rounded-2xl bg-white p-4 shadow-[0_0_10px_rgb(0,0,0,0.07)]"
+    >
       <div className="flex flex-col items-center gap-4">
         <div className="relative h-32 w-32 md:h-40 md:w-40">
           <Image
@@ -57,17 +65,17 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
 
       <div className="flex w-full flex-col justify-between">
         <ProfileDataItem
-          label="Age"
+          label={t.age()}
           value={calculateAge(martyr.date_of_birth)}
         />
         <Separator orientation="horizontal" />
 
-        <ProfileDataItem label="City" value={martyr.city} />
+        <ProfileDataItem label={t.city()} value={martyr.city} />
         <Separator orientation="horizontal" />
 
         <ProfileDataItem
-          label="Gender"
-          value={martyr.gender === "male" ? "Male" : "Female"}
+          label={t.gender()}
+          value={martyr.gender === "male" ? t.male() : t.female()}
         />
       </div>
     </div>

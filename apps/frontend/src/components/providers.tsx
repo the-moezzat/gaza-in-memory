@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, useState } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
-import { MantineProvider } from "@mantine/core";
+import { DirectionProvider, MantineProvider } from "@mantine/core";
 import { Toaster } from "./ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -23,7 +23,9 @@ function Providers({ children }: { children: ReactNode }) {
         <Analytics />
         <SpeedInsights />
         <Toaster richColors />
-        <MantineProvider>{children}</MantineProvider>
+        <DirectionProvider>
+          <MantineProvider>{children}</MantineProvider>
+        </DirectionProvider>
       </ClerkProvider>
     </QueryClientProvider>
   );

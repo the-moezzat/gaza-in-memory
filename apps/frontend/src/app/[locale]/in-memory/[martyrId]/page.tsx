@@ -12,10 +12,10 @@ import GallerySkeleton from "./_components/gallery-skeleton";
 import InterestSection from "./_components/interest-section";
 import AdditionalInfoSection from "./_components/additional-info-section";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
 import { ArrowLeft, Share } from "lucide-react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
+import translator from "./_glossary/translator";
 
 export default async function Page(props: { params: { martyrId: string } }) {
   const params = props.params;
@@ -34,19 +34,24 @@ export default async function Page(props: { params: { martyrId: string } }) {
     });
   }
 
+  const t = translator(locale);
+
   return (
     <div className="space-y-4 px-2 py-2 lg:px-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between text-gray-600">
         <Button variant="ghost" asChild className="h-fit px-2 py-1">
           <LocaleLinkWrapper href={`/`} className="flex gap-2">
-            <ArrowLeft size={16} />
-            Discover
+            <ArrowLeft
+              size={16}
+              className={`ltr:rotate-180 rtl:rotate-0 ${locale === "ar" ? "rotate-180" : ""}`}
+            />
+            {t.discover()}
           </LocaleLinkWrapper>
         </Button>
 
         <Button variant={"outline"} className="flex items-center gap-2">
           <Share size={16} />
-          Share
+          {t.share()}
         </Button>
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[12fr,24fr] lg:gap-6 xl:grid-cols-[9fr,27fr] xl:gap-8">
@@ -57,11 +62,11 @@ export default async function Page(props: { params: { martyrId: string } }) {
           <CreateorCard creatorId={martyr.creator_id} />
         </div>
         <div className="space-y-8">
-          <Section title="Story">
+          <Section title={t.story()}>
             <StorySection martyr={martyr} />
           </Section>
 
-          <Section title="Timeline">
+          <Section title={t.timeline()}>
             <Suspense fallback={<TimelineSkeleton />}>
               <TimelineSection martyr={martyr} />
             </Suspense>
@@ -76,7 +81,7 @@ export default async function Page(props: { params: { martyrId: string } }) {
             <GallerySection martyrId={martyr.id} />
           </Suspense>
 
-          <Section title="Additional Info">
+          <Section title={t.additionalInfo()}>
             <AdditionalInfoSection martyr={martyr} />
           </Section>
 

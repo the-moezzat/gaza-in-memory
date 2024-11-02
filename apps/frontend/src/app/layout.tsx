@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   const locale = getCurrentLocale();
   return (
-    <html lang={locale} dir="auto">
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <head>
         <ColorSchemeScript />
       </head>

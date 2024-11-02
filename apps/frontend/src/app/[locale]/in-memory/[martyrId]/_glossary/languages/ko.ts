@@ -1,0 +1,39 @@
+// templates/language.hbs
+import { createTranslation } from "@/utils/uktiUtils";
+import type { Definition } from "../Definition";
+
+export const translations_KO = createTranslation<Definition>({
+  share: "share",
+  discover: "discover",
+  age: "age",
+  story: "story_ko",
+  timeline: "timeline_ko",
+  interests: "interests_ko",
+  confirmation: "confirmation_ko",
+  creator: "creator_ko",
+  gallery: "gallery_ko",
+  city: "city_ko",
+  gender: "gender_ko",
+  reportStory: "reportStory_ko",
+  addMemory: "addMemory_ko",
+  removeMemory: "removeMemory_ko",
+  spouse: "spouse_ko",
+  kids: "kids_ko",
+  yearsOld: "yearsOld_ko",
+  dob: "dob_ko",
+  dod: "dod_ko",
+  causeOfDeath: "causeOfDeath_ko",
+  socialStatus: "socialStatus_ko",
+  friends: "friends_ko",
+  additionalInfo: "additionalInfo_ko",
+  male: "male_ko",
+  female: "female_ko",
+  storyConfirmation: "storyConfirmation_ko",
+  learnAboutConfirmation: "learnAboutConfirmation_ko",
+  identity: "identity_ko",
+  familyMembers: "familyMembers_ko",
+  deathCertificate: "deathCertificate_ko",
+  confirmStory: "confirmStory_ko",
+  verifiedAndConfirmed: "verifiedAndConfirmed_ko",
+  close: "close_ko"
+});
