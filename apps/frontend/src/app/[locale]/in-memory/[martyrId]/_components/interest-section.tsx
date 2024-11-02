@@ -34,10 +34,6 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-gray-800 md:text-xl">
             {t.interests({ name: martyr.first_name })}
-            {/* What{" "}
-            {martyr.first_name.charAt(0).toUpperCase() +
-              martyr.first_name.slice(1)}{" "}
-            loved and cared about */}
           </h2>
 
           <div className="flex items-center gap-2 rtl:flex-row-reverse">

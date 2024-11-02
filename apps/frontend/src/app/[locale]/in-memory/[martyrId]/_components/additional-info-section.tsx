@@ -1,6 +1,7 @@
 import { Martyr } from "@/app/[locale]/_types/Mayrter";
 import { FemaleIcon, MaleIcon } from "@/components/icons";
 import { createClerkSupabaseClientSsr } from "@/lib/client";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
 import {
   CalendarIcon,
   CalendarX2,
@@ -9,6 +10,9 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import React from "react";
+import translator from "../_glossary/translator";
+import { format } from "date-fns";
+import { ar, arSA, enUS } from "date-fns/locale";
 
 export default async function AdditionalInfoSection({
   martyr,
@@ -25,6 +29,9 @@ export default async function AdditionalInfoSection({
     cause_of_death,
   } = martyr;
 
+  const locale = getCurrentLocale();
+  const t = translator(locale);
+
   const client = createClerkSupabaseClientSsr(false);
 
   const { data: children } = await client
@@ -32,25 +39,32 @@ export default async function AdditionalInfoSection({
     .select("*")
     .eq("martyr_id", martyr.id);
 
+  const localizeDate = (date: string) => {
+    const eventDate = new Date(date);
+    return format(eventDate, "dd MMMM yyyy", {
+      locale: locale === "ar" ? arSA : enUS,
+    });
+  };
+
   return (
     <div className="flex flex-col gap-10">
       <div className="grid grid-cols-2 items-center gap-x-10 gap-y-10 md:flex md:flex-wrap lg:gap-x-32">
         <AdditionalInfoItem
-          label="Date of Birth"
-          value={date_of_birth}
+          label={t.dob()}
+          value={localizeDate(date_of_birth)}
           icon={<CalendarIcon size={"1em"} />}
         />
 
         {status === "dead" && (
           <>
             <AdditionalInfoItem
-              label="Date of Death"
-              value={date_of_death!}
+              label={t.dod()}
+              value={localizeDate(date_of_death!)}
               icon={<CalendarX2 size={"1em"} />}
             />
 
             <AdditionalInfoItem
-              label="Cause of Death"
+              label={t.causeOfDeath()}
               value={cause_of_death!}
               icon={<TriangleAlert size={"1em"} />}
             />
@@ -58,14 +72,14 @@ export default async function AdditionalInfoSection({
         )}
 
         <AdditionalInfoItem
-          label="Social Status"
-          value={married ? "Married" : "Single"}
+          label={t.socialStatus()}
+          value={married ? t.married() : t.single()}
           icon={<HeartHandshake size={"1em"} />}
         />
 
         {married && (
           <AdditionalInfoItem
-            label="Spouse"
+            label={t.spouse()}
             value={`${spouse_first_name} ${spouse_last_name}`}
             icon={<SquareUser size={"1em"} />}
           />
@@ -80,7 +94,7 @@ export default async function AdditionalInfoSection({
             {children.map((child) => (
               <AdditionalInfoItem
                 key={child.id}
-                label={`${child.age} years`}
+                label={`${child.age} ${t.yearsOld()}`}
                 value={child.name}
                 icon={
                   child.gender === "male" ? (

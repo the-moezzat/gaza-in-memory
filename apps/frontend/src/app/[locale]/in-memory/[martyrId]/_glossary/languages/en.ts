@@ -36,4 +36,6 @@ export const translations_EN = createTranslation<Definition>({
   confirmStory: "Confirm Story",
   verifiedAndConfirmed: "Verified and Confirmed Story",
   close: "Close",
+  married: "Married",
+  single: "Single",
 });

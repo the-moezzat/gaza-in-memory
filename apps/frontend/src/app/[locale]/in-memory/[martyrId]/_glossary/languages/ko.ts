@@ -35,5 +35,7 @@ export const translations_KO = createTranslation<Definition>({
   deathCertificate: "deathCertificate_ko",
   confirmStory: "confirmStory_ko",
   verifiedAndConfirmed: "verifiedAndConfirmed_ko",
-  close: "close_ko"
+  close: "close_ko",
+  married: "married_ko",
+  single: "single_ko"
 });

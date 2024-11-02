@@ -35,5 +35,7 @@ export const translations_JA = createTranslation<Definition>({
   deathCertificate: "deathCertificate_ja",
   confirmStory: "confirmStory_ja",
   verifiedAndConfirmed: "verifiedAndConfirmed_ja",
-  close: "close_ja"
+  close: "close_ja",
+  married: "married_ja",
+  single: "single_ja"
 });

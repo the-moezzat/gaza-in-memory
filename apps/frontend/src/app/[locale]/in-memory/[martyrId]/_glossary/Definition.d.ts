@@ -36,4 +36,6 @@ export type Definition = {
   confirmStory: undefined;
   verifiedAndConfirmed: undefined;
   close: undefined;
+  married: undefined;
+  single: undefined;
 };

@@ -36,4 +36,6 @@ export const translations_AR = createTranslation<Definition>({
   confirmStory: "تأكيد القصة",
   verifiedAndConfirmed: "تم التحقق والتأكيد من القصة",
   close: "اغلاق",
+  married: "متزوج",
+  single: "أعزب",
 });
