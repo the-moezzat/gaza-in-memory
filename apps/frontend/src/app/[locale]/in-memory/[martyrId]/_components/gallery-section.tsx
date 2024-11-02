@@ -8,9 +8,11 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { createClerkSupabaseClientSsr } from "@/lib/client";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
 import { X } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import translator from "../_glossary/translator";
 
 export default async function GallerySection({
   martyrId,
@@ -24,17 +26,24 @@ export default async function GallerySection({
     .select("*")
     .eq("martyr_id", martyrId);
 
+  const locale = getCurrentLocale();
+  const t = translator(locale);
   return (
     <Carousel
       className="w-full space-y-2 md:space-y-4 lg:space-y-6 [&>div]:rounded-xl"
-      opts={{ dragFree: true, align: "start", loop: false }}
+      opts={{
+        dragFree: true,
+        align: "start",
+        loop: false,
+        direction: locale === "ar" ? "rtl" : "ltr",
+      }}
     >
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-800 md:text-xl">
-          Gallery
+          {t.gallery()}
         </h2>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rtl:flex-row-reverse">
           <CarouselPrevious className="relative inset-0 -translate-y-0" />
           <CarouselNext className="relative inset-0 -translate-y-0" />
         </div>
