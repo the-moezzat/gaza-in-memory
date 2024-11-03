@@ -16,6 +16,57 @@ import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
 import { ArrowLeft, Share } from "lucide-react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "./_glossary/translator";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { martyrId: string; locale: string };
+}): Promise<Metadata> {
+  const client = createClerkSupabaseClientSsr(false);
+  const locale = getCurrentLocale();
+  const t = translator(locale);
+
+  const { data: martyr } = await client
+    .from("martyrs")
+    .select("*")
+    .eq("id", params.martyrId)
+    .single();
+
+  if (!martyr) {
+    return {
+      title: "Not Found",
+    };
+  }
+
+  const fullName = `${martyr.first_name} ${martyr.last_name}`;
+
+  return {
+    title: `${fullName} | In Memory`,
+    description:
+      (typeof martyr.story === "string"
+        ? martyr.story.substring(0, 160)
+        : "") || `In memory of ${fullName}`,
+    openGraph: {
+      title: `${fullName} | In Memory`,
+      description:
+        (typeof martyr.story === "string"
+          ? martyr.story.substring(0, 160)
+          : "") || `In memory of ${fullName}`,
+      images: [`/api/og/martyr/${params.martyrId}`],
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${fullName} | In Memory`,
+      description:
+        (typeof martyr.story === "string"
+          ? martyr.story.substring(0, 160)
+          : "") || `In memory of ${fullName}`,
+      images: [`/api/og/martyr/${params.martyrId}`],
+    },
+  };
+}
 
 export default async function Page(props: { params: { martyrId: string } }) {
   const params = props.params;

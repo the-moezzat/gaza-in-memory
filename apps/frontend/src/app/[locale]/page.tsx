@@ -11,6 +11,39 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { headers } from "next/headers";
 import translator from "./_glossary/translator";
 import { FlipWords } from "@/components/ui/flip-words";
+import { Metadata } from "next";
+
+export function generateMetadata({
+  params,
+}: {
+  params: { locale: SupportedLocale };
+}): Metadata {
+  const t = translator(params.locale);
+
+  return {
+    title: `${t.notJustNumbers()} | Palestine Martyrs`,
+    description: t.storiesUnfinished(),
+    openGraph: {
+      title: `${t.notJustNumbers()} | Palestine Martyrs`,
+      description: t.storiesUnfinished(),
+      type: "website",
+      locale: params.locale,
+      images: [
+        {
+          url: "/og-image.jpg", // You'll need to add this image to your public folder
+          width: 1200,
+          height: 630,
+          alt: "Palestine Martyrs Memorial",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${t.notJustNumbers()} | Palestine Martyrs`,
+      description: t.storiesUnfinished(),
+    },
+  };
+}
 
 export function generateStaticParams() {
   return supportedLocale.map((locale) => ({ locale }));
