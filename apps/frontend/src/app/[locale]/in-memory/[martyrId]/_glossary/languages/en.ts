@@ -80,4 +80,7 @@ export const translations_EN = createTranslation<Definition>({
   addingMemoryToast: "Adding memory...",
   memoryAddedSuccessToast: "Memory added successfully",
   memoryAddFailedToast: "Failed to add memory",
+  editMemory: "Edit your shared Memory",
+  editMemoryDialogTitle: "Edit your previous Memory",
+  editMemoryDialogDescription: "Edit your memory about {{name}}",
 });

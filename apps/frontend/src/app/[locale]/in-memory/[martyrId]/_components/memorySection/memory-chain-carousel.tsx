@@ -75,8 +75,7 @@ export default function MemoryChainCarousel({
               className="h-fit cursor-pointer py-0"
               asChild
             >
-              <span>{expanded ? "Read less" : "Read more"}</span>
-              {/* {expanded ? "Read less" : "Read more"} */}
+              <span>{expanded ? t.readLess() : t.readMore()}</span>
             </Button>
           )}
         </p>

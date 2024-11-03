@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import React from "react";
 import TestimonialCard from "./memory-card";
 import { createClerkSupabaseClientSsr } from "@/lib/client";
@@ -15,7 +13,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Memory } from "../../_types/Memory";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "../../_glossary/translator";
-import EditMemoryButton from "./edit-memory";
+import EditMemoryButton from "./edit-memory-button";
 
 interface TestimonialSectionProps {
   martyrId: string;
@@ -60,10 +58,10 @@ export default async function TestimonialSection({
             </h2>
 
             <div className="relative flex items-center justify-between gap-6 md:justify-normal">
-              {!userMemory ? (
+              {userMemory ? (
                 <EditMemoryButton
                   martyrName={martyrName}
-                  existingMemories={userMemory!}
+                  existingMemories={userMemory}
                 />
               ) : (
                 <ShareMemoryButton martyrName={martyrName} />

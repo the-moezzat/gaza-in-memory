@@ -84,4 +84,8 @@ export type Definition = {
   addingMemoryToast: undefined;
   memoryAddedSuccessToast: undefined;
   memoryAddFailedToast: undefined;
+  editMemory: undefined;
+  editMemoryDialogTitle: undefined;
+  editMemoryDialogDescription: [{ name: string }];
+  editMemoryDialogDescription: undefined;
 };

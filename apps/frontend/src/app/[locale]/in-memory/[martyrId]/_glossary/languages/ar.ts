@@ -79,4 +79,7 @@ export const translations_AR = createTranslation<Definition>({
   addingMemoryToast: "جاري إضافة الذاكرة...",
   memoryAddedSuccessToast: "تمت إضافة الذاكرة بنجاح",
   memoryAddFailedToast: "فشل في إضافة الذاكرة",
+  editMemory: "تعديل ذاكرتك السابقة",
+  editMemoryDialogTitle: "تعديل ذاكرتك السابقة",
+  editMemoryDialogDescription: "قم بتعديل ذاكرتك عن {{name}}",
 });

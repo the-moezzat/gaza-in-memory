@@ -76,5 +76,8 @@ export const translations_ZH = createTranslation<Definition>({
   selectRelationshipError: "selectRelationshipError_zh",
   addingMemoryToast: "addingMemoryToast_zh",
   memoryAddedSuccessToast: "memoryAddedSuccessToast_zh",
-  memoryAddFailedToast: "memoryAddFailedToast_zh"
+  memoryAddFailedToast: "memoryAddFailedToast_zh",
+  editMemory: "editMemory_zh",
+  editMemoryDialogTitle: "editMemoryDialogTitle_zh",
+  editMemoryDialogDescription: "editMemoryDialogDescription_zh"
 });

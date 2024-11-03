@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import translator from "../../_glossary/translator";
 import CoreForm from "./core-form";
@@ -23,11 +23,11 @@ export default function EditMemoryButton({
 
   return (
     <BaseMemoryButton
-      title={t.addMemory()}
-      description={t.shareMemoryDialogDescription({ name: martyrName })}
+      title={t.editMemoryDialogTitle()}
+      description={t.editMemoryDialogDescription({ name: martyrName })}
       trigger={
         <Button variant="outline" className="flex items-center gap-2">
-          <Plus size={18} /> <span>{t.addMemory()}</span>
+          <Pencil size={18} /> <span>{t.editMemory()}</span>
         </Button>
       }
       open={open}
