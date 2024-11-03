@@ -31,7 +31,8 @@ export default async function TestimonialSection({
   const { data: memories, error } = await client
     .from("memories")
     .select("*")
-    .eq("martyr_id", martyrId);
+    .eq("martyr_id", martyrId)
+    .order("created_at", { ascending: true });
 
   if (error) {
     return <div>Error: {error.message}</div>;

@@ -22,7 +22,7 @@ function Providers({ children }: { children: ReactNode }) {
       <ClerkProvider localization={localization}>
         <Analytics />
         <SpeedInsights />
-        <Toaster richColors />
+        <Toaster richColors dir={locale === "ar" ? "rtl" : "ltr"} />
         <DirectionProvider>
           <MantineProvider>{children}</MantineProvider>
         </DirectionProvider>

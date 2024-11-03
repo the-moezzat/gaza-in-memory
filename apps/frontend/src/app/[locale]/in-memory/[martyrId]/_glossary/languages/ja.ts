@@ -79,5 +79,9 @@ export const translations_JA = createTranslation<Definition>({
   memoryAddFailedToast: "memoryAddFailedToast_ja",
   editMemory: "editMemory_ja",
   editMemoryDialogTitle: "editMemoryDialogTitle_ja",
-  editMemoryDialogDescription: "editMemoryDialogDescription_ja"
+  editMemoryDialogDescription: "editMemoryDialogDescription_ja",
+  saveEdits: "saveEdits_ja",
+  memoryUpdatedSuccessToast: "memoryUpdatedSuccessToast_ja",
+  memoryUpdateFailedToast: "memoryUpdateFailedToast_ja",
+  memoryUpdateLoadingToast: "memoryUpdateLoadingToast_ja"
 });

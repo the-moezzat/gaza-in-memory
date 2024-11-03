@@ -82,4 +82,8 @@ export const translations_AR = createTranslation<Definition>({
   editMemory: "تعديل ذاكرتك السابقة",
   editMemoryDialogTitle: "تعديل ذاكرتك السابقة",
   editMemoryDialogDescription: "قم بتعديل ذاكرتك عن {{name}}",
+  saveEdits: "حفظ التعديلات",
+  memoryUpdatedSuccessToast: "تم حفظ التعديلات بنجاح",
+  memoryUpdateFailedToast: "فشل حفظ التعديلات",
+  memoryUpdateLoadingToast: "يتم حفظ التعديلات...",
 });

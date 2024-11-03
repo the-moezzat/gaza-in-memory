@@ -8,6 +8,9 @@ import CoreForm from "./core-form";
 import useMemoryStore from "../../_store/memoryStore";
 import BaseMemoryButton from "./base-memory-button";
 import { Memory } from "../../_types/Memory";
+import { editMemory } from "../../_actions/editMemory";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function EditMemoryButton({
   martyrName,
@@ -20,6 +23,26 @@ export default function EditMemoryButton({
   const locale = useCurrentLocale();
   const t = translator(locale);
   const { memories } = useMemoryStore();
+
+  const { mutate: editMemoryMutation, isPending } = useMutation({
+    mutationFn: editMemory,
+    onMutate: () => {
+      toast.loading(t.memoryUpdateLoadingToast(), {
+        id: "edit-memory",
+      });
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success(t.memoryUpdatedSuccessToast(), {
+        id: "edit-memory",
+      });
+    },
+    onError: () => {
+      toast.error(t.memoryUpdateFailedToast(), {
+        id: "edit-memory",
+      });
+    },
+  });
 
   return (
     <BaseMemoryButton
@@ -36,12 +59,27 @@ export default function EditMemoryButton({
       <CoreForm
         onCancel={() => setOpen(false)}
         martyrName={martyrName}
-        onSubmit={(data) => console.log({ ...data, memories })}
+        onSubmit={(data) =>
+          editMemoryMutation({
+            ...existingMemories,
+            relationship: data.relationship,
+            content: memories,
+          })
+        }
         defaultValues={{
           memories: existingMemories.content,
           relationship: existingMemories.relationship ?? "",
         }}
-      />
+      >
+        <div className="flex justify-end gap-2">
+          <Button variant="ghost" type="button" onClick={() => setOpen(false)}>
+            {t.cancel()}
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {t.saveEdits()}
+          </Button>
+        </div>
+      </CoreForm>
     </BaseMemoryButton>
   );
 }

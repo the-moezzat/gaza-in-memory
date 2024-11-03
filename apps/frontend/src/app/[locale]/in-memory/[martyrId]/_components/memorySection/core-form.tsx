@@ -32,6 +32,7 @@ interface AddMemoryFormProps {
   onCancel: () => void;
   defaultValues?: Partial<z.infer<typeof CoreMemoryFormSchema>>;
   onSubmit: (data: z.infer<typeof CoreMemoryFormSchema>) => void;
+  children?: React.ReactNode;
 }
 
 const relationshipOptions = [
@@ -57,6 +58,7 @@ export default function CoreForm({
   onCancel,
   defaultValues,
   onSubmit,
+  children,
 }: AddMemoryFormProps) {
   const { martyrId } = useParams();
   const { memories } = useMemoryStore();
@@ -111,7 +113,8 @@ export default function CoreForm({
 
           <input type="hidden" name="martyrId" value={martyrId} />
 
-          {memories.length > 0 && (
+          {children}
+          {/* {memories.length > 0 && (
             <div className="flex justify-end gap-2">
               <Button
                 variant="ghost"
@@ -132,7 +135,7 @@ export default function CoreForm({
                   : t.memory()}
               </Button>
             </div>
-          )}
+          )} */}
         </form>
       </Form>
     </div>

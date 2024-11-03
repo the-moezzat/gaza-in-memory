@@ -64,7 +64,30 @@ export default function ShareMemoryButton({
             relationship: data.relationship,
           });
         }}
-      />
+      >
+        {memories.length > 0 && (
+          <div className="flex justify-end gap-2">
+            <Button
+              variant="ghost"
+              type="button"
+              className="hidden self-end lg:block"
+              onClick={() => setOpen(false)}
+            >
+              {t.cancel()}
+            </Button>
+            <Button
+              type="submit"
+              className="w-full self-end lg:w-fit"
+              disabled={isPending}
+            >
+              {t.share()}{" "}
+              {memories.length > 1
+                ? `${memories.length} ${t.memories()}`
+                : t.memory()}
+            </Button>
+          </div>
+        )}
+      </CoreForm>
     </BaseMemoryButton>
   );
 }

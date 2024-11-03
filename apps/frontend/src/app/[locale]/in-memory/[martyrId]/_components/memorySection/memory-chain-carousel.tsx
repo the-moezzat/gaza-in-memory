@@ -68,14 +68,14 @@ export default function MemoryChainCarousel({
       >
         <p>
           {displayText}{" "}
-          {currentMemoryText.length > 500 && (
+          {currentMemoryText.length > 250 && (
             <Button
               onClick={() => setExpanded(!expanded)}
               variant="link"
-              className="h-fit cursor-pointer py-0"
-              asChild
+              className="h-fit cursor-pointer px-0 py-0"
+              // asChild
             >
-              <span>{expanded ? t.readLess() : t.readMore()}</span>
+              {expanded ? t.readLess() : t.readMore()}
             </Button>
           )}
         </p>
