@@ -25,6 +25,7 @@ interface ShareMemoryButtonProps {
   children: React.ReactNode;
   open?: boolean;
   setOpen?: (open: boolean) => void;
+  disabled?: boolean;
 }
 
 export default function BaseMemoryButton({
@@ -34,13 +35,16 @@ export default function BaseMemoryButton({
   children,
   open = false,
   setOpen = () => {},
+  disabled = false,
 }: ShareMemoryButtonProps) {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   if (isMobile) {
     return (
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger asChild>{trigger}</SheetTrigger>
+        <SheetTrigger disabled={disabled} asChild>
+          {trigger}
+        </SheetTrigger>
         <SheetContent side={"bottom"}>
           <SheetHeader>
             <SheetTitle>{title}</SheetTitle>
@@ -54,7 +58,9 @@ export default function BaseMemoryButton({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger disabled={disabled} asChild>
+        {trigger}
+      </DialogTrigger>
       <DialogContent className="w-full max-w-2xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>

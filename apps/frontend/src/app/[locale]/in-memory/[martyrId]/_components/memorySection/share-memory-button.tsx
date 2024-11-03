@@ -7,6 +7,9 @@ import translator from "../../_glossary/translator";
 import CoreForm from "./core-form";
 import useMemoryStore from "../../_store/memoryStore";
 import BaseMemoryButton from "./base-memory-button";
+import { useMutation } from "@tanstack/react-query";
+import { addMemory } from "../../_actions/addMemory";
+import { toast } from "sonner";
 
 export default function ShareMemoryButton({
   martyrName,
@@ -18,8 +21,29 @@ export default function ShareMemoryButton({
   const t = translator(locale);
   const { memories } = useMemoryStore();
 
+  const { mutate: addMemoryMutation, isPending } = useMutation({
+    mutationFn: addMemory,
+    onMutate: () => {
+      toast.loading(t.addingMemoryToast(), {
+        id: "add-memory",
+      });
+    },
+    onSuccess: () => {
+      toast.success(t.memoryAddedSuccessToast(), {
+        id: "add-memory",
+      });
+    },
+    onError: (error) => {
+      toast.error(t.memoryAddFailedToast(), {
+        id: "add-memory",
+        description: error.message,
+      });
+    },
+  });
+
   return (
     <BaseMemoryButton
+      disabled={isPending}
       title={t.addMemory()}
       description={t.shareMemoryDialogDescription({ name: martyrName })}
       trigger={
@@ -33,7 +57,13 @@ export default function ShareMemoryButton({
       <CoreForm
         onCancel={() => setOpen(false)}
         martyrName={martyrName}
-        onSubmit={(data) => console.log({ ...data, memories })}
+        onSubmit={(data) => {
+          addMemoryMutation({
+            memories: memories,
+            martyrId: data.martyrId,
+            relationship: data.relationship,
+          });
+        }}
       />
     </BaseMemoryButton>
   );
