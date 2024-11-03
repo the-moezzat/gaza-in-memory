@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useParams } from "next/navigation";
-import useAddMemoryForm from "../../_hooks/useAddMemoryForm";
 import useMemoryStore from "../../_store/memoryStore";
 import MemoriesForm from "./memories-form";
 import {
@@ -22,10 +21,17 @@ import {
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import translator from "../../_glossary/translator";
 import ChainOfMemoriesCarousel from "./chain-of-memories-carousel";
+import {
+  CoreMemoryFormSchema,
+  useCoreMemoryForm,
+} from "../../_hooks/useCoreForm";
+import { z } from "zod";
 
 interface AddMemoryFormProps {
   martyrName: string;
   onCancel: () => void;
+  defaultValues?: Partial<z.infer<typeof CoreMemoryFormSchema>>;
+  onSubmit: (data: z.infer<typeof CoreMemoryFormSchema>) => void;
 }
 
 const relationshipOptions = [
@@ -46,15 +52,18 @@ const relationshipOptions = [
   "other",
 ];
 
-export default function AddMemoryForm({
+export default function CoreForm({
   martyrName,
   onCancel,
+  defaultValues,
+  onSubmit,
 }: AddMemoryFormProps) {
   const { martyrId } = useParams();
   const { memories } = useMemoryStore();
-  const { form, onSubmit } = useAddMemoryForm();
   const locale = useCurrentLocale();
   const t = translator(locale);
+
+  const { form } = useCoreMemoryForm({ defaultValues });
 
   return (
     <div className="flex flex-col gap-6">

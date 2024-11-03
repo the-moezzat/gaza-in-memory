@@ -6,6 +6,7 @@ interface MemoryStore {
   addMemory: (memory: string) => void;
   removeMemory: (memory: string) => void;
   editMemory: (memory: string, index: number) => void;
+  setMemories: (memories: string[]) => void;
 }
 
 const useMemoryStore = create<MemoryStore>((set) => ({
@@ -33,6 +34,7 @@ const useMemoryStore = create<MemoryStore>((set) => ({
     set((state) => ({
       memories: state.memories.map((m, i) => (i === index ? memory : m)),
     })),
+  setMemories: (memories: string[]) => set({ memories }),
 }));
 
 export default useMemoryStore;

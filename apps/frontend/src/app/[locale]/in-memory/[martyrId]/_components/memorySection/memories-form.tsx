@@ -15,20 +15,24 @@ import { Link, Plus } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import useMemoryStore from "../../_store/memoryStore";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
-const FormSchema = z.object({
-  memory: z
-    .string()
-    .min(10, {
-      message: "Memory must be at least 10 characters.",
-    })
-    .max(2500, {
-      message: "Memory must be at most 2500 characters.",
-    }),
-});
-
-export default function MemoriesForm() {
+export default function MemoriesForm({ martyrName }: { martyrName: string }) {
   const { memories, addMemory } = useMemoryStore();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
+  const FormSchema = z.object({
+    memory: z
+      .string()
+      .min(10, {
+        message: t.memoryMinLengthError({ minLength: 10 }),
+      })
+      .max(2500, {
+        message: t.memoryMaxLengthError({ maxLength: 2500 }),
+      }),
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -57,14 +61,16 @@ export default function MemoriesForm() {
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center justify-between">
-                  <FormLabel>Memory </FormLabel>
+                  <FormLabel>{t.memory()}</FormLabel>
                   <span className="text-xs text-gray-500">
-                    (Max 2500 characters)
+                    {t.maxCharacters({ maxCharacters: 2500 })}
                   </span>
                 </div>
                 <FormControl>
                   <TextareaAutosize
-                    placeholder="Share a memory or thought about the martyr"
+                    placeholder={t.shareMemoryTextboxPlaceholder({
+                      name: martyrName,
+                    })}
                     className={cn(
                       "flex min-h-[100px] w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
                     )}
@@ -88,7 +94,7 @@ export default function MemoriesForm() {
             onClick={form.handleSubmit(onSubmit)}
           >
             <Plus size={18} />
-            {memories.length > 0 ? "Add another memory" : "Add memory"}
+            {memories.length > 0 ? t.addAnotherMemory() : t.addMemory()}
           </Button>
         </div>
       </form>

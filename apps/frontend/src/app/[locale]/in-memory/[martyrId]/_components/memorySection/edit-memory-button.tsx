@@ -7,11 +7,14 @@ import translator from "../../_glossary/translator";
 import CoreForm from "./core-form";
 import useMemoryStore from "../../_store/memoryStore";
 import BaseMemoryButton from "./base-memory-button";
+import { Memory } from "../../_types/Memory";
 
-export default function ShareMemoryButton({
+export default function EditMemoryButton({
   martyrName,
+  existingMemories,
 }: {
   martyrName: string;
+  existingMemories: Memory;
 }) {
   const [open, setOpen] = React.useState(false);
   const locale = useCurrentLocale();
@@ -34,6 +37,10 @@ export default function ShareMemoryButton({
         onCancel={() => setOpen(false)}
         martyrName={martyrName}
         onSubmit={(data) => console.log({ ...data, memories })}
+        defaultValues={{
+          memories: existingMemories.content,
+          relationship: existingMemories.relationship ?? "",
+        }}
       />
     </BaseMemoryButton>
   );

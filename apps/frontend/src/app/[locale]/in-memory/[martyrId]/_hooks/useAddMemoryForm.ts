@@ -10,24 +10,28 @@ import { PostgrestError } from "@supabase/supabase-js";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
-
-const FormSchema = z.object({
-  memories: z
-    .string()
-    .min(10, {
-      message: "Memory must be at least 10 characters.",
-    })
-    .max(2500, {
-      message: "Memory must be at most 2500 characters.",
-    })
-    .array(),
-  martyrId: z.string(),
-  relationship: z.string({ required_error: "Please select a relationship" }),
-});
+import translator from "../_glossary/translator";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
 
 export default function useAddMemoryForm() {
   const { martyrId } = useParams();
   const { memories: memoriesStore } = useMemoryStore();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
+  const FormSchema = z.object({
+    memories: z
+      .string()
+      .min(10, {
+        message: t.memoryMinLengthError({ minLength: 10 }),
+      })
+      .max(2500, {
+        message: t.memoryMaxLengthError({ maxLength: 2500 }),
+      })
+      .array(),
+    martyrId: z.string(),
+    relationship: z.string({ required_error: t.selectRelationshipError() }),
+  });
 
   const {
     mutate: addMemoryMutation,
@@ -37,17 +41,17 @@ export default function useAddMemoryForm() {
   } = useMutation({
     mutationFn: addMemory,
     onMutate: () => {
-      toast.loading("Adding memory...", {
+      toast.loading(t.addingMemoryToast(), {
         id: "add-memory",
       });
     },
     onSuccess: () => {
-      toast.success("Memory added successfully", {
+      toast.success(t.memoryAddedSuccessToast(), {
         id: "add-memory",
       });
     },
     onError: (error) => {
-      toast.error("Failed to add memory", {
+      toast.error(t.memoryAddFailedToast(), {
         id: "add-memory",
         description: error.message,
       });

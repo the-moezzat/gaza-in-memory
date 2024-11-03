@@ -13,7 +13,9 @@ import {
 import ShareMemoryButton from "./share-memory-button";
 import { auth } from "@clerk/nextjs/server";
 import { Memory } from "../../_types/Memory";
-import DeleteMemoryButton from "./delete-memory-button";
+import { getCurrentLocale } from "@/utils/getLocaleServer";
+import translator from "../../_glossary/translator";
+import EditMemoryButton from "./edit-memory";
 
 interface TestimonialSectionProps {
   martyrId: string;
@@ -38,6 +40,8 @@ export default async function TestimonialSection({
   }
 
   const userMemory = getCurrentUserMemory(memories);
+  const locale = getCurrentLocale();
+  const t = translator(locale);
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -47,17 +51,25 @@ export default async function TestimonialSection({
           opts={{
             align: "start",
             dragFree: true,
+            direction: locale === "ar" ? "rtl" : "ltr",
           }}
         >
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <h2 className="text-lg font-semibold text-gray-800 lg:text-xl">
-              {martyrName}&apos;s friends
+              {t.friends({ name: martyrName })}
             </h2>
 
             <div className="relative flex items-center justify-between gap-6 md:justify-normal">
-              {userMemory ? <DeleteMemoryButton /> : <ShareMemoryButton />}
+              {!userMemory ? (
+                <EditMemoryButton
+                  martyrName={martyrName}
+                  existingMemories={userMemory!}
+                />
+              ) : (
+                <ShareMemoryButton martyrName={martyrName} />
+              )}
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rtl:flex-row-reverse">
                 <CarouselPrevious className="relative inset-0 -translate-y-0" />
                 <CarouselNext className="relative inset-0 -translate-y-0" />
               </div>
@@ -76,10 +88,9 @@ export default async function TestimonialSection({
       ) : (
         <div className="flex flex-col items-center justify-center gap-4">
           <h2 className="text-lg font-semibold text-gray-700">
-            There are no memories yet. Be the first to share your memory about{" "}
-            {martyrName}.
+            {t.noMemoriesYet({ name: martyrName })}
           </h2>
-          <ShareMemoryButton />
+          <ShareMemoryButton martyrName={martyrName} />
         </div>
       )}
     </div>

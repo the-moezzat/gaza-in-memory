@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 interface MemoryChainCarouselProps {
   memories: string[];
@@ -12,6 +14,9 @@ export default function MemoryChainCarousel({
 }: MemoryChainCarouselProps) {
   const [currentMemory, setCurrentMemory] = useState(0);
   const [expanded, setExpanded] = useState(false);
+
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
@@ -28,16 +33,16 @@ export default function MemoryChainCarousel({
       {memories.length > 1 && (
         <>
           <span className="text-base text-gray-600">
-            {currentMemory + 1} of {memories.length} memories
+            {currentMemory + 1} {t.of()} {memories.length} {t.memories()}
           </span>
-          <div className="">
+          <div className="flex items-center gap-2">
             <Button
               onClick={() =>
                 setCurrentMemory((prev) => (prev === 0 ? 0 : prev - 1))
               }
               variant="outline"
               size="icon"
-              className="h-8 w-8 rounded-full"
+              className="h-8 w-8 rounded-full rtl:rotate-180"
             >
               <ChevronLeft size={18} />
             </Button>
@@ -49,7 +54,7 @@ export default function MemoryChainCarousel({
               }
               variant="outline"
               size="icon"
-              className="ml-2 h-8 w-8 rounded-full"
+              className="ml-2 h-8 w-8 rounded-full rtl:rotate-180"
             >
               <ChevronRight size={18} />
             </Button>

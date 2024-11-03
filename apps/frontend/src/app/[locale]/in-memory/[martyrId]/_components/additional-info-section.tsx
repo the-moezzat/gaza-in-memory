@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import translator from "../_glossary/translator";
-import { format } from "date-fns";
-import { ar, arSA, enUS } from "date-fns/locale";
+import { localizeDate } from "../_utils/localizeDates";
 
 export default async function AdditionalInfoSection({
   martyr,
@@ -39,19 +38,12 @@ export default async function AdditionalInfoSection({
     .select("*")
     .eq("martyr_id", martyr.id);
 
-  const localizeDate = (date: string) => {
-    const eventDate = new Date(date);
-    return format(eventDate, "dd MMMM yyyy", {
-      locale: locale === "ar" ? arSA : enUS,
-    });
-  };
-
   return (
     <div className="flex flex-col gap-10">
       <div className="grid grid-cols-2 items-center gap-x-10 gap-y-10 md:flex md:flex-wrap lg:gap-x-32">
         <AdditionalInfoItem
           label={t.dob()}
-          value={localizeDate(date_of_birth)}
+          value={localizeDate(date_of_birth, locale)}
           icon={<CalendarIcon size={"1em"} />}
         />
 
@@ -59,7 +51,7 @@ export default async function AdditionalInfoSection({
           <>
             <AdditionalInfoItem
               label={t.dod()}
-              value={localizeDate(date_of_death!)}
+              value={localizeDate(date_of_death!, locale)}
               icon={<CalendarX2 size={"1em"} />}
             />
 
