@@ -24,7 +24,7 @@ export const translations_EN = createTranslation<Definition>({
   dod: "Date of Death",
   causeOfDeath: "Cause of Death",
   socialStatus: "Social Status",
-  friends: "{{name}}",
+  friends: "{{name}}'s Friends",
   additionalInfo: "Additional Info",
   male: "Male",
   female: "Female",
@@ -38,10 +38,12 @@ export const translations_EN = createTranslation<Definition>({
   close: "Close",
   married: "Married",
   single: "Single",
-  noMemoriesYet: "There are no memories yet. Be the first to share your memory about {{name}}",
+  noMemoriesYet:
+    "There are no memories yet. Be the first to share your memory about {{name}}",
   shareMemory: "Share Memory",
   areYouSure: "Are you sure?",
-  deleteDialogDescription: " Are you absolutelly sure you want to delete this memory this actioncannot be undone.",
+  deleteDialogDescription:
+    " Are you absolutelly sure you want to delete this memory this actioncannot be undone.",
   continue: "Continue",
   cancel: "Cancel",
   memory: "Memory",
@@ -49,7 +51,8 @@ export const translations_EN = createTranslation<Definition>({
   maxCharacters: "Max {{maxCharacters}} characters",
   shareMemoryTextboxPlaceholder: "Share your memory or thougth about {{name}}",
   shareMemoryDialogTitle: "Share Your Memory",
-  shareMemoryDialogDescription: "Add a memory or chian of memories about the {{name}} and let everyone know him more",
+  shareMemoryDialogDescription:
+    "Add a memory or chian of memories about the {{name}} and let everyone know him more",
   addAnotherMemory: "Add Another Memory",
   memories: "Memories",
   selectRelationship: "Select Relationship",
@@ -83,5 +86,5 @@ export const translations_EN = createTranslation<Definition>({
   saveEdits: "Save Changes",
   memoryUpdatedSuccessToast: "Memory updated successfully",
   memoryUpdateFailedToast: "Failed to update memory",
-  memoryUpdateLoadingToast: "Updating memory..."
+  memoryUpdateLoadingToast: "Updating memory...",
 });
