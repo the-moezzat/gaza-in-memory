@@ -13,7 +13,7 @@ const SUPPORTED_LOCALES = supportedLocale;
 type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
-  return async (request: NextRequest, event: NextFetchEvent) => {
+  return (request: NextRequest, event: NextFetchEvent) => {
     const path = request.nextUrl.pathname;
 
     // Skip for static files and API routes
@@ -25,7 +25,7 @@ export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
       return middleware(request, event);
     }
 
-    let response: NextResponse | NextMiddlewareResult;
+    // let response: NextResponse | NextMiddlewareResult;
 
     if (path === "/") {
       // Get the preferred languages from the 'Accept-Language' header
@@ -40,35 +40,42 @@ export function localeMiddleware(middleware: NextMiddleware): NextMiddleware {
       if (preferredLocale && preferredLocale !== request.nextUrl.locale) {
         const url = request.nextUrl.clone();
         url.pathname = `/${preferredLocale}${url.pathname}`;
-        response = NextResponse.redirect(url);
+        return NextResponse.redirect(url);
       } else {
         // If no redirect needed, continue with the middleware chain
-        response = await middleware(request, event);
+        return middleware(request, event);
       }
     } else {
       // For non-root paths, continue with the middleware chain
-      response = await middleware(request, event);
+      // set the locale header here
+      const currentLocale = path.split("/")[1] as Locale;
+      const locale = SUPPORTED_LOCALES.includes(currentLocale)
+        ? currentLocale
+        : DEFAULT_LOCALE;
+
+      request.headers.set(LOCALE_HEADER, locale);
+      return middleware(request, event);
     }
 
-    // If no response was generated, create a default response
-    if (!response) {
-      response = NextResponse.next();
-    }
+    // // If no response was generated, create a default response
+    // if (!response) {
+    //   response = NextResponse.next();
+    // }
 
-    // Ensure we're working with a NextResponse
-    const nextResponse =
-      response instanceof NextResponse ? response : NextResponse.next();
+    // // Ensure we're working with a NextResponse
+    // const nextResponse =
+    //   response instanceof NextResponse ? response : NextResponse.next();
 
-    // Get the current locale from the URL path
-    const currentLocale = path.split("/")[1] as Locale;
-    const locale = SUPPORTED_LOCALES.includes(currentLocale)
-      ? currentLocale
-      : DEFAULT_LOCALE;
+    // // Get the current locale from the URL path
+    // const currentLocale = path.split("/")[1] as Locale;
+    // const locale = SUPPORTED_LOCALES.includes(currentLocale)
+    //   ? currentLocale
+    //   : DEFAULT_LOCALE;
 
-    // Set the language header on the response
-    nextResponse.headers.set(LOCALE_HEADER, locale);
+    // // Set the language header on the response
+    // nextResponse.headers.set(LOCALE_HEADER, locale);
 
-    return nextResponse;
+    // return nextResponse;
   };
 }
 
