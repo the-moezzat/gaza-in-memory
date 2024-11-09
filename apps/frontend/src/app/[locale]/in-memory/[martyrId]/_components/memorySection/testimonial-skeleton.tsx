@@ -10,13 +10,13 @@ export default function TestimonialSkeleton() {
       </div>
 
       {/* Content skeleton */}
-      <div className="rounded-lg border p-4 sm:p-6">
-        <div className="space-y-6">
+      <div className="rounded-lg p-4 sm:p-6">
+        <div className="flex gap-4">
           {/* Memory cards skeleton */}
           {[1, 2].map((i) => (
             <div key={i} className="space-y-3 rounded-lg border p-4">
               {/* Author info skeleton */}
-              <div className="flex items-center gap-3">
+              <div className="flex w-80 items-center gap-3">
                 <div className="h-10 w-10 animate-pulse rounded-full bg-gray-200" />
                 <div className="space-y-2">
                   <div className="h-4 w-32 animate-pulse rounded bg-gray-200" />

@@ -13,11 +13,12 @@ import InterestSection from "./_components/interest-section";
 import AdditionalInfoSection from "./_components/additional-info-section";
 import { Button } from "@/components/ui/button";
 import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
-import { ArrowLeft, Share } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "./_glossary/translator";
 import { Metadata } from "next";
 import TestimonialSkeleton from "./_components/memorySection/testimonial-skeleton";
+import Share from "./_features/share";
 
 export async function generateMetadata({
   params,
@@ -93,18 +94,12 @@ export default async function Page(props: { params: { martyrId: string } }) {
       <div className="flex items-center justify-between text-gray-600">
         <Button variant="ghost" asChild className="h-fit px-2 py-1">
           <LocaleLinkWrapper href={`/`} className="flex gap-2">
-            <ArrowLeft
-              size={16}
-              className={`ltr:rotate-180 rtl:rotate-0 ${locale === "ar" ? "rotate-180" : ""}`}
-            />
+            <ArrowLeft size={16} className={`rtl:rotate-180`} />
             {t.discover()}
           </LocaleLinkWrapper>
         </Button>
 
-        <Button variant={"outline"} className="flex items-center gap-2">
-          <Share size={16} />
-          {t.share()}
-        </Button>
+        <Share />
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[12fr,24fr] lg:gap-6 xl:grid-cols-[9fr,27fr] xl:gap-8">
         <div className="space-y-4 md:space-y-6 lg:space-y-8">

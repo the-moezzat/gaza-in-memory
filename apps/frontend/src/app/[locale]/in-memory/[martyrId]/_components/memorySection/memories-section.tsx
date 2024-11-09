@@ -26,8 +26,6 @@ export default async function TestimonialSection({
 }: TestimonialSectionProps) {
   const client = createClerkSupabaseClientSsr(false);
 
-  const { userId } = auth();
-
   const { data: memories, error } = await client
     .from("memories")
     .select("*")

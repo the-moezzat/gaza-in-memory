@@ -177,6 +177,9 @@ importers:
       '@tiptap/starter-kit':
         specifier: ^2.6.6
         version: 2.6.6
+      '@uidotdev/usehooks':
+        specifier: ^2.4.1
+        version: 2.4.1(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
       '@uploadthing/react':
         specifier: ^7.0.1
         version: 7.0.1(next@14.2.4(@babel/core@7.24.7)(react-dom@18.3.1(react@18.2.0))(react@18.2.0))(react@18.2.0)(uploadthing@7.0.1(express@4.19.2)(next@14.2.4(@babel/core@7.24.7)(react-dom@18.3.1(react@18.2.0))(react@18.2.0))(tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.11.24)(typescript@5.4.5))))
@@ -3658,6 +3661,13 @@ packages:
   '@typescript-eslint/visitor-keys@7.1.0':
     resolution: {integrity: sha512-FhUqNWluiGNzlvnDZiXad4mZRhtghdoKW6e98GoEOYSu5cND+E39rG5KwJMUzeENwm1ztYBRqof8wMLP+wNPIA==}
     engines: {node: ^16.0.0 || >=18.0.0}
+
+  '@uidotdev/usehooks@2.4.1':
+    resolution: {integrity: sha512-1I+RwWyS+kdv3Mv0Vmc+p0dPYH0DTRAo04HLyXReYBL9AeseDWUJyi4THuksBJcu9F0Pih69Ak150VDnqbVnXg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
@@ -12820,6 +12830,11 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 7.1.0
       eslint-visitor-keys: 3.4.3
+
+  '@uidotdev/usehooks@2.4.1(react-dom@18.3.1(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.3.1(react@18.2.0)
 
   '@ungap/structured-clone@1.2.0': {}
 

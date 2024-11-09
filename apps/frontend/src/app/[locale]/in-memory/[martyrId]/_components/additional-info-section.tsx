@@ -80,7 +80,7 @@ export default async function AdditionalInfoSection({
 
       {children?.length && (
         <div className="flex flex-col gap-4 md:gap-6">
-          <h3 className="text-base font-semibold md:text-lg">Kids</h3>
+          <h3 className="text-base font-semibold md:text-lg">{t.kids()}</h3>
 
           <div className="grid grid-cols-2 items-center gap-x-10 gap-y-10 md:flex md:flex-wrap lg:gap-x-32">
             {children.map((child) => (
