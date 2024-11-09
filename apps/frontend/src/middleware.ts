@@ -1,4 +1,4 @@
-import { localeMiddleware } from "./app/[locale]/middleware";
+import { localeMiddleware } from "./app/[locale]/localeMiddleware";
 import { chain } from "@/lib/chain";
 import { authMiddleware } from "./app/auth-middleware";
 import { clerkMiddleware } from "@clerk/nextjs/server";

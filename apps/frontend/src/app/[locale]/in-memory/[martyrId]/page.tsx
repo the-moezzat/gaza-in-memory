@@ -17,6 +17,7 @@ import { ArrowLeft, Share } from "lucide-react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "./_glossary/translator";
 import { Metadata } from "next";
+import TestimonialSkeleton from "./_components/memorySection/testimonial-skeleton";
 
 export async function generateMetadata({
   params,
@@ -123,10 +124,12 @@ export default async function Page(props: { params: { martyrId: string } }) {
             </Suspense>
           </Section>
 
-          <TestimonialSection
-            martyrId={martyr.id}
-            martyrName={martyr.first_name}
-          />
+          <Suspense fallback={<TestimonialSkeleton />}>
+            <TestimonialSection
+              martyrId={martyr.id}
+              martyrName={martyr.first_name}
+            />
+          </Suspense>
 
           <Suspense fallback={<GallerySkeleton />}>
             <GallerySection martyrId={martyr.id} />
