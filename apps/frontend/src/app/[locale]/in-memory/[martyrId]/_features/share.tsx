@@ -13,6 +13,8 @@ import { Share as ShareIcon } from "lucide-react";
 import translator from "../_glossary/translator";
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
+import CopyLink from "./copy-link";
+import ConfettiExplosion from "react-confetti-explosion";
 
 export default function Share() {
   const locale = useCurrentLocale();
@@ -35,15 +37,7 @@ export default function Share() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex gap-2">
-          <Input
-            dir="ltr"
-            placeholder="https://www.martyr.com/en/in-memory/123"
-            value={`https://www.martyr.com/${locale}/in-memory/${martyrId}`}
-            disabled
-          />
-          <Button> Copy link </Button>
-        </div>
+        <CopyLink />
 
         <div className="grid grid-cols-2 gap-4">
           <Button variant={"outline"}> whatsapp</Button>

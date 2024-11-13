@@ -9,6 +9,7 @@ import LocaleLinkWrapper from "./locale-link-wrapper";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "../_glossary/translator";
 import { SupportedLocale } from "@/lib/supportedLanguages";
+import BookCoverImage from "./book-cover-image";
 
 type MartyrCardProps = {
   martyr: Martyr;
@@ -24,7 +25,7 @@ async function MartyrCard({ martyr }: MartyrCardProps) {
       href={`/in-memory/${martyr.id}`}
       className="flex w-fit flex-col gap-2 rounded-xl bg-white"
     >
-      <div className="group relative aspect-square h-64 overflow-hidden rounded-xl">
+      <div className="group relative aspect-square h-48 overflow-hidden rounded-xl md:h-56 lg:h-64">
         <Image
           src={martyr.profile_image_url!}
           alt={`${martyr.first_name} ${martyr.last_name}`}
@@ -44,19 +45,12 @@ async function MartyrCard({ martyr }: MartyrCardProps) {
         </div>
 
         <div className="absolute bottom-3 left-3" dir="ltr">
-          <Book
-            coverImage={user.imageUrl}
-            width={60}
-            height={68}
-            depth={8}
-            backgroundColor="#afafaf"
-            spineColor="#333"
-          />
+          <BookCoverImage userImage={user.imageUrl} />
         </div>
       </div>
 
       <div>
-        <p className="text-lg font-medium text-gray-800">
+        <p className="text-base font-medium text-gray-800 md:text-lg">
           {(
             martyr.first_name +
             " " +
@@ -75,12 +69,12 @@ async function MartyrCard({ martyr }: MartyrCardProps) {
               martyr.last_name}
         </p>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1 text-sm text-gray-600">
+          <div className="flex items-center gap-1 text-xs text-gray-600 lg:text-sm">
             <MapPin className="h-4 w-4" />
             <span>{martyr.city}</span>
           </div>
 
-          <div className="flex items-center gap-1 text-sm text-gray-600">
+          <div className="flex items-center gap-1 text-xs text-gray-600 lg:text-sm">
             <CalendarClock className="h-4 w-4" />
             <span>{calculateAge(martyr.date_of_birth)}yrs</span>
           </div>

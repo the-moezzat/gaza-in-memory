@@ -153,9 +153,7 @@ export function PlaceholdersAndVanishInput({
 
   return (
     <div
-      className={cn(
-        "relative w-fit overflow-hidden bg-white transition duration-200",
-      )}
+      className={cn("relative w-fit overflow-hidden transition duration-200")}
     >
       <canvas
         className={cn(

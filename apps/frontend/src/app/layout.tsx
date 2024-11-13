@@ -14,27 +14,27 @@ export const metadata: Metadata = {
   keywords:
     "Gaza, memorial, remembrance, Palestine, memories, tribute, martyrs",
   authors: [{ name: "Gaza in Memory Team" }],
-  openGraph: {
-    title: "Gaza in Memory | Preserving Stories of Lives Lost",
-    description:
-      "A digital memorial dedicated to preserving and honoring the memories of lives lost in Gaza.",
-    type: "website",
-    locale: "en_US",
-    alternateLocale: ["ar_SA"],
-    siteName: "Gaza in Memory",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Gaza in Memory | Preserving Stories of Lives Lost",
-    description:
-      "A digital memorial dedicated to preserving and honoring the memories of lives lost in Gaza.",
-  },
-  viewport: "width=device-width, initial-scale=1",
+  // openGraph: {
+  //   title: "Gaza in Memory | Preserving Stories of Lives Lost",
+  //   description:
+  //     "A digital memorial dedicated to preserving and honoring the memories of lives lost in Gaza.",
+  //   type: "website",
+  //   locale: "en_US",
+  //   alternateLocale: ["ar_SA"],
+  //   siteName: "Gaza in Memory",
+  // },
+  // twitter: {
+  //   card: "summary_large_image",
+  //   title: "Gaza in Memory | Preserving Stories of Lives Lost",
+  //   description:
+  //     "A digital memorial dedicated to preserving and honoring the memories of lives lost in Gaza.",
+  // },
+  // viewport: "width=device-width, initial-scale=1",
   robots: {
     index: true,
     follow: true,
   },
-  themeColor: "#ffffff",
+  // themeColor: "#ffffff",
 };
 
 const rubik = Rubik({

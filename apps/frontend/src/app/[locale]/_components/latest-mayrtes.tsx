@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 function LatestMayrtesSkeleton() {
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
+    <div className="flex w-full gap-4 overflow-x-auto pb-4">
       {[...Array(4)].map((_, index) => (
         <MartyrCardSkeleton key={index} />
       ))}
@@ -14,6 +14,8 @@ function LatestMayrtesSkeleton() {
 }
 
 async function LatestMayrtesContent() {
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+
   const client = createClerkSupabaseClientSsr(false);
 
   const { data: martyrs, error } = await client

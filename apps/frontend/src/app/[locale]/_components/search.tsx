@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import translator from "../_glossary/translator";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { useIsMobile } from "@/hooks/use-mobile";
 const formSchema = z.object({
   name: z.string().optional(),
   age: z.string().optional(),
@@ -131,7 +133,7 @@ const palestinianNamesEN = [
 
 function Search() {
   const locale = useCurrentLocale();
-  const [enableSubmit, setEnableSubmit] = React.useState(true);
+  const [enableSubmit, setEnableSubmit] = useState(true);
 
   const t = translator(locale);
 
@@ -158,12 +160,14 @@ function Search() {
     setEnableSubmit(isAllFieldsEmpty);
   }, [watchAllFields]);
 
+  const isMobile = useIsMobile();
+
   // fill this array with arabic Palestinian name
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={`relative ${locale === "ar" ? "pl-12 pr-6" : "pl-6 pr-12"} flex w-fit items-center gap-2 rounded-full border bg-white py-2 shadow-md md:gap-4`}
+        className={`relative ${locale === "ar" ? "pl-12 pr-6" : "pl-6 pr-12"} mx-auto grid w-11/12 items-center gap-2 rounded-full border bg-white py-2 shadow-md md:grid-cols-[10fr,0.1rem,4fr,0.1rem,4fr,0.1rem,4fr] md:gap-4 lg:w-9/12`}
       >
         <FormField
           control={form.control}
@@ -183,67 +187,71 @@ function Search() {
           )}
         />
 
-        <div className={"h-9 w-0.5 bg-gray-100"} />
+        {!isMobile && (
+          <>
+            <div className={"h-6 w-0.5 bg-gray-100 lg:h-9"} />
 
-        <FormField
-          control={form.control}
-          name="age"
-          render={({ field }) => (
-            <FormItem className={"space-y-0"}>
-              <FormLabel>{t.age()}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t.addAge()}
-                  {...field}
-                  className={
-                    "h-fit w-24 rounded-none border-none px-0 py-1 focus-visible:ring-0"
-                  }
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="age"
+              render={({ field }) => (
+                <FormItem className={"space-y-0"}>
+                  <FormLabel>{t.age()}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t.addAge()}
+                      {...field}
+                      className={
+                        "h-fit rounded-none border-none px-0 py-1 focus-visible:ring-0"
+                      }
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-        <div className={"h-9 w-0.5 bg-gray-100"} />
+            <div className={"h-9 w-0.5 bg-gray-100"} />
 
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem className={"space-y-0"}>
-              <FormLabel>{t.status()}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t.addStatus()}
-                  {...field}
-                  className={
-                    "h-fit w-min rounded-none border-none px-0 py-1 focus-visible:ring-0"
-                  }
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem className={"space-y-0"}>
+                  <FormLabel>{t.status()}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t.addStatus()}
+                      {...field}
+                      className={
+                        "h-fit rounded-none border-none px-0 py-1 focus-visible:ring-0"
+                      }
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-        <div className={"h-9 w-0.5 bg-gray-100"} />
-        <FormField
-          control={form.control}
-          name="gender"
-          render={({ field }) => (
-            <FormItem className={"space-y-0"}>
-              <FormLabel>{t.gender()}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t.addGender()}
-                  {...field}
-                  className={
-                    "h-fit w-min rounded-none border-none px-0 py-1 focus-visible:ring-0"
-                  }
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+            <div className={"h-9 w-0.5 bg-gray-100"} />
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem className={"space-y-0"}>
+                  <FormLabel>{t.gender()}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t.addGender()}
+                      {...field}
+                      className={
+                        "h-fit rounded-none border-none px-0 py-1 focus-visible:ring-0"
+                      }
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </>
+        )}
 
         <button
           disabled={enableSubmit}

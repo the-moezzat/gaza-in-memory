@@ -23,25 +23,25 @@ export function generateMetadata({
   return {
     title: `${t.notJustNumbers()} | Palestine Martyrs`,
     description: t.storiesUnfinished(),
-    openGraph: {
-      title: `${t.notJustNumbers()} | Palestine Martyrs`,
-      description: t.storiesUnfinished(),
-      type: "website",
-      locale: params.locale,
-      images: [
-        {
-          url: "/og-image.jpg", // You'll need to add this image to your public folder
-          width: 1200,
-          height: 630,
-          alt: "Palestine Martyrs Memorial",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${t.notJustNumbers()} | Palestine Martyrs`,
-      description: t.storiesUnfinished(),
-    },
+    // openGraph: {
+    //   title: `${t.notJustNumbers()} | Palestine Martyrs`,
+    //   description: t.storiesUnfinished(),
+    //   type: "website",
+    //   locale: params.locale,
+    //   images: [
+    //     {
+    //       url: "/og-image.jpg", // You'll need to add this image to your public folder
+    //       width: 1200,
+    //       height: 630,
+    //       alt: "Palestine Martyrs Memorial",
+    //     },
+    //   ],
+    // },
+    // twitter: {
+    //   card: "summary_large_image",
+    //   title: `${t.notJustNumbers()} | Palestine Martyrs`,
+    //   description: t.storiesUnfinished(),
+    // },
   };
 }
 
@@ -59,14 +59,14 @@ export default function Home({
   const t = translator(params.locale);
 
   return (
-    <main className={"p-4"}>
-      <div className="relative flex h-[40rem] w-full flex-col gap-20 overflow-hidden rounded-xl bg-black/[0.96] antialiased bg-grid-white/[0.02] md:items-center md:justify-center">
+    <main className={"w-screen p-2 lg:p-4"}>
+      <div className="relative flex h-fit w-full flex-col gap-0 overflow-hidden rounded-xl bg-black/[0.96] pb-6 antialiased bg-grid-white/[0.02] md:h-[25rem] lg:h-[40rem] lg:items-center lg:justify-center lg:gap-20">
         <Spotlight
           className="-top-40 left-0 md:-top-20 md:left-60"
           fill="white"
         />
-        <div className="dark relative z-10 mx-auto w-full max-w-7xl p-4 pt-20 md:pt-0">
-          <h1 className="md:leading- bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text py-5 text-center text-4xl font-bold text-transparent md:text-7xl">
+        <div className="dark relative z-10 mx-auto w-full p-4 md:pt-10 lg:pt-20">
+          <h1 className="md:leading- bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text py-5 text-center text-3xl font-bold text-transparent md:text-5xl lg:text-7xl">
             {t.notJustNumbers()} <br />
             {t.storiesUnfinished()}
             {/* <FlipWords
@@ -84,11 +84,15 @@ export default function Home({
         <div className={"z-10"}>
           <Search />
         </div>
-        <AnimatedQuoteBubbles />
+        <div className="hidden md:block">
+          <AnimatedQuoteBubbles />
+        </div>
       </div>
 
-      <section className={"mt-16 space-y-6"}>
-        <h2 className={"text-2xl font-bold text-gray-800"}>
+      <section className={"mt-6 space-y-4 md:mt-8 lg:mt-20 lg:space-y-6"}>
+        <h2
+          className={"text-lg font-bold text-gray-800 md:text-xl lg:text-2xl"}
+        >
           {t.latestMartyrs()}
         </h2>
         <LatestMayrtes />
