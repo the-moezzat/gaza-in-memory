@@ -21,7 +21,7 @@ export default function LanguageSwitcherDrawer() {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="px-4">
+      <DrawerContent className="flex h-[90%] flex-col px-4">
         <LanguageSwitcherContent />
       </DrawerContent>
     </Drawer>

@@ -41,7 +41,7 @@ export default function LanguageSwitcherContent() {
   }, []);
 
   return (
-    <div className="mt-4 space-y-6">
+    <div className="mt-4 flex-1 space-y-6 overflow-y-auto">
       {recommendedLanguages.length > 0 && (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-gray-800">
