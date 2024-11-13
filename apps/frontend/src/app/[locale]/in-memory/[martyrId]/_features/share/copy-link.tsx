@@ -1,11 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import translator from "../_glossary/translator";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { toast } from "sonner";
+import translator from "../../_glossary/translator";
 
 export default function CopyLink() {
   const locale = useCurrentLocale();
@@ -26,14 +27,14 @@ export default function CopyLink() {
     <div className="flex gap-2">
       <Input
         dir="ltr"
-        placeholder="https://www.martyr.com/en/in-memory/123"
-        value={`https://www.martyr.com/${locale}/in-memory/${martyrId}`}
+        placeholder="https://www.gazainmemory.tech/en/in-memory/123"
+        value={`https://www.gazainmemory.tech/${locale}/in-memory/${martyrId}`}
         disabled
       />
       <Button
         onClick={() => {
           copyToClipboard(
-            `https://www.martyr.com/${locale}/in-memory/${martyrId}`,
+            `https://www.gazainmemory.tech/${locale}/in-memory/${martyrId}`,
           );
           toast.success("Text copied to clipboard");
           setIsCopied(true);

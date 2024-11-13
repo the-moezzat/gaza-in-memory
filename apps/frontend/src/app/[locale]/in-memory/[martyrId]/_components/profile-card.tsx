@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { BadgeCheck, Medal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { socialMediaIconsMapper } from "../_utils/socialMediaIconsMapper";
+import { socialMediaIconsMapper } from "../../../../../utils/socialMediaIconsMapper";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "../_glossary/translator";
 interface ProfileCardProps {

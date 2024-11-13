@@ -18,7 +18,7 @@ import { getCurrentLocale } from "@/utils/getLocaleServer";
 import translator from "./_glossary/translator";
 import { Metadata } from "next";
 import TestimonialSkeleton from "./_components/memorySection/testimonial-skeleton";
-import Share from "./_features/share";
+import Share from "./_features/share/share";
 
 export async function generateMetadata({
   params,
@@ -99,7 +99,7 @@ export default async function Page(props: { params: { martyrId: string } }) {
           </LocaleLinkWrapper>
         </Button>
 
-        <Share />
+        <Share martyr={martyr} />
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[12fr,24fr] lg:gap-6 xl:grid-cols-[9fr,27fr] xl:gap-8">
         <div className="space-y-4 md:space-y-6 lg:space-y-8">
