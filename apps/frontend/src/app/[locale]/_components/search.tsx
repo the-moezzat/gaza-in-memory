@@ -189,13 +189,13 @@ function Search() {
 
         {!isMobile && (
           <>
-            <div className={"h-6 w-0.5 bg-gray-100 lg:h-9"} />
+            <div className={"hidden h-6 w-0.5 bg-gray-100 md:block lg:h-9"} />
 
             <FormField
               control={form.control}
               name="age"
               render={({ field }) => (
-                <FormItem className={"space-y-0"}>
+                <FormItem className={"hidden space-y-0 md:block"}>
                   <FormLabel>{t.age()}</FormLabel>
                   <FormControl>
                     <Input
@@ -210,13 +210,13 @@ function Search() {
               )}
             />
 
-            <div className={"h-9 w-0.5 bg-gray-100"} />
+            <div className={"hidden h-9 w-0.5 bg-gray-100 md:block"} />
 
             <FormField
               control={form.control}
               name="status"
               render={({ field }) => (
-                <FormItem className={"space-y-0"}>
+                <FormItem className={"hidden space-y-0 md:block"}>
                   <FormLabel>{t.status()}</FormLabel>
                   <FormControl>
                     <Input
@@ -231,12 +231,12 @@ function Search() {
               )}
             />
 
-            <div className={"h-9 w-0.5 bg-gray-100"} />
+            <div className={"hidden h-9 w-0.5 bg-gray-100 md:block"} />
             <FormField
               control={form.control}
               name="gender"
               render={({ field }) => (
-                <FormItem className={"space-y-0"}>
+                <FormItem className={"hidden space-y-0 md:block"}>
                   <FormLabel>{t.gender()}</FormLabel>
                   <FormControl>
                     <Input

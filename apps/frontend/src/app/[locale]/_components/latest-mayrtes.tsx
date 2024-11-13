@@ -14,7 +14,7 @@ function LatestMayrtesSkeleton() {
 }
 
 async function LatestMayrtesContent() {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
+  // await new Promise((resolve) => setTimeout(resolve, 10000));
 
   const client = createClerkSupabaseClientSsr(false);
 
