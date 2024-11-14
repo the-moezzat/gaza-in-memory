@@ -9,17 +9,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { toast } from "sonner";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../_glossary/translator";
 
 function MartyrsImageUploader() {
   const { control, watch, setValue } = useFormContext();
   const profileImage = watch("profileImage");
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
       setValue("profileImage", file);
     } else {
-      alert("Please select an image file.");
+      toast.error(t.pleaseSelectImageFile());
     }
   };
 
@@ -48,7 +53,7 @@ function MartyrsImageUploader() {
                     ? URL.createObjectURL(profileImage)
                     : "/illustrations/placeholder-profile.svg"
                 }
-                alt={profileImage ? "Selected image" : "Placeholder image"}
+                alt={profileImage ? t.selectedImage() : t.placeholderImage()}
                 fill
                 className="rounded-full object-cover"
               />
@@ -77,7 +82,7 @@ function MartyrsImageUploader() {
                     stroke="#fff"
                     strokeWidth={1.5}
                   />
-                  <span>{profileImage ? "Change" : "Add Image"}</span>
+                  <span>{profileImage ? t.changeImage() : t.addImage()}</span>
                 </label>
               </Button>
 

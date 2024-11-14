@@ -5,9 +5,13 @@ import MartyrsImageUploader from "@/app/[locale]/add-martyrs/_components/martyrs
 import { FormProvider } from "react-hook-form";
 import { useAddPersonForm } from "@/app/[locale]/add-martyrs/_hooks/useAddPersonForm";
 import { Button } from "@/components/ui/button";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../_glossary/translator";
 
 export default function MartyrsFormWrapper() {
   const { form, onSubmit } = useAddPersonForm();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   return (
     <FormProvider {...form}>
@@ -30,7 +34,7 @@ export default function MartyrsFormWrapper() {
               className={"w-full flex-grow md:px-4 lg:px-8"}
               disabled={!form.formState.isValid}
             >
-              Add
+              {t.publish()}
             </Button>
             <Button
               type="button"
@@ -38,7 +42,7 @@ export default function MartyrsFormWrapper() {
               variant={"outline"}
               className={"md:w-full md:px-4 lg:w-fit lg:px-8"}
             >
-              Save as Draft
+              {t.saveAsDraft()}
             </Button>
           </div>
         </div>

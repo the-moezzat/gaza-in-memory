@@ -20,10 +20,14 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { BadgeIndianRupee, CalendarIcon, ListVideo, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useChildStore } from "@/app/[locale]/add-martyrs/_store/childStore";
+import CustomDatePicker from "../date-picker";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
+import { MaleIcon, FemaleIcon } from "@/components/icons";
 
 const childFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -41,15 +45,32 @@ interface AddChildFormProps {
 
 const AddChildForm: React.FC<AddChildFormProps> = ({ onCancel }) => {
   const { addChild } = useChildStore();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
+  const genderItems = [
+    { id: "radio-11-r1", value: "male", label: t.male(), Icon: MaleIcon },
+    {
+      id: "radio-11-r2",
+      value: "female",
+      label: t.female(),
+      Icon: FemaleIcon,
+    },
+  ];
+
+  const statusItems = [
+    { id: "radio-11-r1", value: "alive", label: t.alive(), Icon: ListVideo },
+    { id: "radio-11-r2", value: "dead", label: t.dead(), Icon: X },
+    {
+      id: "radio-11-r3",
+      value: "wounded",
+      label: t.wounded(),
+      Icon: BadgeIndianRupee,
+    },
+  ];
 
   const form = useForm<ChildFormValues>({
     resolver: zodResolver(childFormSchema),
-    defaultValues: {
-      name: "",
-      age: 0,
-      gender: "male",
-      status: "alive",
-    },
   });
 
   const handleSubmit = (values: ChildFormValues) => {
@@ -68,7 +89,7 @@ const AddChildForm: React.FC<AddChildFormProps> = ({ onCancel }) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>{t.firstName()}</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -81,7 +102,7 @@ const AddChildForm: React.FC<AddChildFormProps> = ({ onCancel }) => {
             name="age"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Age</FormLabel>
+                <FormLabel>{t.age()}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -99,46 +120,43 @@ const AddChildForm: React.FC<AddChildFormProps> = ({ onCancel }) => {
           name="gender"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>Gender</FormLabel>
+              <div className={"flex w-full items-center justify-between gap-2"}>
+                <FormLabel>{t.gender()}</FormLabel>
+                <FormMessage />
+              </div>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="grid grid-cols-2 gap-4 w-full"
+                  className="grid w-full grid-cols-2 gap-4"
                 >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="male" className="w-full">
-                        <div className="flex items-center gap-4 w-full">
-                          <Image
-                            src="/illustrations/male.svg"
-                            alt="Male illustrator"
-                            width={64}
-                            height={64}
-                          />
-                          <p className="text-lg font-medium">Male</p>
-                        </div>
-                      </RadioGroupItem>
-                    </FormControl>
-                  </FormItem>
-                  <FormItem className="flex items-center">
-                    <FormControl>
-                      <RadioGroupItem value="female" className="w-full">
-                        <div className="flex items-center gap-4">
-                          <Image
-                            src="/illustrations/female.svg"
-                            alt="Female illustrator"
-                            width={64}
-                            height={64}
-                          />
-                          <p className="text-lg font-medium">Female</p>
-                        </div>
-                      </RadioGroupItem>
-                    </FormControl>
-                  </FormItem>
+                  {genderItems.map((item) => (
+                    <FormItem
+                      key={item.id}
+                      className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                    >
+                      <FormControl>
+                        <>
+                          <div className="flex justify-between gap-2">
+                            <RadioGroupItem
+                              id={item.id}
+                              value={item.value}
+                              className="order-1 after:absolute after:inset-0"
+                            />
+                            <item.Icon
+                              // className="opacity-60"
+                              size={18}
+                              // strokeWidth={2}
+                              aria-hidden="true"
+                            />
+                          </div>
+                          <FormLabel htmlFor={item.id}>{item.label}</FormLabel>
+                        </>
+                      </FormControl>
+                    </FormItem>
+                  ))}
                 </RadioGroup>
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -147,31 +165,38 @@ const AddChildForm: React.FC<AddChildFormProps> = ({ onCancel }) => {
           name="status"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>Status</FormLabel>
+              <FormLabel>{t.status()}</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="grid grid-cols-2 gap-4 w-full"
+                  className="grid w-full grid-cols-3 gap-4"
                 >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="alive" className="w-full">
-                        <div className="flex items-center gap-4 w-full">
-                          <p className="text-lg font-medium">Alive</p>
-                        </div>
-                      </RadioGroupItem>
-                    </FormControl>
-                  </FormItem>
-                  <FormItem className="flex items-center">
-                    <FormControl>
-                      <RadioGroupItem value="dead" className="w-full">
-                        <div className="flex items-center gap-4">
-                          <p className="text-lg font-medium">Deceased</p>
-                        </div>
-                      </RadioGroupItem>
-                    </FormControl>
-                  </FormItem>
+                  {statusItems.map((item) => (
+                    <FormItem
+                      key={item.id}
+                      className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                    >
+                      <FormControl>
+                        <>
+                          <div className="flex justify-between gap-2">
+                            <RadioGroupItem
+                              id={item.id}
+                              value={item.value}
+                              className="order-1 after:absolute after:inset-0"
+                            />
+                            <item.Icon
+                              // className="opacity-60"
+                              size={18}
+                              // strokeWidth={2}
+                              aria-hidden="true"
+                            />
+                          </div>
+                          <FormLabel htmlFor={item.id}>{item.label}</FormLabel>
+                        </>
+                      </FormControl>
+                    </FormItem>
+                  ))}
                 </RadioGroup>
               </FormControl>
               <FormMessage />
@@ -183,50 +208,29 @@ const AddChildForm: React.FC<AddChildFormProps> = ({ onCancel }) => {
             control={form.control}
             name="dod"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Date of Death</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground",
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
+              <>
+                <FormItem className="flex flex-col gap-2">
+                  <div
+                    className={"flex w-full items-center justify-between gap-2"}
+                  >
+                    <FormLabel>{t.dateOfDeath()}</FormLabel>
+                    <FormMessage />
+                  </div>
+                  <CustomDatePicker
+                    date={field.value}
+                    setDate={field.onChange}
+                  />
+                </FormItem>
+              </>
             )}
           />
         )}
-        <div className="flex justify-end space-x-2">
+        <div className="flex gap-2 rtl:flex-row-reverse rtl:justify-end">
           <Button type="button" variant="outline" onClick={onCancel}>
-            Cancel
+            {t.cancel()}
           </Button>
           <Button type="button" onClick={form.handleSubmit(handleSubmit)}>
-            Add Child
+            {t.addChild()}
           </Button>
         </div>
       </form>

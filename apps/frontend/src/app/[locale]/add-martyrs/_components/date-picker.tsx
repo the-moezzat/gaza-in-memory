@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -17,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FormControl } from "@/components/ui/form";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../_glossary/translator";
 
 interface CustomDatePickerProps {
   date: Date | undefined;
@@ -36,6 +39,8 @@ export default function CustomDatePicker({
   const [selectedMonth, setSelectedMonth] = useState(
     date ? date.getMonth() : new Date().getMonth(),
   );
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   const years = Array.from(
     { length: 100 },
@@ -68,6 +73,10 @@ export default function CustomDatePicker({
     setDate(new Date(selectedYear, newMonth, 1));
   };
 
+  const formattedDate = new Intl.DateTimeFormat(locale, {
+    dateStyle: "full",
+  }).format(date);
+
   return (
     <FormControl>
       <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -81,7 +90,7 @@ export default function CustomDatePicker({
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
+            {date ? formattedDate : <span>{t.pickDate()}</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
@@ -111,7 +120,7 @@ export default function CustomDatePicker({
               <SelectContent>
                 {months.map((month) => (
                   <SelectItem key={month} value={month}>
-                    {month}
+                    {t[month.toLowerCase() as keyof typeof t]()}
                   </SelectItem>
                 ))}
               </SelectContent>

@@ -11,58 +11,62 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/app/[locale]/add-martyrs/_components/rich-text-editor";
 import { useFormContext } from "react-hook-form";
-
-const getNameReplacement = (firstName: string, gender: string) => {
-  if (firstName) return firstName;
-  if (gender === "male") return "him";
-  if (gender === "female") return "her";
-  return "this person";
-};
-
-const createDynamicQuestions = (nameReplacement: string) => [
-  {
-    id: "dream",
-    question: `What was ${nameReplacement}'s biggest dream or aspiration in life?`,
-  },
-  {
-    id: "typical_day",
-    question: `Can you describe a typical day in ${nameReplacement}'s life before the conflict?`,
-  },
-  {
-    id: "hobbies",
-    question: `What were ${nameReplacement}'s favorite hobbies or activities?`,
-  },
-  {
-    id: "contribution",
-    question: `How did ${nameReplacement} contribute to their family or community?`,
-  },
-  {
-    id: "anecdote",
-    question: `Can you share a memorable moment or anecdote that captures ${nameReplacement}'s personality?`,
-  },
-  {
-    id: "legacy",
-    question: `What legacy or message do you think ${nameReplacement} would want to leave behind?`,
-  },
-  {
-    id: "one_thing",
-    question: `If you could tell the world one thing about ${nameReplacement}, what would it be?`,
-  },
-  {
-    id: "passion",
-    question: `Was there a particular cause or issue that ${nameReplacement} was passionate about? (Optional)`,
-  },
-  {
-    id: "inspiration",
-    question: `How did ${nameReplacement} inspire others in their community? (Optional)`,
-  },
-];
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 function Story() {
   const { control, watch, setValue } = useFormContext();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
   const storyType = watch("storyType", "free");
   const firstName = watch("firstName", "");
   const gender = watch("gender", "");
+
+  const createDynamicQuestions = (nameReplacement: string) => [
+    {
+      id: "dream",
+      question: t.questionDream({ name: nameReplacement }),
+    },
+    {
+      id: "typical_day",
+      question: t.questionTypicalDay({ name: nameReplacement }),
+    },
+    {
+      id: "hobbies",
+      question: t.questionHobbies({ name: nameReplacement }),
+    },
+    {
+      id: "contribution",
+      question: t.questionContribution({ name: nameReplacement }),
+    },
+    {
+      id: "anecdote",
+      question: t.questionAnecdote({ name: nameReplacement }),
+    },
+    {
+      id: "legacy",
+      question: t.questionLegacy({ name: nameReplacement }),
+    },
+    {
+      id: "one_thing",
+      question: t.questionOneThing({ name: nameReplacement }),
+    },
+    {
+      id: "passion",
+      question: `${t.questionPassion({ name: nameReplacement })} ${t.optional()}`,
+    },
+    {
+      id: "inspiration",
+      question: `${t.questionInspiration({ name: nameReplacement })} ${t.optional()}`,
+    },
+  ];
+
+  const getNameReplacement = (firstName: string, gender: string) => {
+    if (firstName) return firstName;
+    if (gender === "male") return t.pronounHim();
+    if (gender === "female") return t.pronounHer();
+    return t.pronounPerson();
+  };
 
   const nameReplacement = getNameReplacement(firstName, gender);
   const guidedQuestions = createDynamicQuestions(nameReplacement);
@@ -71,11 +75,12 @@ function Story() {
     <Tabs
       value={storyType}
       onValueChange={(value) => setValue("storyType", value)}
+      dir={locale === "ar" ? "rtl" : "ltr"}
       className="flex w-full flex-col items-center justify-center"
     >
       <TabsList>
-        <TabsTrigger value="free">Free Style</TabsTrigger>
-        <TabsTrigger value="guided">Guided Style</TabsTrigger>
+        <TabsTrigger value="free">{t.freeStyle()}</TabsTrigger>
+        <TabsTrigger value="guided">{t.guidedStyle()}</TabsTrigger>
       </TabsList>
       <TabsContent value="free" className="w-full">
         <FormField
@@ -91,7 +96,7 @@ function Story() {
                   lineSpacing="loose"
                 />
               </FormControl>
-              <FormDescription>Write your story content here.</FormDescription>
+              <FormDescription>{t.writeStoryContent()}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -109,7 +114,7 @@ function Story() {
                 <FormControl>
                   <Textarea
                     {...field}
-                    placeholder="Your answer..."
+                    placeholder={t.yourAnswer()}
                     className="min-h-[100px]"
                   />
                 </FormControl>
@@ -123,13 +128,11 @@ function Story() {
           name="guidedStory.additional"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                Any additional information you&apos;d like to share?
-              </FormLabel>
+              <FormLabel>{t.additionalInfoQuestion()}</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
-                  placeholder="Add any other details you think are important..."
+                  placeholder={t.additionalInfoPlaceholder()}
                   className="min-h-[150px]"
                 />
               </FormControl>

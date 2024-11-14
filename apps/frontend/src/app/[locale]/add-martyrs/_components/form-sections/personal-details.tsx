@@ -13,14 +13,19 @@ import { Switch } from "@/components/ui/switch";
 import ChildSection from "@/app/[locale]/add-martyrs/_components/form-sections/child-section";
 import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker";
 import { FemaleIcon, MaleIcon } from "@/components/icons";
-
-const genderItems = [
-  { id: "radio-11-r1", value: "male", label: "Male", Icon: MaleIcon },
-  { id: "radio-11-r2", value: "female", label: "Female", Icon: FemaleIcon },
-];
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 function PersonalDetails() {
   const { control, watch } = useFormContext();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
+  const genderItems = [
+    { id: "radio-11-r1", value: "male", label: t.male(), Icon: MaleIcon },
+    { id: "radio-11-r2", value: "female", label: t.female(), Icon: FemaleIcon },
+  ];
+
   return (
     <>
       <div className={"grid grid-cols-3 gap-4"}>
@@ -29,9 +34,9 @@ function PersonalDetails() {
           name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>{t.firstName()}</FormLabel>
               <FormControl>
-                <Input placeholder="Mohamed" {...field} />
+                <Input placeholder={t.firstNamePlaceholder()} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -42,9 +47,9 @@ function PersonalDetails() {
           name="middleName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Middle Name</FormLabel>
+              <FormLabel>{t.middleName()}</FormLabel>
               <FormControl>
-                <Input placeholder="Tamim" {...field} />
+                <Input placeholder={t.middleNamePlaceholder()} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -55,9 +60,9 @@ function PersonalDetails() {
           name="lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>{t.lastName()}</FormLabel>
               <FormControl>
-                <Input placeholder="El-Bargothy" {...field} />
+                <Input placeholder={t.lastNamePlaceholder()} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -71,7 +76,7 @@ function PersonalDetails() {
         render={({ field }) => (
           <FormItem className="space-y-2">
             <div className={"flex w-full items-center justify-between gap-2"}>
-              <FormLabel>Gender</FormLabel>
+              <FormLabel>{t.gender()}</FormLabel>
               <FormMessage />
             </div>
             <FormControl>
@@ -150,7 +155,7 @@ function PersonalDetails() {
           render={({ field }) => (
             <FormItem className="flex flex-col gap-2">
               <div className={"flex w-full items-center justify-between gap-2"}>
-                <FormLabel>Date of Birth</FormLabel>
+                <FormLabel>{t.dateOfBirth()}</FormLabel>
                 <FormMessage />
               </div>
               <CustomDatePicker date={field.value} setDate={field.onChange} />
@@ -164,11 +169,11 @@ function PersonalDetails() {
           render={({ field }) => (
             <FormItem className={"flex flex-col gap-2"}>
               <div className={"flex w-full items-center justify-between gap-2"}>
-                <FormLabel>City</FormLabel>
+                <FormLabel>{t.city()}</FormLabel>
                 <FormMessage />
               </div>
               <FormControl>
-                <Input placeholder="Khan Younes" {...field} />
+                <Input placeholder={t.cityPlaceholder()} {...field} />
               </FormControl>
             </FormItem>
           )}
@@ -182,7 +187,7 @@ function PersonalDetails() {
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between">
               <div className="space-y-0.5">
-                <FormLabel className="text-base">Is he married?</FormLabel>
+                <FormLabel className="text-base">{t.isMarried()}</FormLabel>
               </div>
               <FormControl>
                 <Switch
@@ -207,11 +212,14 @@ function PersonalDetails() {
                         "flex w-full items-center justify-between gap-2"
                       }
                     >
-                      <FormLabel>Spouse First Name</FormLabel>
+                      <FormLabel>{t.spouseFirstName()}</FormLabel>
                       <FormMessage />
                     </div>
                     <FormControl>
-                      <Input placeholder="Fatima" {...field} />
+                      <Input
+                        placeholder={t.spouseFirstNamePlaceholder()}
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -227,11 +235,14 @@ function PersonalDetails() {
                         "flex w-full items-center justify-between gap-2"
                       }
                     >
-                      <FormLabel>Spouse Family Name</FormLabel>
+                      <FormLabel>{t.spouseFamilyName()}</FormLabel>
                       <FormMessage />
                     </div>
                     <FormControl>
-                      <Input placeholder="Hussien" {...field} />
+                      <Input
+                        placeholder={t.spouseLastNamePlaceholder()}
+                        {...field}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -239,7 +250,7 @@ function PersonalDetails() {
             </div>
             <div className={"flex w-full flex-col items-center gap-4"}>
               <h4 className={"self-start font-medium text-gray-800"}>
-                Are they have child?
+                {t.haveChildren()}
               </h4>
               <ChildSection />
             </div>

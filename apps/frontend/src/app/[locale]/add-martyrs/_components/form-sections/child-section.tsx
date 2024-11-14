@@ -10,10 +10,14 @@ import {
 import { Calendar, CalendarX, Plus, Trash } from "lucide-react";
 import { useChildStore } from "@/app/[locale]/add-martyrs/_store/childStore";
 import AddChildForm from "./add-child";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 const AddChildSection: React.FC = () => {
   const { children, removeChild } = useChildStore();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -34,31 +38,32 @@ const AddChildSection: React.FC = () => {
         {children.map((child) => (
           <div
             key={child.id}
-            className="p-4 border rounded-xl flex items-center justify-between gap-8 "
+            className="flex items-center justify-between gap-8 rounded-xl border p-4"
           >
             <div>
-              <div className="flex gap-2 items-center">
+              <div className="flex items-center gap-2">
                 <h4 className="text-lg font-semibold">{child.name}</h4>
                 <div className="flex items-center gap-1">
                   <span
-                    className={`w-2 h-2 rounded-full ${getStatusColor(child.status)}`}
+                    className={`h-2 w-2 rounded-full ${getStatusColor(child.status)}`}
                   ></span>
                   <p className="text-sm text-gray-500">
-                    {child.status.charAt(0).toUpperCase() +
-                      child.status.slice(1)}
+                    {t[child.status as "alive" | "dead" | "wounded"]()}
                   </p>
                 </div>
               </div>
               <div className={"flex gap-6"}>
-                <p className="text-gray-600 text-sm flex flex-col">
-                  {/*<Calendar size={16} />*/}
-                  <span className={"text-sm text-gray-500"}>Age:</span>
-                  <span>{child.age} Years old</span>
+                <p className="flex flex-col text-sm text-gray-600">
+                  <span className={"text-sm text-gray-500"}>{t.age()}:</span>
+                  <span>
+                    {child.age} {t.yearsOld()}
+                  </span>
                 </p>
                 {child.status === "dead" && child.dod && (
-                  <p className="text-gray-600 text-sm flex flex-col">
-                    {/*<CalendarX size={16} />*/}
-                    <span className={"text-sm text-gray-500"}>Death date:</span>
+                  <p className="flex flex-col text-sm text-gray-600">
+                    <span className={"text-sm text-gray-500"}>
+                      {t.deathDate()}:
+                    </span>
                     <span>{child.dod.toLocaleDateString()}</span>
                   </p>
                 )}
@@ -81,14 +86,14 @@ const AddChildSection: React.FC = () => {
           <Button
             type="button"
             variant="outline"
-            className="border-dashed py-8 px-24 rounded-lg"
+            className="rounded-lg border-dashed px-24 py-8"
           >
-            <Plus className="mr-2 h-4 w-4" /> Add Child
+            <Plus className="mr-2 h-4 w-4" /> {t.addChild()}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add a new Child</DialogTitle>
+            <DialogTitle>{t.addNewChild()}</DialogTitle>
           </DialogHeader>
           <AddChildForm onCancel={() => setIsDialogOpen(false)} />
         </DialogContent>
