@@ -5,7 +5,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Popover,
   PopoverContent,
@@ -14,60 +13,71 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { Bomb, CalendarIcon, Car, GuitarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { useFormContext } from "react-hook-form";
 import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Brush, Eraser, Scissors, SwatchBook } from "lucide-react";
+
+const statusItems = [
+  { id: "radio-11-r1", value: "wounded", label: "Wounded", Icon: SwatchBook },
+  { id: "radio-11-r2", value: "dead", label: "Dead", Icon: Brush },
+  { id: "radio-11-r3", value: "alive", label: "Alive", Icon: Eraser },
+];
+
+const causeItems = [
+  { id: "radio-11-r1", value: "bomb", label: "Bomb", Icon: Bomb },
+  { id: "radio-11-r2", value: "tank", label: "Tank", Icon: Car },
+  { id: "radio-11-r3", value: "bullet", label: "Bullet", Icon: GuitarIcon },
+  { id: "radio-11-r4", value: "other", label: "Other", Icon: Scissors },
+];
 
 function Status() {
   const { control, watch } = useFormContext();
   return (
-    <>
+    <section className="space-y-6">
       <FormField
         control={control}
         name="status"
         render={({ field }) => (
           <FormItem className="space-y-2">
-            <div className={"flex gap-2 items-center justify-between w-full"}>
+            <div className={"flex w-full items-center justify-between gap-2"}>
               <FormLabel> what is the current status? </FormLabel>
               <FormMessage />
             </div>
             <FormControl>
               <RadioGroup
+                className="grid-cols-3"
                 onValueChange={field.onChange}
                 defaultValue={field.value}
-                className="grid grid-cols-3 gap-4 w-full"
               >
-                <FormItem className="flex items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <RadioGroupItem value="alive" className={"w-full"}>
-                      <div className={"flex items-center gap-4 w-full"}>
-                        <p className={"text-lg font-medium "}>Alive</p>
-                      </div>
-                    </RadioGroupItem>
-                  </FormControl>
-                  <FormLabel className="font-normal sr-only">Alive</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center">
-                  <FormControl>
-                    <RadioGroupItem value="dead" className={"w-full"}>
-                      <div className={"flex items-center gap-4"}>
-                        <p className={"text-lg font-medium "}>Dead</p>
-                      </div>
-                    </RadioGroupItem>
-                  </FormControl>
-                  <FormLabel className="font-normal sr-only">Dead</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center">
-                  <FormControl>
-                    <RadioGroupItem value="wounded" className={"w-full"}>
-                      <div className={"flex items-center gap-4"}>
-                        <p className={"text-lg font-medium "}>Wounded</p>
-                      </div>
-                    </RadioGroupItem>
-                  </FormControl>
-                  <FormLabel className="font-normal sr-only">Wounded</FormLabel>
-                </FormItem>
+                {statusItems.map((item) => (
+                  <FormItem
+                    key={item.id}
+                    className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                  >
+                    <FormControl>
+                      <>
+                        <div className="flex justify-between gap-2">
+                          <RadioGroupItem
+                            id={item.id}
+                            value={item.value}
+                            className="order-1 after:absolute after:inset-0"
+                          />
+                          <item.Icon
+                            className="opacity-60"
+                            size={16}
+                            strokeWidth={2}
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <FormLabel htmlFor={item.id}>{item.label}</FormLabel>
+                      </>
+                    </FormControl>
+                  </FormItem>
+                ))}
               </RadioGroup>
             </FormControl>
           </FormItem>
@@ -80,9 +90,9 @@ function Status() {
             control={control}
             name="dod"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-2 max-w-[240px]">
+              <FormItem className="flex max-w-[240px] flex-col gap-2">
                 <div
-                  className={"flex gap-2 items-center justify-between w-full"}
+                  className={"flex w-full items-center justify-between gap-2"}
                 >
                   <FormLabel>Date of Death</FormLabel>
                   <FormMessage />
@@ -98,7 +108,7 @@ function Status() {
             render={({ field }) => (
               <FormItem className="space-y-2">
                 <div
-                  className={"flex gap-2 items-center justify-between w-full"}
+                  className={"flex w-full items-center justify-between gap-2"}
                 >
                   <FormLabel> what is the cause of dead? </FormLabel>
                   <FormMessage />
@@ -107,92 +117,35 @@ function Status() {
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="grid grid-cols-4 gap-4 w-full"
+                    className="grid w-full grid-cols-4 gap-4"
                   >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="bomb" className={"w-full"}>
-                          <div
-                            className={"flex items-start gap-1 w-full flex-col"}
-                          >
-                            <h4 className={"text-lg font-medium "}>Bomb</h4>
-                            <p>
-                              <span
-                                className={"text-base text-muted-foreground"}
-                              >
-                                Explosive device
-                              </span>
-                            </p>
-                          </div>
-                        </RadioGroupItem>
-                      </FormControl>
-                      <FormLabel className="font-normal sr-only">
-                        Bomb
-                      </FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center">
-                      <FormControl>
-                        <RadioGroupItem value="tank" className={"w-full"}>
-                          <div
-                            className={"flex items-start gap-1 w-full flex-col"}
-                          >
-                            <h4 className={"text-lg font-medium "}>Tank</h4>
-                            <p>
-                              <span
-                                className={"text-base text-muted-foreground"}
-                              >
-                                Military vehicle
-                              </span>
-                            </p>
-                          </div>
-                        </RadioGroupItem>
-                      </FormControl>
-                      <FormLabel className="font-normal sr-only">
-                        Tank
-                      </FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center">
-                      <FormControl>
-                        <RadioGroupItem value="bullet" className={"w-full"}>
-                          <div
-                            className={"flex items-start gap-1 w-full flex-col"}
-                          >
-                            <h4 className={"text-lg font-medium "}>Bullet</h4>
-                            <p>
-                              <span
-                                className={"text-base text-muted-foreground"}
-                              >
-                                Projectile
-                              </span>
-                            </p>
-                          </div>
-                        </RadioGroupItem>
-                      </FormControl>
-                      <FormLabel className="font-normal sr-only">
-                        Bullet
-                      </FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center">
-                      <FormControl>
-                        <RadioGroupItem value="other" className={"w-full"}>
-                          <div
-                            className={"flex items-start gap-1 w-full flex-col"}
-                          >
-                            <h4 className={"text-lg font-medium "}>Other</h4>
-                            <p>
-                              <span
-                                className={"text-base text-muted-foreground"}
-                              >
-                                Different cause
-                              </span>
-                            </p>
-                          </div>
-                        </RadioGroupItem>
-                      </FormControl>
-                      <FormLabel className="font-normal sr-only">
-                        Other
-                      </FormLabel>
-                    </FormItem>
+                    {causeItems.map((item) => (
+                      <FormItem
+                        key={item.id}
+                        className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                      >
+                        <FormControl>
+                          <>
+                            <div className="flex justify-between gap-2">
+                              <RadioGroupItem
+                                id={item.id}
+                                value={item.value}
+                                className="order-1 after:absolute after:inset-0"
+                              />
+                              <item.Icon
+                                className="opacity-60"
+                                size={16}
+                                strokeWidth={2}
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <FormLabel htmlFor={item.id}>
+                              {item.label}
+                            </FormLabel>
+                          </>
+                        </FormControl>
+                      </FormItem>
+                    ))}
                   </RadioGroup>
                 </FormControl>
               </FormItem>
@@ -200,7 +153,7 @@ function Status() {
           />
         </>
       )}
-    </>
+    </section>
   );
 }
 

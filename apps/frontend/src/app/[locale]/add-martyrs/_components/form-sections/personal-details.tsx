@@ -12,6 +12,12 @@ import { useFormContext } from "react-hook-form";
 import { Switch } from "@/components/ui/switch";
 import ChildSection from "@/app/[locale]/add-martyrs/_components/form-sections/child-section";
 import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker";
+import { FemaleIcon, MaleIcon } from "@/components/icons";
+
+const genderItems = [
+  { id: "radio-11-r1", value: "male", label: "Male", Icon: MaleIcon },
+  { id: "radio-11-r2", value: "female", label: "Female", Icon: FemaleIcon },
+];
 
 function PersonalDetails() {
   const { control, watch } = useFormContext();
@@ -64,7 +70,7 @@ function PersonalDetails() {
         name="gender"
         render={({ field }) => (
           <FormItem className="space-y-2">
-            <div className={"flex gap-2 items-center justify-between w-full"}>
+            <div className={"flex w-full items-center justify-between gap-2"}>
               <FormLabel>Gender</FormLabel>
               <FormMessage />
             </div>
@@ -72,23 +78,48 @@ function PersonalDetails() {
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
-                className="grid grid-cols-2 gap-4 w-full"
+                className="grid w-full grid-cols-2 gap-4"
               >
-                <FormItem className="flex items-center space-x-3 space-y-0">
+                {genderItems.map((item) => (
+                  <FormItem
+                    key={item.id}
+                    className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                  >
+                    <FormControl>
+                      <>
+                        <div className="flex justify-between gap-2">
+                          <RadioGroupItem
+                            id={item.id}
+                            value={item.value}
+                            className="order-1 after:absolute after:inset-0"
+                          />
+                          <item.Icon
+                            // className="opacity-60"
+                            size={18}
+                            // strokeWidth={2}
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <FormLabel htmlFor={item.id}>{item.label}</FormLabel>
+                      </>
+                    </FormControl>
+                  </FormItem>
+                ))}
+                {/* <FormItem className="flex items-center space-x-3 space-y-0">
                   <FormControl>
                     <RadioGroupItem value="male" className={"w-full"}>
-                      <div className={"flex items-center gap-4 w-full"}>
+                      <div className={"flex w-full items-center gap-4"}>
                         <Image
                           src={"/illustrations/male.svg"}
                           alt={"Male illustrator"}
                           width={64}
                           height={64}
                         />
-                        <p className={"text-lg font-medium "}>Male</p>
+                        <p className={"text-lg font-medium"}>Male</p>
                       </div>
                     </RadioGroupItem>
                   </FormControl>
-                  <FormLabel className="font-normal sr-only">Male</FormLabel>
+                  <FormLabel className="sr-only font-normal">Male</FormLabel>
                 </FormItem>
                 <FormItem className="flex items-center">
                   <FormControl>
@@ -100,25 +131,25 @@ function PersonalDetails() {
                           width={64}
                           height={64}
                         />
-                        <p className={"text-lg font-medium "}>Female</p>
+                        <p className={"text-lg font-medium"}>Female</p>
                       </div>
                     </RadioGroupItem>
                   </FormControl>
-                  <FormLabel className="font-normal sr-only">Female</FormLabel>
-                </FormItem>
+                  <FormLabel className="sr-only font-normal">Female</FormLabel>
+                </FormItem> */}
               </RadioGroup>
             </FormControl>
           </FormItem>
         )}
       />
 
-      <div className={"grid grid-cols-2 gap-4 items-center"}>
+      <div className={"grid grid-cols-2 items-center gap-4"}>
         <FormField
           control={control}
           name="dob"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-2">
-              <div className={"flex gap-2 items-center justify-between w-full"}>
+              <div className={"flex w-full items-center justify-between gap-2"}>
                 <FormLabel>Date of Birth</FormLabel>
                 <FormMessage />
               </div>
@@ -132,7 +163,7 @@ function PersonalDetails() {
           name="city"
           render={({ field }) => (
             <FormItem className={"flex flex-col gap-2"}>
-              <div className={"flex gap-2 items-center justify-between w-full"}>
+              <div className={"flex w-full items-center justify-between gap-2"}>
                 <FormLabel>City</FormLabel>
                 <FormMessage />
               </div>
@@ -144,7 +175,7 @@ function PersonalDetails() {
         />
       </div>
 
-      <div className={"rounded-lg border p-4 flex flex-col gap-4"}>
+      <div className={"flex flex-col gap-4 rounded-lg border p-4"}>
         <FormField
           control={control}
           name="married"
@@ -173,7 +204,7 @@ function PersonalDetails() {
                   <FormItem className="flex flex-col gap-2">
                     <div
                       className={
-                        "flex gap-2 items-center justify-between w-full"
+                        "flex w-full items-center justify-between gap-2"
                       }
                     >
                       <FormLabel>Spouse First Name</FormLabel>
@@ -193,7 +224,7 @@ function PersonalDetails() {
                   <FormItem className="flex flex-col gap-2">
                     <div
                       className={
-                        "flex gap-2 items-center justify-between w-full"
+                        "flex w-full items-center justify-between gap-2"
                       }
                     >
                       <FormLabel>Spouse Family Name</FormLabel>
@@ -206,8 +237,8 @@ function PersonalDetails() {
                 )}
               />
             </div>
-            <div className={"flex gap-4 w-full flex-col items-center"}>
-              <h4 className={"font-medium text-gray-800 self-start"}>
+            <div className={"flex w-full flex-col items-center gap-4"}>
+              <h4 className={"self-start font-medium text-gray-800"}>
                 Are they have child?
               </h4>
               <ChildSection />

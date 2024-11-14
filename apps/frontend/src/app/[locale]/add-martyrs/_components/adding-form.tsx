@@ -8,7 +8,7 @@ import LifeTimeline from "@/app/[locale]/add-martyrs/_components/life-timeline";
 
 export function AddingForm() {
   return (
-    <div className="space-y-8">
+    <div className="mb-24 space-y-8">
       <Section title={"Personal Details"}>
         <PersonalDetails />
       </Section>
@@ -45,8 +45,8 @@ function Section({
 }) {
   return (
     <section className={"space-y-4"}>
-      <h2 className={"text-gray-800 text-xl font-medium"}>{title}</h2>
-      <div className={"border rounded-xl p-4 space-y-6"}>{children}</div>
+      <h2 className={"text-xl font-medium text-gray-800"}>{title}</h2>
+      <div className={"space-y-6 rounded-xl border p-4"}>{children}</div>
     </section>
   );
 }

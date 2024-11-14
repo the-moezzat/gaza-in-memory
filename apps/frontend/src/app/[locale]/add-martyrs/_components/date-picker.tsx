@@ -85,7 +85,7 @@ export default function CustomDatePicker({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <div className="flex space-x-2 p-3">
+          <div className="flex items-center justify-between gap-2 p-3">
             <Select
               onValueChange={handleYearChange}
               value={selectedYear.toString()}

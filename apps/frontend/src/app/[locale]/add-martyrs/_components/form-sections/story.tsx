@@ -71,7 +71,7 @@ function Story() {
     <Tabs
       value={storyType}
       onValueChange={(value) => setValue("storyType", value)}
-      className="w-full items-center flex flex-col justify-center"
+      className="flex w-full flex-col items-center justify-center"
     >
       <TabsList>
         <TabsTrigger value="free">Free Style</TabsTrigger>

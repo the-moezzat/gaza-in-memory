@@ -119,16 +119,17 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
           <LanguageSwitcher />
 
           <SignedIn>
-            <Link href={`/${locale}/add-martyrs`}>
-              <Button
-                variant="outline"
-                size="sm"
-                className="hidden items-center gap-2 sm:flex"
-              >
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden items-center gap-2 sm:flex"
+              asChild
+            >
+              <Link href={`/${locale}/add-martyrs`}>
                 <Plus size={16} />
                 <span>{t.addPerson()}</span>
-              </Button>
-            </Link>
+              </Link>
+            </Button>
             <UserButton />
           </SignedIn>
 
@@ -216,16 +217,17 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
                 </SignInButton>
               </SignedOut>
               <SignedIn>
-                <Link href={`/${locale}/add-martyrs`}>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex w-full items-center justify-center gap-2"
-                  >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex w-full items-center justify-center gap-2"
+                  asChild
+                >
+                  <Link href={`/${locale}/add-martyrs`}>
                     <Plus size={16} />
                     <span>{t.addPerson()}</span>
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </SignedIn>
             </li>
           </ul>

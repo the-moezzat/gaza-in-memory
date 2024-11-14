@@ -1,3 +1,4 @@
+"use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { useEditor, EditorContent, Extension } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -54,6 +55,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 });
 
   const editor = useEditor({
+    // immediatelyRender: false,
     extensions: [
       StarterKit,
       Underline,
@@ -77,6 +79,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         class: `prose max-w-none min-h-64 focus:outline-none font-size-${fontSize}`,
       },
     },
+    immediatelyRender: false,
   });
 
   useEffect(() => {
@@ -126,8 +129,8 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   };
 
   return (
-    <div className="border rounded-md p-2">
-      <div className="flex flex-wrap gap-2 mb-2 py-1 border-b">
+    <div className="rounded-md border p-2">
+      <div className="mb-2 flex flex-wrap gap-2 border-b py-1">
         <Toggle
           pressed={editor.isActive("bold")}
           onPressedChange={() => editor.chain().focus().toggleBold().run()}
@@ -166,7 +169,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               <LinkIcon className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-80 p-2 rounded-lg">
+          <PopoverContent className="w-80 rounded-lg p-2">
             <div className="flex gap-2">
               <Input
                 type="url"
@@ -244,15 +247,15 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <SelectContent>
             <SelectItem value="paragraph">Normal</SelectItem>
             <SelectItem value="heading-1">
-              <Heading1 className="h-4 w-4 inline mr-2" />
+              <Heading1 className="mr-2 inline h-4 w-4" />
               Heading 1
             </SelectItem>
             <SelectItem value="heading-2">
-              <Heading2 className="h-4 w-4 inline mr-2" />
+              <Heading2 className="mr-2 inline h-4 w-4" />
               Heading 2
             </SelectItem>
             <SelectItem value="heading-3">
-              <Heading3 className="h-4 w-4 inline mr-2" />
+              <Heading3 className="mr-2 inline h-4 w-4" />
               Heading 3
             </SelectItem>
           </SelectContent>
