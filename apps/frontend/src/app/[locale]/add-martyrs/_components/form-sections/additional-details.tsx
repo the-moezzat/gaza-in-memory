@@ -35,10 +35,10 @@ function AdditionalDetailsSection() {
                 <FormLabel className="capitalize">
                   {t[
                     platform as
-                      | "platformFacebook"
-                      | "platformTwitter"
-                      | "platformInstagram"
-                      | "platformLinkedin"
+                      | "facebook"
+                      | "twitter"
+                      | "instagram"
+                      | "linkedin"
                   ]()}
                 </FormLabel>
                 <FormControl>
