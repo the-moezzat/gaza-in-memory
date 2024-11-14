@@ -15,7 +15,7 @@ function AdditionalDetailsSection() {
   const { control } = useFormContext<AddPersonFormValues>();
 
   return (
-    <div className="grid grid-cols-[1fr,auto,1fr] gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr,auto,1fr]">
       <div className="space-y-2">
         <h3 className="text-lg font-medium">Social Media Links</h3>
         {["facebook", "twitter", "instagram", "linkedin"].map((platform) => (
@@ -39,7 +39,7 @@ function AdditionalDetailsSection() {
         ))}
       </div>
 
-      <div className={"h-full w-0.5 bg-gray-100"} />
+      <div className={"h-full w-0.5 bg-gray-100 md:hidden"} />
 
       <div className="space-y-2">
         <h3 className="text-lg font-medium">Interests and Hobbies</h3>

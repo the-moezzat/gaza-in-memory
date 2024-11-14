@@ -27,7 +27,7 @@ export default function CopyLink() {
     <div className="flex gap-2">
       <Input
         dir="ltr"
-        placeholder="https://www.gazainmemory.tech/en/in-memory/123"
+        placeholder={t.copyLinkPlaceholder()}
         value={`https://www.gazainmemory.tech/${locale}/in-memory/${martyrId}`}
         disabled
       />
@@ -36,11 +36,11 @@ export default function CopyLink() {
           copyToClipboard(
             `https://www.gazainmemory.tech/${locale}/in-memory/${martyrId}`,
           );
-          toast.success("Text copied to clipboard");
+          toast.success(t.copySuccess());
           setIsCopied(true);
         }}
       >
-        {isCopied ? "Copied" : "Copy link"}
+        {isCopied ? t.copied() : t.copyLink()}
       </Button>
     </div>
   );

@@ -92,4 +92,32 @@ export type Definition = {
   memoryUpdatedSuccessToast: undefined;
   memoryUpdateFailedToast: undefined;
   memoryUpdateLoadingToast: undefined;
+
+  // Share component strings
+  shareDialogTitle: undefined;
+  shareDialogDescription: undefined;
+  shareTitle: [{ name: string }];
+  shareText: [{ name: string }];
+  shareText: undefined;
+  shareTitle: undefined;
+
+  // Share content strings
+  shareOrDirectly: undefined;
+  shareVia: undefined;
+  socialPlatform: [{ platform: string }];
+  socialPlatform: undefined;
+
+  // Copy link strings
+  copyLink: undefined;
+  copied: undefined;
+  copySuccess: undefined;
+  copyLinkPlaceholder: undefined;
+
+  // social media platforms
+  facebook: undefined;
+  instagram: undefined;
+  linkedin: undefined;
+  twitter: undefined;
+  whatsapp: undefined;
+  telegram: undefined;
 };

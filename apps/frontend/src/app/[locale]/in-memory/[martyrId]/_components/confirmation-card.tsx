@@ -46,7 +46,7 @@ export default function ConfirmationCard({ martyr }: ConfirmationCardProps) {
               {/* {martyr.first_name}&apos;s */}
             </h3>
             <span className="sr-only">learn more</span>
-            <ChevronRight />
+            <ChevronRight className="rtl:rotate-180" />
           </div>
         </DrawerTrigger>
         <DrawerContent className="px-">

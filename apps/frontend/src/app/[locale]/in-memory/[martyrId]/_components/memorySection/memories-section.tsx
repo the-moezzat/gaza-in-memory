@@ -66,7 +66,7 @@ export default async function TestimonialSection({
                 <ShareMemoryButton martyrName={martyrName} />
               )}
 
-              <div className="flex items-center gap-2 rtl:flex-row-reverse">
+              <div className="flex items-center gap-2">
                 <CarouselPrevious className="relative inset-0 -translate-y-0" />
                 <CarouselNext className="relative inset-0 -translate-y-0" />
               </div>

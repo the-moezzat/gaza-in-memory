@@ -36,7 +36,7 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
             {t.interests({ name: martyr.first_name })}
           </h2>
 
-          <div className="flex items-center gap-2 rtl:flex-row-reverse">
+          <div className="flex items-center gap-2">
             <CarouselPrevious className="relative inset-0 -translate-y-0" />
             <CarouselNext className="relative inset-0 -translate-y-0" />
           </div>

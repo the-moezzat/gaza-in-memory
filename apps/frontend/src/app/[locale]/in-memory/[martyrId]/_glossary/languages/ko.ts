@@ -83,5 +83,22 @@ export const translations_KO = createTranslation<Definition>({
   saveEdits: "saveEdits_ko",
   memoryUpdatedSuccessToast: "memoryUpdatedSuccessToast_ko",
   memoryUpdateFailedToast: "memoryUpdateFailedToast_ko",
-  memoryUpdateLoadingToast: "memoryUpdateLoadingToast_ko"
+  memoryUpdateLoadingToast: "memoryUpdateLoadingToast_ko",
+  shareDialogTitle: "shareDialogTitle_ko",
+  shareDialogDescription: "shareDialogDescription_ko",
+  shareText: "shareText_ko",
+  shareTitle: "shareTitle_ko",
+  shareOrDirectly: "shareOrDirectly_ko",
+  shareVia: "shareVia_ko",
+  socialPlatform: "socialPlatform_ko",
+  copyLink: "copyLink_ko",
+  copied: "copied_ko",
+  copySuccess: "copySuccess_ko",
+  copyLinkPlaceholder: "copyLinkPlaceholder_ko",
+  facebook: "facebook_ko",
+  instagram: "instagram_ko",
+  linkedin: "linkedin_ko",
+  twitter: "twitter_ko",
+  whatsapp: "whatsapp_ko",
+  telegram: "telegram_ko"
 });

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { socialMediaIconsMapper } from "@/utils/socialMediaIconsMapper";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 const socialMediaPlatforms = [
   "linkedin",
@@ -16,17 +18,16 @@ const socialMediaPlatforms = [
 
 type SocialMediaPlatform = (typeof socialMediaPlatforms)[number];
 
-const ShareContent = ({
-  className,
-  title,
-  text,
-  url,
-}: {
-  className?: string;
+type ShareContentProps = {
+  url: string;
   title?: string;
   text?: string;
-  url: string;
-}) => {
+};
+
+export default function ShareContent({ url, title, text }: ShareContentProps) {
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -34,8 +35,8 @@ const ShareContent = ({
   }, []);
 
   const shareData = {
-    title: title || "Share this content",
-    text: text || "Check out this content",
+    title: title || t.shareTitle({ name: "" }),
+    text: text || t.shareText({ name: "" }),
     url,
   };
 
@@ -88,13 +89,13 @@ const ShareContent = ({
   };
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className="space-y-4">
       <CopyLink />
 
       <div className="grid w-full grid-cols-[1fr,auto,1fr] items-center justify-center gap-4">
         <Separator orientation="horizontal" className="h-[1px] w-full" />
         <h4 className="text-center text-sm text-gray-500">
-          Or directly share on
+          {t.shareOrDirectly()}
         </h4>
         <Separator orientation="horizontal" className="h-[1px] w-full" />
       </div>
@@ -108,7 +109,7 @@ const ShareContent = ({
             onClick={() => handleShare(platform)}
           >
             {socialMediaIconsMapper(platform, 18)}
-            {platform}
+            {t[platform as keyof typeof t]()}
           </Button>
         ))}
         {isClient && canNativeShare() && (
@@ -117,12 +118,10 @@ const ShareContent = ({
             className="col-span-2 w-full"
             onClick={handleNativeShare}
           >
-            Share via...
+            {t.shareVia()}
           </Button>
         )}
       </div>
     </div>
   );
-};
-
-export default ShareContent;
+}

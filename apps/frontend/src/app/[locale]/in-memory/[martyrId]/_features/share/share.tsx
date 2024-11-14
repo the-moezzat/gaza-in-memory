@@ -24,13 +24,13 @@ export default function Share({ martyr }: { martyr: Martyr }) {
             {t.share()}
           </Button>
         }
-        title="Spread the story"
-        description="Let the world know about this story."
+        title={t.shareDialogTitle()}
+        description={t.shareDialogDescription()}
       >
         <ShareContent
           url={martyrLink}
-          title={`Remember ${martyr.first_name}`}
-          text={`Learn about ${martyr.first_name}'s story and legacy`}
+          title={t.shareTitle({ name: martyr.first_name })}
+          text={t.shareText({ name: martyr.first_name })}
         />
       </ResponsiveDialogDrawer>
     </div>

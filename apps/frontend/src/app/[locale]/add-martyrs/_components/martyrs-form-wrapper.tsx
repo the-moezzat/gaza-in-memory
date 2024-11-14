@@ -13,17 +13,21 @@ export default function MartyrsFormWrapper() {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-[9fr,25fr] gap-4"
+        className="grid grid-cols-1 gap-4 md:grid-cols-[9fr,25fr]"
       >
-        <div className="sticky top-4 self-start space-y-8">
+        <div className="top-4 space-y-8 self-start md:sticky">
           <MartyrsImageUploader />
 
-          <div className={"flex gap-2 items-center"}>
+          <div
+            className={
+              "z-50 flex items-center gap-2 max-md:fixed max-md:bottom-4 max-md:left-4 max-md:right-4 max-md:rounded-xl max-md:bg-white max-md:p-4 max-md:shadow-md md:flex-col lg:flex-row"
+            }
+          >
             <Button
               type="submit"
               size={"lg"}
               variant={"default"}
-              className={"w-full flex-grow"}
+              className={"w-full flex-grow md:px-4 lg:px-8"}
               disabled={!form.formState.isValid}
             >
               Add
@@ -32,7 +36,7 @@ export default function MartyrsFormWrapper() {
               type="button"
               size={"lg"}
               variant={"outline"}
-              className={""}
+              className={"md:w-full md:px-4 lg:w-fit lg:px-8"}
             >
               Save as Draft
             </Button>

@@ -27,7 +27,7 @@ function MartyrsImageUploader() {
     setValue("profileImage", null);
     // Reset the file input
     const fileInput = document.getElementById(
-      "martyrs-image"
+      "martyrs-image",
     ) as HTMLInputElement;
     if (fileInput) {
       fileInput.value = "";
@@ -41,7 +41,7 @@ function MartyrsImageUploader() {
       render={({ field }) => (
         <FormItem>
           <div className="flex flex-col items-center">
-            <div className="relative w-72 h-72 rounded-full">
+            <div className="relative aspect-square w-full max-w-48 rounded-full md:w-full md:max-w-72">
               <Image
                 src={
                   profileImage
@@ -50,7 +50,7 @@ function MartyrsImageUploader() {
                 }
                 alt={profileImage ? "Selected image" : "Placeholder image"}
                 fill
-                className="object-cover rounded-full"
+                className="rounded-full object-cover"
               />
             </div>
             <Input
@@ -60,11 +60,11 @@ function MartyrsImageUploader() {
               accept="image/*"
               onChange={handleImageChange}
             />
-            <div className={"flex items-center -translate-y-1/2 gap-2"}>
+            <div className={"flex -translate-y-1/2 items-center gap-2"}>
               <Button
                 variant="outline"
                 type="button"
-                className="cursor-pointer drop-shadow-md rounded-xl outline-0 border-0 px-6 py-2"
+                className="cursor-pointer rounded-xl border-0 px-6 py-2 outline-0 drop-shadow-md"
                 asChild
               >
                 <label
@@ -77,7 +77,7 @@ function MartyrsImageUploader() {
                     stroke="#fff"
                     strokeWidth={1.5}
                   />
-                  <span>{profileImage ? "Change" : "Add"}</span>
+                  <span>{profileImage ? "Change" : "Add Image"}</span>
                 </label>
               </Button>
 
