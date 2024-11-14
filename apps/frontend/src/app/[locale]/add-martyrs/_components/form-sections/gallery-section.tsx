@@ -19,9 +19,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { toast } from "sonner";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 const GallerySection = () => {
   const { control, setValue, watch } = useFormContext();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
   const files: File[] = useMemo(
     () => watch("gallery") || [],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,12 +36,12 @@ const GallerySection = () => {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (files.length + acceptedFiles.length > 5) {
-        toast.error("You can only upload a maximum of 5 images.");
+        toast.error(t.maxImagesError());
         return;
       }
       setValue("gallery", [...files, ...acceptedFiles]);
     },
-    [files, setValue],
+    [files, setValue, t],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -48,16 +53,14 @@ const GallerySection = () => {
       if (
         rejectedFiles.some((file) => file.errors[0]?.code === "too-many-files")
       ) {
-        toast.error("You can only upload a maximum of 5 images.");
+        toast.error(t.maxImagesError());
       } else if (
         rejectedFiles.some((file) => file.errors[0]?.code === "file-too-large")
       ) {
-        toast.error(
-          "One or more files are too large. Maximum file size is 5MB.",
-        );
+        toast.error(t.maxFileSizeError());
       }
     },
-    disabled: files.length >= 5, // Disable dropzone if 5 or more files
+    disabled: files.length >= 5,
   });
 
   const removeImage = (index: number) => {
@@ -72,7 +75,6 @@ const GallerySection = () => {
       name="gallery"
       render={({ field }) => (
         <FormItem className="space-y-4">
-          {/* Preview Area */}
           {files.length > 0 && (
             <div className="relative w-full">
               <Carousel className="w-full overflow-hidden rounded-md">
@@ -110,12 +112,12 @@ const GallerySection = () => {
                 <CarouselNext className="right-2" type="button" />
               </Carousel>
               <div className="absolute left-4 top-2 z-10 rounded bg-black bg-opacity-50 px-2 py-1 text-white">
-                {files.length} image{files.length !== 1 ? "s" : ""}
+                {t.imageCount({ count: files.length })}{" "}
+                {files.length === 1 ? t.imageSingular() : t.imagePlural()}
               </div>
             </div>
           )}
 
-          {/* Dropzone */}
           <div
             {...getRootProps()}
             className={`cursor-pointer rounded-md border border-dashed p-8 text-center ${
@@ -124,13 +126,11 @@ const GallerySection = () => {
           >
             <input {...getInputProps()} />
             {isDragActive ? (
-              <p>Drop the files here ...</p>
+              <p>{t.dropzoneTextActive()}</p>
+            ) : files.length >= 5 ? (
+              <p>{t.dropzoneTextDisabled()}</p>
             ) : (
-              <p>
-                {files.length >= 5
-                  ? "Maximum number of images reached (5)"
-                  : `Drag and drop some files here, or click to select files (Limit: 5 images)`}
-              </p>
+              <p>{t.dropzoneTextDefault()}</p>
             )}
           </div>
 

@@ -15,9 +15,13 @@ import AddEventForm from "@/app/[locale]/add-martyrs/_components/add-event-form"
 import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../_glossary/translator";
 
 function LifeTimeline() {
   const { events, removeEvent, updateEvent } = useEventStore();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   return (
     <Timeline active={events.length - 1} bulletSize={24} lineWidth={2}>
@@ -31,10 +35,14 @@ function LifeTimeline() {
             {event.description}
           </Text>
           <Text size="xs" mt={4}>
-            {format(event.eventDate, "dd MMM yyyy")}
+            {new Intl.DateTimeFormat(locale, {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            }).format(new Date(event.eventDate))}
           </Text>
 
-          <div className={"flex gap-2 mt-2"}>
+          <div className={"mt-2 flex gap-2"}>
             <Dialog>
               <DialogTrigger asChild>
                 <Button
@@ -44,12 +52,12 @@ function LifeTimeline() {
                   size={"sm"}
                 >
                   <Pen size={16} />
-                  <span>Edit</span>
+                  <span>{t.editEvent()}</span>
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Add a new Life Event</DialogTitle>
+                  <DialogTitle>{t.addNewLifeEvent()}</DialogTitle>
                 </DialogHeader>
                 <AddEventForm
                   event={event}
@@ -67,28 +75,28 @@ function LifeTimeline() {
                   size={"sm"}
                 >
                   <Trash size={16} />
-                  <span>Delete</span>
+                  <span>{t.deleteEvent()}</span>
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Are you sure?</DialogTitle>
+                  <DialogTitle>{t.deleteEventConfirm()}</DialogTitle>
                   <DialogDescription>
-                    This action can&apos;t be undo and will delete this event.
+                    {t.deleteEventDescription()}
                   </DialogDescription>
                 </DialogHeader>
 
                 <DialogClose asChild>
-                  <div className={"flex gap-2 items-center justify-end w-full"}>
+                  <div className={"flex w-full items-center justify-end gap-2"}>
                     <Button variant={"outline"} type={"button"}>
-                      Cancel
+                      {t.cancel()}
                     </Button>
                     <Button
                       type={"button"}
                       variant={"destructive"}
                       onClick={() => removeEvent(event)}
                     >
-                      Delete
+                      {t.deleteEvent()}
                     </Button>
                   </div>
                 </DialogClose>
@@ -102,15 +110,15 @@ function LifeTimeline() {
         <Dialog>
           <DialogTrigger
             className={
-              "border-dashed border px-8 py-4 rounded-xl font-medium text-gray-800 flex gap-2 items-center bg-gray-50 text-base border-gray-200"
+              "flex items-center gap-2 rounded-xl border border-dashed border-gray-200 bg-gray-50 px-8 py-4 text-base font-medium text-gray-800"
             }
           >
             <Plus size={24} />
-            <span>Add new event</span>
+            <span>{t.addEvent()}</span>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add a new Life Event</DialogTitle>
+              <DialogTitle>{t.addNewLifeEvent()}</DialogTitle>
             </DialogHeader>
             <AddEventForm />
           </DialogContent>

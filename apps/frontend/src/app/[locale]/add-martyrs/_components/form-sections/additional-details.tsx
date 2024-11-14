@@ -10,22 +10,37 @@ import { Input } from "@/components/ui/input";
 import TagInput from "@/app/[locale]/add-martyrs/_components/tag-input";
 import interestsAndHobbies from "../../_data/interestsAndHobbies";
 import { AddPersonFormValues } from "@/app/[locale]/add-martyrs/_hooks/useAddPersonForm";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 function AdditionalDetailsSection() {
   const { control } = useFormContext<AddPersonFormValues>();
 
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
+  const platforms = ["facebook", "twitter", "instagram", "linkedin"] as const;
+
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr,auto,1fr]">
       <div className="space-y-2">
-        <h3 className="text-lg font-medium">Social Media Links</h3>
-        {["facebook", "twitter", "instagram", "linkedin"].map((platform) => (
+        <h3 className="text-lg font-medium">{t.socialMediaTitle()}</h3>
+        {platforms.map((platform) => (
           <FormField
             key={platform}
             control={control}
             name={`socialMedia.${platform}` as any}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="capitalize">{platform}</FormLabel>
+                <FormLabel className="capitalize">
+                  {t[
+                    platform as
+                      | "platformFacebook"
+                      | "platformTwitter"
+                      | "platformInstagram"
+                      | "platformLinkedin"
+                  ]()}
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder={`https://${platform}.com/username`}
@@ -42,7 +57,7 @@ function AdditionalDetailsSection() {
       <div className={"h-full w-0.5 bg-gray-100 md:hidden"} />
 
       <div className="space-y-2">
-        <h3 className="text-lg font-medium">Interests and Hobbies</h3>
+        <h3 className="text-lg font-medium">{t.interestsTitle()}</h3>
         <FormField
           control={control}
           name="interestsAndHobbies"
@@ -51,7 +66,7 @@ function AdditionalDetailsSection() {
               <FormControl>
                 <TagInput
                   categories={interestsAndHobbies}
-                  placeholder="Type an interest or hobby..."
+                  placeholder={t.interestsPlaceholder()}
                   maxHeight="300px"
                   control={control}
                   name="interestsAndHobbies"

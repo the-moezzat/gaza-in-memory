@@ -20,22 +20,32 @@ import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Brush, Eraser, Scissors, SwatchBook } from "lucide-react";
-
-const statusItems = [
-  { id: "radio-11-r1", value: "wounded", label: "Wounded", Icon: SwatchBook },
-  { id: "radio-11-r2", value: "dead", label: "Dead", Icon: Brush },
-  { id: "radio-11-r3", value: "alive", label: "Alive", Icon: Eraser },
-];
-
-const causeItems = [
-  { id: "radio-11-r1", value: "bomb", label: "Bomb", Icon: Bomb },
-  { id: "radio-11-r2", value: "tank", label: "Tank", Icon: Car },
-  { id: "radio-11-r3", value: "bullet", label: "Bullet", Icon: GuitarIcon },
-  { id: "radio-11-r4", value: "other", label: "Other", Icon: Scissors },
-];
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
 
 function Status() {
   const { control, watch } = useFormContext();
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
+  const statusItems = [
+    {
+      id: "radio-11-r1",
+      value: "wounded",
+      label: t.wounded(),
+      Icon: SwatchBook,
+    },
+    { id: "radio-11-r2", value: "dead", label: t.dead(), Icon: Brush },
+    { id: "radio-11-r3", value: "alive", label: t.alive(), Icon: Eraser },
+  ];
+
+  const causeItems = [
+    { id: "radio-11-r1", value: "bomb", label: t.bomb(), Icon: Bomb },
+    { id: "radio-11-r2", value: "tank", label: t.tank(), Icon: Car },
+    { id: "radio-11-r3", value: "bullet", label: t.bullet(), Icon: GuitarIcon },
+    { id: "radio-11-r4", value: "other", label: t.other(), Icon: Scissors },
+  ];
+
   return (
     <section className="space-y-6">
       <FormField
@@ -44,7 +54,7 @@ function Status() {
         render={({ field }) => (
           <FormItem className="space-y-2">
             <div className={"flex w-full items-center justify-between gap-2"}>
-              <FormLabel> what is the current status? </FormLabel>
+              <FormLabel>{t.whatIsStatus()}</FormLabel>
               <FormMessage />
             </div>
             <FormControl>
@@ -94,7 +104,7 @@ function Status() {
                 <div
                   className={"flex w-full items-center justify-between gap-2"}
                 >
-                  <FormLabel>Date of Death</FormLabel>
+                  <FormLabel>{t.dateOfDeath()}</FormLabel>
                   <FormMessage />
                 </div>
                 <CustomDatePicker date={field.value} setDate={field.onChange} />
@@ -110,7 +120,7 @@ function Status() {
                 <div
                   className={"flex w-full items-center justify-between gap-2"}
                 >
-                  <FormLabel> what is the cause of dead? </FormLabel>
+                  <FormLabel>{t.whatIsCause()}</FormLabel>
                   <FormMessage />
                 </div>
                 <FormControl>

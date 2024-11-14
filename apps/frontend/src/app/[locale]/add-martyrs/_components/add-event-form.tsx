@@ -25,6 +25,8 @@ import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../_glossary/translator";
 
 const formSchema = z.object({
   title: z.string({ required_error: "Required" }),
@@ -47,7 +49,9 @@ function AddEventForm({
   event?: Partial<Event>;
 }) {
   const { events, addEvent } = useEventStore();
-  // 1. Define your form.
+  const locale = useCurrentLocale();
+  const t = translator(locale);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: event
@@ -57,9 +61,6 @@ function AddEventForm({
         },
   });
 
-  console.log(events);
-
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newEvent = {
       id: event?.id ? event.id : new Date().getTime(),
@@ -70,28 +71,28 @@ function AddEventForm({
       return;
     }
     addEvent(newEvent);
-    console.log(values);
   }
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={"flex flex-col gap-4"}
       >
-        <div className={"grid grid-cols-2 gap-2 items-center"}>
+        <div className={"grid grid-cols-2 items-center gap-2"}>
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
               <FormItem className={"flex flex-col gap-1"}>
                 <div
-                  className={"flex gap-2 items-center justify-between w-full"}
+                  className={"flex w-full items-center justify-between gap-2"}
                 >
-                  <FormLabel>Event Title</FormLabel>
+                  <FormLabel>{t.eventTitle()}</FormLabel>
                   <FormMessage />
                 </div>
                 <FormControl>
-                  <Input placeholder="Getting first Child" {...field} />
+                  <Input placeholder={t.eventTitle()} {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -103,9 +104,9 @@ function AddEventForm({
             render={({ field }) => (
               <FormItem className="flex flex-col gap-1">
                 <div
-                  className={"flex gap-2 items-center justify-between w-full"}
+                  className={"flex w-full items-center justify-between gap-2"}
                 >
-                  <FormLabel>Event Date</FormLabel>
+                  <FormLabel>{t.eventDate()}</FormLabel>
                   <FormMessage />
                 </div>
                 <CustomDatePicker date={field.value} setDate={field.onChange} />
@@ -113,33 +114,28 @@ function AddEventForm({
             )}
           />
         </div>
+
         <FormField
           control={form.control}
           name="description"
           render={({ field }) => (
             <FormItem>
-              <div className={"flex gap-2 items-center justify-between w-full"}>
-                <FormLabel>Event Description</FormLabel>
-                <FormMessage />
-              </div>
+              <FormLabel>{t.eventDescription()}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us a little bit about yourself"
+                  placeholder={t.eventDescriptionPlaceholder()}
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
-        <div className={"flex gap-2 self-end"}>
-          <DialogClose asChild>
-            <Button variant={"outline"}>Cancel</Button>
-          </DialogClose>
-          <Button onClick={form.handleSubmit(onSubmit)} type="button">
-            Add Event
-          </Button>
-        </div>
+
+        <DialogClose asChild>
+          <Button type="submit">{t.submit()}</Button>
+        </DialogClose>
       </form>
     </Form>
   );

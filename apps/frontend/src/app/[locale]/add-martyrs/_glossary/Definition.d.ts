@@ -62,6 +62,12 @@ export type Definition = {
   yourAnswer: undefined;
   additionalInfoQuestion: undefined;
   additionalInfoPlaceholder: undefined;
+  whatIsStatus: undefined;
+  whatIsCause: undefined;
+  tank: undefined;
+  bullet: undefined;
+  bomb: undefined;
+  other: undefined;
 
   questionDream: [{ name: string }];
   questionTypicalDay: [{ name: string }];
@@ -86,4 +92,35 @@ export type Definition = {
   pronounHim: undefined;
   pronounHer: undefined;
   pronounPerson: undefined;
+
+  maxImagesError: undefined;
+  maxFileSizeError: undefined;
+  imageCount: [{ count: number }];
+  imageCount: undefined;
+  imageSingular: undefined;
+  imagePlural: undefined;
+  dropzoneTextActive: undefined;
+  dropzoneTextDefault: undefined;
+  dropzoneTextDisabled: undefined;
+
+  addNewLifeEvent: undefined;
+  editEvent: undefined;
+  deleteEvent: undefined;
+  deleteEventConfirm: undefined;
+  deleteEventDescription: undefined;
+  addEvent: undefined;
+  eventTitle: undefined;
+  eventDate: undefined;
+  eventDescription: undefined;
+  eventDescriptionPlaceholder: undefined;
+  selectDate: undefined;
+  submit: undefined;
+
+  socialMediaTitle: undefined;
+  interestsTitle: undefined;
+  interestsPlaceholder: undefined;
+  facebook: undefined;
+  twitter: undefined;
+  instagram: undefined;
+  linkedin: undefined;
 };
