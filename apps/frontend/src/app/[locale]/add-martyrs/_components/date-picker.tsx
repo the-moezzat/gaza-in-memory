@@ -120,7 +120,21 @@ export default function CustomDatePicker({
               <SelectContent>
                 {months.map((month) => (
                   <SelectItem key={month} value={month}>
-                    {t[month.toLowerCase() as keyof typeof t]()}
+                    {t[
+                      month.toLowerCase() as
+                        | "january"
+                        | "february"
+                        | "march"
+                        | "april"
+                        | "may"
+                        | "june"
+                        | "july"
+                        | "august"
+                        | "september"
+                        | "october"
+                        | "november"
+                        | "december"
+                    ]()}
                   </SelectItem>
                 ))}
               </SelectContent>
