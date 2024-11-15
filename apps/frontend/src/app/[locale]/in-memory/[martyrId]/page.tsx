@@ -19,6 +19,7 @@ import inMemoryTranslator from "./_glossary/translator";
 import { Metadata } from "next";
 import TestimonialSkeleton from "./_components/memorySection/testimonial-skeleton";
 import Share from "./_features/share/share";
+import InterestSkeleton from "./_components/interest-skeleton";
 
 export async function generateMetadata({
   params,
@@ -134,7 +135,9 @@ export default async function Page(props: { params: { martyrId: string } }) {
             <AdditionalInfoSection martyr={martyr} />
           </Section>
 
-          <InterestSection martyr={martyr} />
+          <Suspense fallback={<InterestSkeleton />}>
+            <InterestSection martyr={martyr} />
+          </Suspense>
         </div>
       </div>
     </div>

@@ -41,35 +41,43 @@ export default async function AdditionalInfoSection({
   return (
     <div className="flex flex-col gap-10">
       <div className="grid grid-cols-2 items-center gap-x-10 gap-y-10 md:flex md:flex-wrap lg:gap-x-32">
-        <AdditionalInfoItem
-          label={t.dob()}
-          value={localizeDate(date_of_birth, locale)}
-          icon={<CalendarIcon size={"1em"} />}
-        />
+        {date_of_birth && (
+          <AdditionalInfoItem
+            label={t.dob()}
+            value={localizeDate(date_of_birth, locale)}
+            icon={<CalendarIcon size={"1em"} />}
+          />
+        )}
 
         {status === "dead" && (
           <>
-            <AdditionalInfoItem
-              label={t.dod()}
-              value={localizeDate(date_of_death!, locale)}
-              icon={<CalendarX2 size={"1em"} />}
-            />
+            {date_of_death && (
+              <AdditionalInfoItem
+                label={t.dod()}
+                value={localizeDate(date_of_death, locale)}
+                icon={<CalendarX2 size={"1em"} />}
+              />
+            )}
 
-            <AdditionalInfoItem
-              label={t.causeOfDeath()}
-              value={cause_of_death!}
-              icon={<TriangleAlert size={"1em"} />}
-            />
+            {cause_of_death && (
+              <AdditionalInfoItem
+                label={t.causeOfDeath()}
+                value={cause_of_death!}
+                icon={<TriangleAlert size={"1em"} />}
+              />
+            )}
           </>
         )}
 
-        <AdditionalInfoItem
-          label={t.socialStatus()}
-          value={married ? t.married() : t.single()}
-          icon={<HeartHandshake size={"1em"} />}
-        />
-
         {married && (
+          <AdditionalInfoItem
+            label={t.socialStatus()}
+            value={married ? t.married() : t.single()}
+            icon={<HeartHandshake size={"1em"} />}
+          />
+        )}
+
+        {married && spouse_first_name && spouse_last_name && (
           <AdditionalInfoItem
             label={t.spouse()}
             value={`${spouse_first_name} ${spouse_last_name}`}

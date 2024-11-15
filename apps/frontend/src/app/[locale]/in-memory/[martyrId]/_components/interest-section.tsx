@@ -10,6 +10,7 @@ import { createClerkSupabaseClientSsr } from "@/lib/client";
 import React from "react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import inMemoryTranslator from "../_glossary/translator";
+import translator from "@/app/[locale]/_glossary/translator";
 
 export default async function InterestSection({ martyr }: { martyr: Martyr }) {
   const client = createClerkSupabaseClientSsr(false);
@@ -20,6 +21,8 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
 
   const locale = getCurrentLocale();
   const t = inMemoryTranslator(locale);
+  const parentT = translator(locale);
+
   return (
     <div className="w-full">
       <Carousel
@@ -47,7 +50,7 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
             <CarouselItem key={interest.id} className="pl-2 lg:pl-4">
               <div className="space-y-4 rounded-xl border p-4">
                 <h3 className="text-base font-semibold text-gray-800 md:text-lg">
-                  {interest.category}
+                  {parentT[interest.category as keyof typeof parentT]()}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {interest.tags.map((hobby) => (
@@ -55,7 +58,7 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
                       key={hobby}
                       className="rounded-full bg-gray-100 px-2 py-1 text-sm text-gray-800"
                     >
-                      {hobby}
+                      {parentT[hobby as keyof typeof parentT]()}
                     </div>
                   ))}
                 </div>

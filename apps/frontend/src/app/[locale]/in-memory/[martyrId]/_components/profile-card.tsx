@@ -47,19 +47,23 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {socialMediaPlatforms.map((social) => (
-            <Link
-              href={
-                martyr.social_media?.[
-                  social as keyof typeof martyr.social_media
-                ] ?? ""
-              }
-              key={social}
-              className="text-gray-600"
-            >
-              {socialMediaIconsMapper(social, 18)}
-            </Link>
-          ))}
+          {Object.keys(martyr.social_media ?? {}).map((social) =>
+            martyr.social_media?.[
+              social as keyof typeof martyr.social_media
+            ] ? (
+              <Link
+                href={
+                  martyr.social_media?.[
+                    social as keyof typeof martyr.social_media
+                  ] ?? ""
+                }
+                key={social}
+                className="text-gray-600"
+              >
+                {socialMediaIconsMapper(social, 18)}
+              </Link>
+            ) : null,
+          )}
         </div>
       </div>
 

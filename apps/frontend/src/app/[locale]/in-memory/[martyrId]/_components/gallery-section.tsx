@@ -28,6 +28,9 @@ export default async function GallerySection({
 
   const locale = getCurrentLocale();
   const t = inMemoryTranslator(locale);
+
+  if (data?.length === 0) return null;
+
   return (
     <Carousel
       className="w-full space-y-2 md:space-y-4 lg:space-y-6 [&>div]:rounded-xl"
