@@ -231,4 +231,44 @@ export type Definition = {
   modelBuilding: undefined;
   coinCollecting: undefined;
   stampCollecting: undefined;
+
+  // Profile Card Related
+  male: undefined;
+  female: undefined;
+  city: undefined;
+  champion: undefined;
+  noSuggestions: undefined;
+
+  // Add these missing tags:
+  islamicArt: undefined;
+  mosaics: undefined;
+  glassblowing: undefined;
+  textileArts: undefined;
+  digitalArt: undefined;
+  jewelryMaking: undefined;
+  carpetWeaving: undefined;
+  ceramics: undefined;
+  paperMarbling: undefined;
+  miniaturePainting: undefined;
+  hennaArt: undefined;
+  oudPlaying: undefined;
+  qanunPlaying: undefined;
+  neyFlute: undefined;
+  darbukaDrums: undefined;
+  dabkeDancing: undefined;
+  nasheed: undefined;
+  poetryRecitation: undefined;
+  sufiMusic: undefined;
+  arabicRap: undefined;
+  palestinianFolkDance: undefined;
+  qawwali: undefined;
+  maqamSinging: undefined;
+  andalusianClassicalMusic: undefined;
+  shadowPuppetry: undefined;
+  spokenWord: undefined;
+  quranRecitation: undefined;
+  fruitCarving: undefined;
+  fermentation: undefined;
+  breadMaking: undefined;
+  photography: undefined;
 };

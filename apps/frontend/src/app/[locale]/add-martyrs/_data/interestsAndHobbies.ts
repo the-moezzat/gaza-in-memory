@@ -1,5 +1,5 @@
-const interestsAndHobbies = [
-  {
+const interestsAndHobbies = {
+  sports: {
     name: "Sports",
     tags: {
       football: "Football (Soccer)",
@@ -24,7 +24,7 @@ const interestsAndHobbies = [
       chess: "Chess",
     },
   },
-  {
+  artsAndCrafts: {
     name: "Arts and Crafts",
     tags: {
       calligraphy: "Calligraphy",
@@ -49,7 +49,7 @@ const interestsAndHobbies = [
       hennaArt: "Henna Art",
     },
   },
-  {
+  musicAndPerformance: {
     name: "Music and Performance",
     tags: {
       oudPlaying: "Oud Playing",
@@ -72,7 +72,7 @@ const interestsAndHobbies = [
       quranRecitation: "Quran Recitation",
     },
   },
-  {
+  culinaryArts: {
     name: "Culinary Arts",
     tags: {
       arabicCuisine: "Arabic Cuisine",
@@ -94,7 +94,7 @@ const interestsAndHobbies = [
       breadMaking: "Bread Making",
     },
   },
-  {
+  literatureAndLanguage: {
     name: "Literature and Language",
     tags: {
       arabicPoetry: "Arabic Poetry",
@@ -114,7 +114,7 @@ const interestsAndHobbies = [
       literaryCriticism: "Literary Criticism",
     },
   },
-  {
+  scienceAndTechnology: {
     name: "Science and Technology",
     tags: {
       astronomy: "Astronomy",
@@ -135,7 +135,7 @@ const interestsAndHobbies = [
       dataScience: "Data Science",
     },
   },
-  {
+  socialAndCommunity: {
     name: "Social and Community",
     tags: {
       volunteerWork: "Volunteer Work",
@@ -154,7 +154,7 @@ const interestsAndHobbies = [
       civicEngagement: "Civic Engagement",
     },
   },
-  {
+  traditionalCrafts: {
     name: "Traditional Crafts",
     tags: {
       basketWeaving: "Basket Weaving",
@@ -174,7 +174,7 @@ const interestsAndHobbies = [
       falconryEquipmentCrafting: "Falconry Equipment Crafting",
     },
   },
-  {
+  outdoorActivities: {
     name: "Outdoor Activities",
     tags: {
       gardening: "Gardening",
@@ -194,7 +194,7 @@ const interestsAndHobbies = [
       fossilHunting: "Fossil Hunting",
     },
   },
-  {
+  intellectualPursuits: {
     name: "Intellectual Pursuits",
     tags: {
       islamicPhilosophy: "Islamic Philosophy",
@@ -213,7 +213,7 @@ const interestsAndHobbies = [
       urbanPlanning: "Urban Planning",
     },
   },
-  {
+  personalDevelopment: {
     name: "Personal Development",
     tags: {
       meditation: "Meditation",
@@ -231,7 +231,7 @@ const interestsAndHobbies = [
       lifeCoaching: "Life Coaching",
     },
   },
-  {
+  gamesAndRecreation: {
     name: "Games and Recreation",
     tags: {
       backgammon: "Backgammon",
@@ -250,6 +250,6 @@ const interestsAndHobbies = [
       stampCollecting: "Stamp Collecting",
     },
   },
-];
+} as const;
 
 export default interestsAndHobbies;

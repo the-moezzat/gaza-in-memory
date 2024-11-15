@@ -12,14 +12,12 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { X } from "lucide-react";
 import { AddPersonFormValues } from "@/app/[locale]/add-martyrs/_hooks/useAddPersonForm";
-
-interface Category {
-  name: string;
-  tags: Record<string, string>;
-}
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
+import translator from "../../_glossary/translator";
+import interestsAndHobbies from "../_data/interestsAndHobbies";
 
 interface TagInputProps {
-  categories: Category[];
+  categories: typeof interestsAndHobbies;
   placeholder?: string;
   maxHeight?: string;
   control: Control<AddPersonFormValues>;
@@ -40,12 +38,15 @@ const TagInput: React.FC<TagInputProps> = ({
     control,
   });
 
-  const interests = categories
-    .map((category) => ({
-      name: category.name,
-      tags: Object.keys(category.tags),
-    }))
-    .flat();
+  const interests = Object.keys(categories).map((category) => ({
+    name: category,
+    tags: Object.keys(categories[category as keyof typeof categories].tags),
+  }));
+
+  console.log(interests);
+
+  const locale = useCurrentLocale();
+  const t = translator(locale);
 
   const [inputValue, setInputValue] = React.useState<string>("");
 
@@ -90,28 +91,25 @@ const TagInput: React.FC<TagInputProps> = ({
     .filter((category) => category.tags.length > 0);
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full">
       {totalTags! > 0 && (
         <ScrollArea className="overflow-y -scroll mb-2 max-h-64 min-h-fit w-full whitespace-nowrap rounded-md border">
-          <div className="p-2">
+          <div className="p-2" dir={locale === "ar" ? "rtl" : "ltr"}>
             {value?.map(
               (category) =>
                 category.tags.length > 0 && (
                   <div key={category.category} className="mb-4">
                     <h3 className="mb-2 text-lg font-semibold">
-                      {category.category}
+                      {t[category.category as keyof typeof t]()}
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {category.tags.map((tag) => (
                         <Badge
                           key={tag}
                           variant="secondary"
-                          className="text-sm font-normal"
+                          className="flex items-center gap-1 text-sm font-normal"
                         >
-                          {
-                            categories.find((c) => c.name === category.category)
-                              ?.tags[tag]
-                          }
+                          {t[tag as keyof typeof t]()}
                           <button
                             onClick={() => removeTag(category.category, tag)}
                             className="ml-1"
@@ -134,21 +132,30 @@ const TagInput: React.FC<TagInputProps> = ({
           onValueChange={setInputValue}
         />
         <CommandList>
-          <CommandEmpty>No suggestions found.</CommandEmpty>
-          <ScrollArea className={`min-h-[${maxHeight}]`}>
+          <CommandEmpty>{t.noSuggestions()}</CommandEmpty>
+          <ScrollArea
+            className={`min-h-[${maxHeight}]`}
+            dir={locale === "ar" ? "rtl" : "ltr"}
+          >
             {filteredCategories.map((category) => (
-              <CommandGroup key={category.name} heading={category.name}>
-                {category.tags.map((tag) => (
+              <CommandGroup
+                key={category.name}
+                heading={t[category.name as keyof typeof t]()}
+              >
+                {category.tags.map((tag, index) => (
                   <CommandItem
                     key={tag}
                     onSelect={() => addTag(category.name, tag)}
-                    className="cursor-pointer"
+                    className={`cursor-pointer ${
+                      t[tag as keyof typeof t] ? "" : "bg-red-500"
+                    }`}
                   >
-                    {
-                      categories.find((c) => c.name === category.name)?.tags[
-                        tag
+                    {t[tag as keyof typeof t]()}
+                    {/* {
+                      interests.find((c) => c.name === category.name)?.tags[
+                        index
                       ]
-                    }
+                    } */}
                   </CommandItem>
                 ))}
               </CommandGroup>

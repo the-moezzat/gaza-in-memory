@@ -22,8 +22,8 @@ function AdditionalDetailsSection() {
   const platforms = ["facebook", "twitter", "instagram", "linkedin"] as const;
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr,auto,1fr]">
-      <div className="space-y-2">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr,auto,1fr]">
+      <div className="space-y-2 self-stretch">
         <h3 className="text-lg font-medium">{t.socialMediaTitle()}</h3>
         {platforms.map((platform) => (
           <FormField
@@ -54,7 +54,7 @@ function AdditionalDetailsSection() {
         ))}
       </div>
 
-      <div className={"h-full w-0.5 bg-gray-100 md:hidden"} />
+      <div className={"hidden h-5/6 w-0.5 self-center bg-gray-100 lg:block"} />
 
       <div className="space-y-2">
         <h3 className="text-lg font-medium">{t.interestsTitle()}</h3>
