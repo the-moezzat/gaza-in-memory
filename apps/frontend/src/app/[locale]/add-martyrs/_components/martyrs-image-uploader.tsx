@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../_glossary/translator";
+import addMartyrTranslator from "../_glossary/translator";
 
 function MartyrsImageUploader() {
   const { control, watch, setValue } = useFormContext();
   const profileImage = watch("profileImage");
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

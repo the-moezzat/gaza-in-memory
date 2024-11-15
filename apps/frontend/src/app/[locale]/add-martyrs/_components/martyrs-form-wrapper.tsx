@@ -6,12 +6,12 @@ import { FormProvider } from "react-hook-form";
 import { useAddPersonForm } from "@/app/[locale]/add-martyrs/_hooks/useAddPersonForm";
 import { Button } from "@/components/ui/button";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../_glossary/translator";
+import addMartyrTranslator from "../_glossary/translator";
 
 export default function MartyrsFormWrapper() {
   const { form, onSubmit } = useAddPersonForm();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   return (
     <FormProvider {...form}>

@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import { FormControl } from "@/components/ui/form";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../_glossary/translator";
+import addMartyrTranslator from "../_glossary/translator";
 
 interface CustomDatePickerProps {
   date: Date | undefined;
@@ -40,7 +40,7 @@ export default function CustomDatePicker({
     date ? date.getMonth() : new Date().getMonth(),
   );
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const years = Array.from(
     { length: 100 },

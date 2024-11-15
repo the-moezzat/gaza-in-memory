@@ -11,13 +11,13 @@ import TagInput from "@/app/[locale]/add-martyrs/_components/tag-input";
 import interestsAndHobbies from "../../_data/interestsAndHobbies";
 import { AddPersonFormValues } from "@/app/[locale]/add-martyrs/_hooks/useAddPersonForm";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import addMartyrTranslator from "../../_glossary/translator";
 
 function AdditionalDetailsSection() {
   const { control } = useFormContext<AddPersonFormValues>();
 
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const platforms = ["facebook", "twitter", "instagram", "linkedin"] as const;
 

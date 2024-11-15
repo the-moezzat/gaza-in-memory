@@ -20,12 +20,12 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { toast } from "sonner";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import addMartyrTranslator from "../../_glossary/translator";
 
 const GallerySection = () => {
   const { control, setValue, watch } = useFormContext();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const files: File[] = useMemo(
     () => watch("gallery") || [],

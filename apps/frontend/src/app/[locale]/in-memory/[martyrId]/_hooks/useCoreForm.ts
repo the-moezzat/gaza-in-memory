@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useParams } from "next/navigation";
 import useMemoryStore from "../_store/memoryStore";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import { useEffect } from "react";
 
@@ -21,7 +21,7 @@ export function useCoreMemoryForm({
   const { martyrId } = useParams();
   const { setMemories } = useMemoryStore();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const FormSchema = CoreMemoryFormSchema.extend({
     relationship: z.string({

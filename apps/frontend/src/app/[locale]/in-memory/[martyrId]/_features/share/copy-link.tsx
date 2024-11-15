@@ -6,12 +6,12 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { toast } from "sonner";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 
 export default function CopyLink() {
   const locale = useCurrentLocale();
   const { martyrId } = useParams();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
   const [copiedText, copyToClipboard] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
 

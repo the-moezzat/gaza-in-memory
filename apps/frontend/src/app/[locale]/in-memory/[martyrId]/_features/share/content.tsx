@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { socialMediaIconsMapper } from "@/utils/socialMediaIconsMapper";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 
 const socialMediaPlatforms = [
   "linkedin",
@@ -26,7 +26,7 @@ type ShareContentProps = {
 
 export default function ShareContent({ url, title, text }: ShareContentProps) {
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const [isClient, setIsClient] = useState(false);
 

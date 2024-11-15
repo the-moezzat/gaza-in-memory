@@ -16,7 +16,7 @@ import { translations_PT } from "./languages/pt";
 import { translations_RU } from "./languages/ru";
 import { translations_ZH } from "./languages/zh";
 
-const translator = createTranslator<Definition>({
+const inMemoryTranslator = createTranslator<Definition>({
   en: translations_EN,
   de: translations_DE,
   fr: translations_FR,
@@ -30,7 +30,7 @@ const translator = createTranslator<Definition>({
   pl: translations_PL,
   pt: translations_PT,
   ru: translations_RU,
-  zh: translations_ZH
+  zh: translations_ZH,
 });
 
-export default translator;
+export default inMemoryTranslator;

@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { Memory } from "../../_types/Memory";
 import MemoryChainCarousel from "./memory-chain-carousel";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import { localizeDate } from "../../_utils/localizeDates";
 
 interface TestimonialCardProps {
@@ -17,7 +17,7 @@ export default async function TestimonialCard({
 }: TestimonialCardProps) {
   const user = await clerkClient().users.getUser(memory.author_id!);
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <div className="grid w-full grid-cols-[auto,1fr] grid-rows-[auto,1fr] gap-x-4 gap-y-4 rounded-lg border p-4">

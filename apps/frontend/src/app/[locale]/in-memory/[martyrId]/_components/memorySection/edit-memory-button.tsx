@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import CoreForm from "./core-form";
 import useMemoryStore from "../../_store/memoryStore";
 import BaseMemoryButton from "./base-memory-button";
@@ -21,7 +21,7 @@ export default function EditMemoryButton({
 }) {
   const [open, setOpen] = React.useState(false);
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
   const { memories } = useMemoryStore();
 
   const { mutate: editMemoryMutation, isPending } = useMutation({

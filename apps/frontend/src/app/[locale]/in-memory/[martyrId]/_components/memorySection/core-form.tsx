@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import ChainOfMemoriesCarousel from "./chain-of-memories-carousel";
 import {
   CoreMemoryFormSchema,
@@ -63,7 +63,7 @@ export default function CoreForm({
   const { martyrId } = useParams();
   const { memories } = useMemoryStore();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const { form } = useCoreMemoryForm({ defaultValues });
 

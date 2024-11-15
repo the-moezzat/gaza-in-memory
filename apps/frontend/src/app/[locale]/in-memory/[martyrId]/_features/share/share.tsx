@@ -4,14 +4,14 @@ import React from "react";
 import ResponsiveDialogDrawer from "../responsive-dialog-drawer";
 import { Button } from "@/components/ui/button";
 import { ShareIcon } from "lucide-react";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import ShareContent from "./content";
 import { Martyr } from "@/app/[locale]/_types/Mayrter";
 
 export default function Share({ martyr }: { martyr: Martyr }) {
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const martyrLink = `https://www.gazainmemory.tech/${locale}/in-memory/${martyr.id}`;
 

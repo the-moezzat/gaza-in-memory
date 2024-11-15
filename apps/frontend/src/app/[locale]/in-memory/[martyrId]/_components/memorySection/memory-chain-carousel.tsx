@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 
 interface MemoryChainCarouselProps {
   memories: string[];
@@ -16,7 +16,7 @@ export default function MemoryChainCarousel({
   const [expanded, setExpanded] = useState(false);
 
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;

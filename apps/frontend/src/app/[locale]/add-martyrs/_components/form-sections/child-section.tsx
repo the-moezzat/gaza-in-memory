@@ -11,13 +11,13 @@ import { Calendar, CalendarX, Plus, Trash } from "lucide-react";
 import { useChildStore } from "@/app/[locale]/add-martyrs/_store/childStore";
 import AddChildForm from "./add-child";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import addMartyrTranslator from "../../_glossary/translator";
 
 const AddChildSection: React.FC = () => {
   const { children, removeChild } = useChildStore();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const getStatusColor = (status: string) => {
     switch (status) {

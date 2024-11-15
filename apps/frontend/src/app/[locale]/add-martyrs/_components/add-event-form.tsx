@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../_glossary/translator";
+import addMartyrTranslator from "../_glossary/translator";
 
 const formSchema = z.object({
   title: z.string({ required_error: "Required" }),
@@ -50,7 +50,7 @@ function AddEventForm({
 }) {
   const { events, addEvent } = useEventStore();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

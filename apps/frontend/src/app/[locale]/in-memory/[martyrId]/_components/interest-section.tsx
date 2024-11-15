@@ -9,7 +9,7 @@ import {
 import { createClerkSupabaseClientSsr } from "@/lib/client";
 import React from "react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 
 export default async function InterestSection({ martyr }: { martyr: Martyr }) {
   const client = createClerkSupabaseClientSsr(false);
@@ -19,7 +19,7 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
     .eq("martyr_id", martyr.id);
 
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
   return (
     <div className="w-full">
       <Carousel

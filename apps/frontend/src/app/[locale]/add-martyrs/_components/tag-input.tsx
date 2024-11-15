@@ -15,7 +15,7 @@ import { AddPersonFormValues } from "@/app/[locale]/add-martyrs/_hooks/useAddPer
 
 interface Category {
   name: string;
-  tags: string[];
+  tags: Record<string, string>;
 }
 
 interface TagInputProps {
@@ -39,6 +39,13 @@ const TagInput: React.FC<TagInputProps> = ({
     name,
     control,
   });
+
+  const interests = categories
+    .map((category) => ({
+      name: category.name,
+      tags: Object.keys(category.tags),
+    }))
+    .flat();
 
   const [inputValue, setInputValue] = React.useState<string>("");
 
@@ -71,7 +78,7 @@ const TagInput: React.FC<TagInputProps> = ({
     onChange(updatedValue);
   };
 
-  const filteredCategories = categories
+  const filteredCategories = interests
     .map((category) => ({
       ...category,
       tags: category.tags.filter(
@@ -85,13 +92,13 @@ const TagInput: React.FC<TagInputProps> = ({
   return (
     <div className="w-full max-w-md">
       {totalTags! > 0 && (
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border mb-2 min-h-fit max-h-64 overflow-y -scroll">
+        <ScrollArea className="overflow-y -scroll mb-2 max-h-64 min-h-fit w-full whitespace-nowrap rounded-md border">
           <div className="p-2">
             {value?.map(
               (category) =>
                 category.tags.length > 0 && (
                   <div key={category.category} className="mb-4">
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="mb-2 text-lg font-semibold">
                       {category.category}
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -99,9 +106,12 @@ const TagInput: React.FC<TagInputProps> = ({
                         <Badge
                           key={tag}
                           variant="secondary"
-                          className="text-sm"
+                          className="text-sm font-normal"
                         >
-                          {tag}
+                          {
+                            categories.find((c) => c.name === category.category)
+                              ?.tags[tag]
+                          }
                           <button
                             onClick={() => removeTag(category.category, tag)}
                             className="ml-1"
@@ -134,7 +144,11 @@ const TagInput: React.FC<TagInputProps> = ({
                     onSelect={() => addTag(category.name, tag)}
                     className="cursor-pointer"
                   >
-                    {tag}
+                    {
+                      categories.find((c) => c.name === category.name)?.tags[
+                        tag
+                      ]
+                    }
                   </CommandItem>
                 ))}
               </CommandGroup>

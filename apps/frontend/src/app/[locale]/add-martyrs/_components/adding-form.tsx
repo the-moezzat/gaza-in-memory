@@ -5,12 +5,12 @@ import Story from "@/app/[locale]/add-martyrs/_components/form-sections/story";
 import AdditionalDetailsModal from "@/app/[locale]/add-martyrs/_components/form-sections/additional-details";
 import GallerySection from "@/app/[locale]/add-martyrs/_components/form-sections/gallery-section";
 import LifeTimeline from "@/app/[locale]/add-martyrs/_components/life-timeline";
-import translator from "../_glossary/translator";
+import addMartyrTranslator from "../_glossary/translator";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 
 export function AddingForm() {
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   return (
     <div className="mb-24 space-y-8">

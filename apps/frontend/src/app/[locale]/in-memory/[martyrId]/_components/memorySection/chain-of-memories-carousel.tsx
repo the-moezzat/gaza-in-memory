@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import useMemoryStore from "../../_store/memoryStore";
 import { Button } from "@/components/ui/button";
 
@@ -23,7 +23,7 @@ export default function ChainOfMemoriesCarousel() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editedMemory, setEditedMemory] = useState<string | null>(null);
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   useEffect(() => {
     if (!api) {

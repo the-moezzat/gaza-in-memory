@@ -10,14 +10,14 @@ import { PostgrestError } from "@supabase/supabase-js";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 
 export default function useAddMemoryForm() {
   const { martyrId } = useParams();
   const { memories: memoriesStore } = useMemoryStore();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const FormSchema = z.object({
     memories: z

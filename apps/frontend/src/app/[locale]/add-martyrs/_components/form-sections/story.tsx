@@ -12,12 +12,12 @@ import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/app/[locale]/add-martyrs/_components/rich-text-editor";
 import { useFormContext } from "react-hook-form";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import addMartyrTranslator from "../../_glossary/translator";
 
 function Story() {
   const { control, watch, setValue } = useFormContext();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
   const storyType = watch("storyType", "free");
   const firstName = watch("firstName", "");
   const gender = watch("gender", "");

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 
 interface ConfirmationCardProps {
   martyr: Martyr;
@@ -22,7 +22,7 @@ interface ConfirmationCardProps {
 
 export default function ConfirmationCard({ martyr }: ConfirmationCardProps) {
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <>
@@ -76,7 +76,7 @@ export default function ConfirmationCard({ martyr }: ConfirmationCardProps) {
 
 function ConfirmationInformation({ martyr }: { martyr: Martyr }) {
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <div className="space-y-4 rounded-2xl border p-4">

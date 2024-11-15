@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
 import { ArrowLeft } from "lucide-react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
-import translator from "./_glossary/translator";
+import inMemoryTranslator from "./_glossary/translator";
 import { Metadata } from "next";
 import TestimonialSkeleton from "./_components/memorySection/testimonial-skeleton";
 import Share from "./_features/share/share";
@@ -27,7 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const client = createClerkSupabaseClientSsr(false);
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const { data: martyr } = await client
     .from("martyrs")
@@ -87,7 +87,7 @@ export default async function Page(props: { params: { martyrId: string } }) {
     });
   }
 
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <div className="space-y-4 px-2 py-2 lg:px-4">

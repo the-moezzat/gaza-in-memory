@@ -12,7 +12,7 @@ import { getCurrentLocale } from "@/utils/getLocaleServer";
 import { X } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 
 export default async function GallerySection({
   martyrId,
@@ -27,7 +27,7 @@ export default async function GallerySection({
     .eq("martyr_id", martyrId);
 
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
   return (
     <Carousel
       className="w-full space-y-2 md:space-y-4 lg:space-y-6 [&>div]:rounded-xl"

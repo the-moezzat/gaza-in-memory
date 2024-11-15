@@ -21,12 +21,12 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Brush, Eraser, Scissors, SwatchBook } from "lucide-react";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import addMartyrTranslator from "../../_glossary/translator";
 
 function Status() {
   const { control, watch } = useFormContext();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const statusItems = [
     {

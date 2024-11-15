@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import ChainOfMemoriesCarousel from "./chain-of-memories-carousel";
 
 interface AddMemoryFormProps {
@@ -54,7 +54,7 @@ export default function AddMemoryForm({
   const { memories } = useMemoryStore();
   const { form, onSubmit } = useAddMemoryForm();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <div className="flex flex-col gap-6">

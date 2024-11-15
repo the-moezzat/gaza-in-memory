@@ -24,4 +24,211 @@ export type Definition = {
   recommendedLanguages: undefined;
   supportedLanguages: undefined;
   comingSoon: undefined;
+
+  football: undefined;
+  basketball: undefined;
+  volleyball: undefined;
+  tableTennis: undefined;
+  swimming: undefined;
+  wrestling: undefined;
+  bodybuilding: undefined;
+  weightlifting: undefined;
+  martialArts: undefined;
+  boxing: undefined;
+  running: undefined;
+  cycling: undefined;
+  horsebackRiding: undefined;
+  falconry: undefined;
+  cricket: undefined;
+  handball: undefined;
+  beachSports: undefined;
+  parkour: undefined;
+  camelRacing: undefined;
+  chess: undefined;
+  sports: undefined;
+  artsAndCrafts: undefined;
+  musicAndPerformance: undefined;
+  culinaryArts: undefined;
+  literatureAndLanguage: undefined;
+  scienceAndTechnology: undefined;
+  socialAndCommunity: undefined;
+  traditionalCrafts: undefined;
+  outdoorActivities: undefined;
+  intellectualPursuits: undefined;
+  personalDevelopment: undefined;
+  gamesAndRecreation: undefined;
+
+  drawing: undefined;
+  painting: undefined;
+  calligraphy: undefined;
+  pottery: undefined;
+  sculpture: undefined;
+  embroidery: undefined;
+  weaving: undefined;
+  jewelry: undefined;
+  glasswork: undefined;
+  woodworking: undefined;
+  metalworking: undefined;
+  leatherwork: undefined;
+  papercraft: undefined;
+  mosaicArt: undefined;
+  textileArt: undefined;
+
+  singing: undefined;
+  oud: undefined;
+  qanun: undefined;
+  violin: undefined;
+  drums: undefined;
+  flute: undefined;
+  poetry: undefined;
+  acting: undefined;
+  dancing: undefined;
+  storytelling: undefined;
+  publicSpeaking: undefined;
+  theater: undefined;
+  musicalComposition: undefined;
+  choralSinging: undefined;
+
+  arabicCuisine: undefined;
+  baking: undefined;
+  coffeeBrewing: undefined;
+  teaPreparation: undefined;
+  pickling: undefined;
+  preserveMaking: undefined;
+  oliveOilProduction: undefined;
+  spiceBlending: undefined;
+  halalCooking: undefined;
+  ramadanDishes: undefined;
+  pastryMaking: undefined;
+  grilling: undefined;
+  herbGardening: undefined;
+  traditionalSweets: undefined;
+
+  // Literature and Language
+  arabicPoetry: undefined;
+  quranicStudies: undefined;
+  hadithStudies: undefined;
+  islamicLiterature: undefined;
+  arabicCalligraphy: undefined;
+  creativeWriting: undefined;
+  journalism: undefined;
+  blogging: undefined;
+  translation: undefined;
+  linguisticStudies: undefined;
+  memoirWriting: undefined;
+  childrensLiterature: undefined;
+  historicalFiction: undefined;
+  literaryCriticism: undefined;
+
+  // Science and Technology
+  astronomy: undefined;
+  mathematics: undefined;
+  physics: undefined;
+  chemistry: undefined;
+  biology: undefined;
+  computerProgramming: undefined;
+  webDevelopment: undefined;
+  mobileAppDevelopment: undefined;
+  robotics: undefined;
+  electronics: undefined;
+  environmentalScience: undefined;
+  agriculturalScience: undefined;
+  marineBiology: undefined;
+  archaeology: undefined;
+  renewableEnergy: undefined;
+  dataScience: undefined;
+
+  // Social and Community
+  volunteerWork: undefined;
+  communityOrganizing: undefined;
+  youthMentoring: undefined;
+  elderlyCare: undefined;
+  refugeeSupport: undefined;
+  interfaithDialogue: undefined;
+  charityWork: undefined;
+  humanRightsAdvocacy: undefined;
+  environmentalActivism: undefined;
+  educationInitiatives: undefined;
+  healthAwarenessCampaigns: undefined;
+  culturalPreservation: undefined;
+  womensEmpowerment: undefined;
+  civicEngagement: undefined;
+
+  // Traditional Crafts
+  basketWeaving: undefined;
+  soapMaking: undefined;
+  perfumeMaking: undefined;
+  oliveWoodCarving: undefined;
+  mosaicTiling: undefined;
+  kilimRugWeaving: undefined;
+  brassEtching: undefined;
+  glassPainting: undefined;
+  ceramicTileMaking: undefined;
+  kuficScriptArt: undefined;
+  marquetry: undefined;
+  silkPainting: undefined;
+  bedouinWeaving: undefined;
+  pearlDiving: undefined;
+  falconryEquipmentCrafting: undefined;
+
+  // Outdoor Activities
+  gardening: undefined;
+  urbanFarming: undefined;
+  beekeeping: undefined;
+  birdWatching: undefined;
+  hiking: undefined;
+  camping: undefined;
+  fishing: undefined;
+  beachCombing: undefined;
+  stargazing: undefined;
+  rockCollecting: undefined;
+  herbalism: undefined;
+  foraging: undefined;
+  desertTrekking: undefined;
+  oasisExploration: undefined;
+  fossilHunting: undefined;
+
+  // Intellectual Pursuits
+  islamicPhilosophy: undefined;
+  arabicLiterature: undefined;
+  middleEasternHistory: undefined;
+  geopolitics: undefined;
+  comparativeReligion: undefined;
+  linguistics: undefined;
+  anthropology: undefined;
+  ethics: undefined;
+  sociology: undefined;
+  psychology: undefined;
+  politicalScience: undefined;
+  economicTheory: undefined;
+  urbanPlanning: undefined;
+
+  // Personal Development
+  meditation: undefined;
+  yoga: undefined;
+  selfHelpReading: undefined;
+  leadershipTraining: undefined;
+  timeManagement: undefined;
+  financialPlanning: undefined;
+  stressManagement: undefined;
+  mindfulness: undefined;
+  languageLearning: undefined;
+  memoryImprovement: undefined;
+  speedReading: undefined;
+  lifeCoaching: undefined;
+
+  // Games and Recreation
+  backgammon: undefined;
+  mancala: undefined;
+  cardGames: undefined;
+  dominos: undefined;
+  sudoku: undefined;
+  crosswordPuzzles: undefined;
+  videoGaming: undefined;
+  boardGames: undefined;
+  rubiksCube: undefined;
+  kiteFlying: undefined;
+  modelBuilding: undefined;
+  coinCollecting: undefined;
+  stampCollecting: undefined;
 };

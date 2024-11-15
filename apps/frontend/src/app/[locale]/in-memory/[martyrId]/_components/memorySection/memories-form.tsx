@@ -16,12 +16,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import useMemoryStore from "../../_store/memoryStore";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 
 export default function MemoriesForm({ martyrName }: { martyrName: string }) {
   const { memories, addMemory } = useMemoryStore();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const FormSchema = z.object({
     memory: z

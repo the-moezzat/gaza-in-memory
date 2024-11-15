@@ -14,12 +14,12 @@ import ChildSection from "@/app/[locale]/add-martyrs/_components/form-sections/c
 import CustomDatePicker from "@/app/[locale]/add-martyrs/_components/date-picker";
 import { FemaleIcon, MaleIcon } from "@/components/icons";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../../_glossary/translator";
+import addMartyrTranslator from "../../_glossary/translator";
 
 function PersonalDetails() {
   const { control, watch } = useFormContext();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   const genderItems = [
     { id: "radio-11-r1", value: "male", label: t.male(), Icon: MaleIcon },

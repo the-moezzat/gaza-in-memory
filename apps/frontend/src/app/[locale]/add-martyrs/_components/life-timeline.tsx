@@ -16,12 +16,12 @@ import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
-import translator from "../_glossary/translator";
+import addMartyrTranslator from "../_glossary/translator";
 
 function LifeTimeline() {
   const { events, removeEvent, updateEvent } = useEventStore();
   const locale = useCurrentLocale();
-  const t = translator(locale);
+  const t = addMartyrTranslator(locale);
 
   return (
     <Timeline active={events.length - 1} bulletSize={24} lineWidth={2}>

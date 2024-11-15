@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { socialMediaIconsMapper } from "../../../../../utils/socialMediaIconsMapper";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 interface ProfileCardProps {
   martyr: Martyr;
 }
@@ -15,7 +15,7 @@ export default function ProfileCard({ martyr }: ProfileCardProps) {
   const socialMediaPlatforms = Object.keys(martyr.social_media ?? {});
   const locale = getCurrentLocale();
 
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <div

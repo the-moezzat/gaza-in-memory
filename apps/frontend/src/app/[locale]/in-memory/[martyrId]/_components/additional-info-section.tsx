@@ -10,7 +10,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import React from "react";
-import translator from "../_glossary/translator";
+import inMemoryTranslator from "../_glossary/translator";
 import { localizeDate } from "../_utils/localizeDates";
 
 export default async function AdditionalInfoSection({
@@ -29,7 +29,7 @@ export default async function AdditionalInfoSection({
   } = martyr;
 
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   const client = createClerkSupabaseClientSsr(false);
 

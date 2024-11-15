@@ -12,7 +12,7 @@ import ShareMemoryButton from "./share-memory-button";
 import { auth } from "@clerk/nextjs/server";
 import { Memory } from "../../_types/Memory";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
-import translator from "../../_glossary/translator";
+import inMemoryTranslator from "../../_glossary/translator";
 import EditMemoryButton from "./edit-memory-button";
 
 interface TestimonialSectionProps {
@@ -38,7 +38,7 @@ export default async function TestimonialSection({
 
   const userMemory = getCurrentUserMemory(memories);
   const locale = getCurrentLocale();
-  const t = translator(locale);
+  const t = inMemoryTranslator(locale);
 
   return (
     <div className="flex w-full flex-col gap-4">
