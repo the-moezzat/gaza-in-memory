@@ -59,14 +59,14 @@ function Status() {
             </div>
             <FormControl>
               <RadioGroup
-                className="grid-cols-3"
+                className="grid-cols-3 gap-1"
                 onValueChange={field.onChange}
                 defaultValue={field.value}
               >
                 {statusItems.map((item) => (
                   <FormItem
                     key={item.id}
-                    className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                    className="group-round relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
                   >
                     <FormControl>
                       <>
@@ -100,7 +100,7 @@ function Status() {
             control={control}
             name="dod"
             render={({ field }) => (
-              <FormItem className="flex max-w-[240px] flex-col gap-2">
+              <FormItem className="group-round flex max-w-[240px] flex-col gap-2">
                 <div
                   className={"flex w-full items-center justify-between gap-2"}
                 >
@@ -127,12 +127,12 @@ function Status() {
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="grid w-full grid-cols-4 gap-4"
+                    className="grid w-full grid-cols-4 gap-1"
                   >
                     {causeItems.map((item) => (
                       <FormItem
                         key={item.id}
-                        className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                        className="group-round relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
                       >
                         <FormControl>
                           <>

@@ -28,12 +28,12 @@ function PersonalDetails() {
 
   return (
     <>
-      <div className={"grid grid-cols-3 gap-4"}>
+      <div className={"grid grid-cols-3 gap-1"}>
         <FormField
           control={control}
           name="firstName"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="group-round-input">
               <FormLabel>{t.firstName()}</FormLabel>
               <FormControl>
                 <Input placeholder={t.firstNamePlaceholder()} {...field} />
@@ -46,7 +46,7 @@ function PersonalDetails() {
           control={control}
           name="middleName"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="group-round-input">
               <FormLabel>{t.middleName()}</FormLabel>
               <FormControl>
                 <Input placeholder={t.middleNamePlaceholder()} {...field} />
@@ -59,7 +59,7 @@ function PersonalDetails() {
           control={control}
           name="lastName"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="group-round-input">
               <FormLabel>{t.lastName()}</FormLabel>
               <FormControl>
                 <Input placeholder={t.lastNamePlaceholder()} {...field} />
@@ -75,7 +75,7 @@ function PersonalDetails() {
         name="gender"
         render={({ field }) => (
           <FormItem className="space-y-2">
-            <div className={"flex w-full items-center justify-between gap-2"}>
+            <div className={"flex w-full items-center justify-between gap-1"}>
               <FormLabel>{t.gender()}</FormLabel>
               <FormMessage />
             </div>
@@ -83,12 +83,12 @@ function PersonalDetails() {
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
-                className="grid w-full grid-cols-2 gap-4"
+                className="grid w-full grid-cols-2 gap-1"
               >
                 {genderItems.map((item) => (
                   <FormItem
                     key={item.id}
-                    className="relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                    className="group-round relative flex flex-col gap-4 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
                   >
                     <FormControl>
                       <>
@@ -148,12 +148,12 @@ function PersonalDetails() {
         )}
       />
 
-      <div className={"grid grid-cols-2 items-center gap-4"}>
+      <div className={"grid grid-cols-2 items-center gap-1"}>
         <FormField
           control={control}
           name="dob"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
+            <FormItem className="groud-round flex flex-col gap-2">
               <div className={"flex w-full items-center justify-between gap-2"}>
                 <FormLabel>{t.dateOfBirth()}</FormLabel>
                 <FormMessage />
@@ -167,7 +167,7 @@ function PersonalDetails() {
           control={control}
           name="city"
           render={({ field }) => (
-            <FormItem className={"flex flex-col gap-2"}>
+            <FormItem className={"group-round-input flex flex-col gap-2"}>
               <div className={"flex w-full items-center justify-between gap-2"}>
                 <FormLabel>{t.city()}</FormLabel>
                 <FormMessage />
@@ -201,12 +201,12 @@ function PersonalDetails() {
 
         {watch("married") && (
           <div className={"space-y-6"}>
-            <div className={"grid grid-cols-2 gap-4"}>
+            <div className={"grid grid-cols-2 gap-1"}>
               <FormField
                 control={control}
                 name="spouseFirstName"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2">
+                  <FormItem className="group-round-input flex flex-col gap-2">
                     <div
                       className={
                         "flex w-full items-center justify-between gap-2"
@@ -229,7 +229,7 @@ function PersonalDetails() {
                 control={control}
                 name="spouseLastName"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2">
+                  <FormItem className="group-round-input flex flex-col gap-2">
                     <div
                       className={
                         "flex w-full items-center justify-between gap-2"

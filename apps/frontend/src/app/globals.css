@@ -85,6 +85,15 @@
 }
 
 @layer components {
+  .group-round {
+    @apply ltr:first:rounded-l-2xl ltr:last:rounded-r-2xl rtl:first:rounded-r-2xl rtl:last:rounded-l-2xl;
+  }
+  .group-round-input:first-child input {
+    @apply ltr:rounded-l-2xl rtl:rounded-r-2xl;
+  }
+  .group-round-input:last-child input {
+    @apply ltr:rounded-r-2xl rtl:rounded-l-2xl;
+  }
   .prose h1 {
     @apply mb-3 text-3xl font-bold;
   }

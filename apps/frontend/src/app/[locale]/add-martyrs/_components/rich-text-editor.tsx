@@ -55,7 +55,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 });
 
   const editor = useEditor({
-    // immediatelyRender: false,
     extensions: [
       StarterKit,
       Underline,
