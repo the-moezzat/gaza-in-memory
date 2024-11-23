@@ -1,21 +1,36 @@
 {
   "name": "gaza-in-memory",
   "private": true,
+    "version": "0.0.1",
+  "bin": {
+    "next-forge": "./scripts/init.js"
+  },
+  "files": [
+    "scripts/init.js"
+  ],
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
+     "build": "NEXT_TELEMETRY_DISABLED=1 turbo build",
+    "dev": "NODE_OPTIONS='--max-old-space-size=4096' turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "turbo test",
+    "analyze": "turbo analyze",
+    "bump-deps": "npx npm-check-updates --deep -u -x react-day-picker && pnpm install",
+    "migrate": "cd packages/database && npx prisma format && npx prisma generate && npx prisma db push"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
+     "@auto-it/all-contributors": "^11.3.0",
+    "@auto-it/first-time-contributor": "^11.3.0",
+    "@biomejs/biome": "1.9.4",
+    "@repo/typescript-config": "workspace:*",
     "turbo": "^2.2.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.6.3",
+    "ultracite": "^4.1.6"
   },
-  "packageManager": "pnpm@8.15.6",
   "engines": {
     "node": ">=18"
   },
+  "packageManager": "pnpm@9.12.3",
   "dependencies": {
     "@turbo/gen": "^2.2.3",
     "class-variance-authority": "^0.7.0",
@@ -25,5 +40,13 @@
     "mini-svg-data-uri": "^1.4.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "*",
+        "react-dom": "*"
+      }
+    }
   }
 }

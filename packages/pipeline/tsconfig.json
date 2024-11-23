@@ -1,4 +1,0 @@
-{
-  "extends": "@repo/typescript-config/pipeline.json",
-  "include": ["src/**/*.ts"]
-}
