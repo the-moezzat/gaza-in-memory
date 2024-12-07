@@ -23,6 +23,8 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
   const t = inMemoryTranslator(locale);
   const parentT = translator(locale);
 
+  if (data?.length === 0) return null;
+
   return (
     <div className="w-full">
       <Carousel

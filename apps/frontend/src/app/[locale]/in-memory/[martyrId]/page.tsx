@@ -1,4 +1,5 @@
-import React, { Suspense } from "react";
+import type React from "react";
+import { Suspense } from "react";
 import ProfileCard from "./_components/profile-card";
 import { createClerkSupabaseClientSsr } from "@/lib/client";
 import CreateorCard from "./_components/createor-card";
@@ -16,7 +17,7 @@ import LocaleLinkWrapper from "../../_components/locale-link-wrapper";
 import { ArrowLeft } from "lucide-react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import inMemoryTranslator from "./_glossary/translator";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import TestimonialSkeleton from "./_components/memorySection/testimonial-skeleton";
 import Share from "./_features/share/share";
 import InterestSkeleton from "./_components/interest-skeleton";
@@ -94,8 +95,8 @@ export default async function Page(props: { params: { martyrId: string } }) {
     <div className="space-y-4 px-2 py-2 lg:px-4">
       <div className="flex items-center justify-between text-gray-600">
         <Button variant="ghost" asChild className="h-fit px-2 py-1">
-          <LocaleLinkWrapper href={`/`} className="flex gap-2">
-            <ArrowLeft size={16} className={`rtl:rotate-180`} />
+          <LocaleLinkWrapper href="/" className="flex gap-2">
+            <ArrowLeft size={16} className="rtl:rotate-180" />
             {t.discover()}
           </LocaleLinkWrapper>
         </Button>
