@@ -22,11 +22,7 @@ export default function MartyrsFormWrapper() {
         <div className="top-4 space-y-8 self-start md:sticky">
           <MartyrsImageUploader />
 
-          <div
-            className={
-              "z-50 flex items-center gap-1 max-md:fixed max-md:bottom-4 max-md:left-4 max-md:right-4 max-md:rounded-xl max-md:bg-white max-md:p-4 max-md:shadow-md md:flex-col lg:flex-row"
-            }
-          >
+          <div className="z-50 flex items-center gap-1 max-md:fixed max-md:bottom-4 max-md:left-4 max-md:right-4 max-md:rounded-xl max-md:bg-white max-md:p-4 max-md:shadow-md md:flex-col lg:flex-row">
             <Button
               type="submit"
               size={"lg"}

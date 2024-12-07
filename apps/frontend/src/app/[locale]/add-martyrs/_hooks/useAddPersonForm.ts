@@ -11,7 +11,10 @@ import {
   createBasicMartyr,
   updateProfileImage,
 } from "../_actions/martyr";
-import { FileUploadData, UploadFileResult } from "uploadthing/types";
+import type { UploadFileResult } from "uploadthing/types";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useCurrentLocale } from "@/utils/useCurrentLocale";
 
 const formSchema = z.object({
   firstName: z.string({ required_error: "First name is required" }),
@@ -107,8 +110,15 @@ export function useAddPersonForm() {
 
   const { children } = useChildStore();
   const { events } = useEventStore();
+  const router = useRouter();
+  const locale = useCurrentLocale();
 
   async function onSubmit(values: AddPersonFormValues) {
+    toast.loading("Publishing your story", {
+      id: "First Step",
+      description: "Please wait... we are publish this story to all the world.",
+    });
+
     const updatedValues = { ...values, children, events };
     console.log(updatedValues);
 
@@ -131,6 +141,15 @@ export function useAddPersonForm() {
       cause_of_death: values.cause,
       guided_story: JSON.stringify(values.guidedStory),
       social_media: JSON.stringify(values.socialMedia),
+    });
+
+    toast.success("Basic data added successfully", {
+      id: "First Step",
+    });
+    toast.loading("Uploading images and adding the details", {
+      id: "Second Step",
+      description:
+        "Please wait... we are uploading images and adding the final details.",
     });
 
     const [timeline, childData, interests, profileImage, gallery] =
@@ -164,12 +183,11 @@ export function useAddPersonForm() {
         uploadGallery(values.gallery as File[], data?.id!),
       ]);
 
-    console.log("data", data);
-    console.log("timeline", timeline);
-    console.log("childData", childData);
-    console.log("interests", interests);
-    console.log("profileImage", profileImage);
-    console.log("gallery", gallery);
+    toast.success("Story added successfully", {
+      id: "Second Step",
+    });
+
+    router.push(`/${locale}/in-memory/${data?.id}`);
   }
 
   return { form, onSubmit };
