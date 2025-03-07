@@ -1,4 +1,4 @@
-import { Martyr } from "@/app/[locale]/_types/Mayrter";
+import type { Martyr } from "@/app/[locale]/_types/Mayrter";
 import {
   Carousel,
   CarouselContent,
@@ -7,7 +7,6 @@ import {
   CarouselPrevious,
 } from "./memorySection/grid-carousel";
 import { createClerkSupabaseClientSsr } from "@/lib/client";
-import React from "react";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import inMemoryTranslator from "../_glossary/translator";
 import translator from "@/app/[locale]/_glossary/translator";
@@ -23,7 +22,9 @@ export default async function InterestSection({ martyr }: { martyr: Martyr }) {
   const t = inMemoryTranslator(locale);
   const parentT = translator(locale);
 
-  if (data?.length === 0) return null;
+  if (data?.length === 0) {
+    return null;
+  }
 
   return (
     <div className="w-full">

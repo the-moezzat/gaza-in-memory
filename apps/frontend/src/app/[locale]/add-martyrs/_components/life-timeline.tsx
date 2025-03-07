@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { Text, Timeline } from "@mantine/core";
 import {
   Dialog,
@@ -13,7 +12,6 @@ import {
 import { Pen, Plus, Trash } from "lucide-react";
 import AddEventForm from "@/app/[locale]/add-martyrs/_components/add-event-form";
 import { useEventStore } from "@/app/[locale]/add-martyrs/_store/eventStore";
-import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import addMartyrTranslator from "../_glossary/translator";

@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextMiddleware, NextResponse } from "next/server";
+import { type NextMiddleware, NextResponse } from "next/server";
 
 export function authMiddleware(): NextMiddleware {
   const isProtectedRoute = createRouteMatcher([

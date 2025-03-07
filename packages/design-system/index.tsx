@@ -26,8 +26,8 @@ export const DesignSystemProvider = ({
     <AuthProvider>
       <AnalyticsProvider>
         <TooltipProvider>{children}</TooltipProvider>
-        <Toaster />
-        {env.NODE_ENV === 'development' && <VercelToolbar />}
+        <Toaster dir="auto" />
+        {env.NODE_ENV === "development" && <VercelToolbar />}
       </AnalyticsProvider>
     </AuthProvider>
   </ThemeProvider>

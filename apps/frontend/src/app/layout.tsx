@@ -6,6 +6,8 @@ import "@mantine/core/styles.css";
 import { ColorSchemeScript } from "@mantine/core";
 import Providers from "@/components/providers";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
+import { env } from "@repo/env";
+import { VercelToolbar } from "@vercel/toolbar/next";
 
 export const metadata: Metadata = {
   title: "Gaza in Memory | Preserving Stories of Lives Lost",
@@ -58,6 +60,7 @@ export default function RootLayout({
       <body className={`${GeistSans.className} ${rubik.variable}`}>
         <Providers>
           <main className="mx-auto max-w-[1750px]">{children}</main>
+          {env.NODE_ENV === "development" && <VercelToolbar />}
         </Providers>
       </body>
     </html>
