@@ -76,7 +76,10 @@ function AddEventForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit(onSubmit)(e);
+        }}
         className={"flex flex-col gap-4"}
       >
         <div className={"grid grid-cols-2 items-center gap-2"}>
@@ -134,7 +137,9 @@ function AddEventForm({
         />
 
         <DialogClose asChild>
-          <Button type="submit">{t.submit()}</Button>
+          <Button type="button" onClick={form.handleSubmit(onSubmit)}>
+            {t.submit()}
+          </Button>
         </DialogClose>
       </form>
     </Form>

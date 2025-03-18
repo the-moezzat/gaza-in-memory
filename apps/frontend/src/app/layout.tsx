@@ -56,6 +56,7 @@ export default function RootLayout({
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <head>
         <ColorSchemeScript />
+        <meta name="apple-mobile-web-app-title" content="gaza in memory" />
       </head>
       <body className={`${GeistSans.className} ${rubik.variable}`}>
         <Providers>

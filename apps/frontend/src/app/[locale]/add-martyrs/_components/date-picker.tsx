@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { format } from "date-fns";
+import { useState } from "react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -62,7 +61,7 @@ export default function CustomDatePicker({
   ] as const;
 
   const handleYearChange = (year: string) => {
-    const newYear = parseInt(year);
+    const newYear = Number.parseInt(year);
     setSelectedYear(newYear);
     setDate(new Date(newYear, selectedMonth, 1));
   };
@@ -84,7 +83,7 @@ export default function CustomDatePicker({
           <Button
             variant="outline"
             className={cn(
-              "w-full justify-start text-left font-normal",
+              "w-full justify-start rounded-l-2xl text-left font-normal",
               !date && "text-muted-foreground",
               className,
             )}
