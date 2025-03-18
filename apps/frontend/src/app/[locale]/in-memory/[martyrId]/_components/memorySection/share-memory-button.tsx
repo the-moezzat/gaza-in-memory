@@ -10,6 +10,7 @@ import BaseMemoryButton from "./base-memory-button";
 import { useMutation } from "@tanstack/react-query";
 import { addMemory } from "../../_actions/addMemory";
 import { toast } from "sonner";
+import { SignedOut, SignInButton, SignedIn } from "@clerk/nextjs";
 
 export default function ShareMemoryButton({
   martyrName,
@@ -42,52 +43,68 @@ export default function ShareMemoryButton({
   });
 
   return (
-    <BaseMemoryButton
-      disabled={isPending}
-      title={t.addMemory()}
-      description={t.shareMemoryDialogDescription({ name: martyrName })}
-      trigger={
-        <Button variant="outline" className="flex items-center gap-2">
-          <Plus size={18} /> <span>{t.addMemory()}</span>
-        </Button>
-      }
-      open={open}
-      setOpen={setOpen}
-    >
-      <CoreForm
-        onCancel={() => setOpen(false)}
-        martyrName={martyrName}
-        onSubmit={(data) => {
-          addMemoryMutation({
-            memories: memories,
-            martyrId: data.martyrId,
-            relationship: data.relationship,
-          });
-        }}
-      >
-        {memories.length > 0 && (
-          <div className="flex justify-end gap-2">
-            <Button
-              variant="ghost"
-              type="button"
-              className="hidden self-end lg:block"
-              onClick={() => setOpen(false)}
-            >
-              {t.cancel()}
+    <>
+      <SignedOut>
+        <SignInButton mode="modal">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex w-full items-center justify-center gap-2"
+          >
+            <Plus size={16} />
+            <span>{t.signInToShareMemory()}</span>
+          </Button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <BaseMemoryButton
+          disabled={isPending}
+          title={t.addMemory()}
+          description={t.shareMemoryDialogDescription({ name: martyrName })}
+          trigger={
+            <Button variant="outline" className="flex items-center gap-2">
+              <Plus size={18} /> <span>{t.addMemory()}</span>
             </Button>
-            <Button
-              type="submit"
-              className="w-full self-end lg:w-fit"
-              disabled={isPending}
-            >
-              {t.share()}{" "}
-              {memories.length > 1
-                ? `${memories.length} ${t.memories()}`
-                : t.memory()}
-            </Button>
-          </div>
-        )}
-      </CoreForm>
-    </BaseMemoryButton>
+          }
+          open={open}
+          setOpen={setOpen}
+        >
+          <CoreForm
+            onCancel={() => setOpen(false)}
+            martyrName={martyrName}
+            onSubmit={(data) => {
+              addMemoryMutation({
+                memories: memories,
+                martyrId: data.martyrId,
+                relationship: data.relationship,
+              });
+            }}
+          >
+            {memories.length > 0 && (
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="ghost"
+                  type="button"
+                  className="hidden self-end lg:block"
+                  onClick={() => setOpen(false)}
+                >
+                  {t.cancel()}
+                </Button>
+                <Button
+                  type="submit"
+                  className="w-full self-end lg:w-fit"
+                  disabled={isPending}
+                >
+                  {t.share()}{" "}
+                  {memories.length > 1
+                    ? `${memories.length} ${t.memories()}`
+                    : t.memory()}
+                </Button>
+              </div>
+            )}
+          </CoreForm>
+        </BaseMemoryButton>
+      </SignedIn>
+    </>
   );
 }

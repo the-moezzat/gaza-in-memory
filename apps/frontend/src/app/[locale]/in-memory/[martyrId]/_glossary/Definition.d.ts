@@ -120,4 +120,5 @@ export type Definition = {
   twitter: undefined;
   whatsapp: undefined;
   telegram: undefined;
+  signInToShareMemory: undefined;
 };

@@ -103,4 +103,5 @@ export const translations_AR = createTranslation<Definition>({
   twitter: "تويتر",
   whatsapp: "واتساب",
   telegram: "تيليجرام",
+  signInToShareMemory: "سجل الدخول لمشاركة ذكرياتك",
 });

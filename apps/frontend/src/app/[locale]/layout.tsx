@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import "../globals.css";
 import Navbar from "@/app/[locale]/_components/navbar";
 import "@mantine/core/styles.css";
-import { type SupportedLocale } from "@/lib/supportedLanguages";
+import type { SupportedLocale } from "@/lib/supportedLanguages";
 
 export const metadata: Metadata = {
   title: "Gaza in Memory",
   description: "Not Just a Numbers, They Are Stories Unfinished",
 };
 
-export default async function RootLayout(props: {
+export default function RootLayout(props: {
   children: React.ReactNode;
 
   params: { locale: SupportedLocale };

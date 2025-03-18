@@ -10,7 +10,7 @@ import {
 } from "./grid-carousel";
 import ShareMemoryButton from "./share-memory-button";
 import { auth } from "@clerk/nextjs/server";
-import { Memory } from "../../_types/Memory";
+import type { Memory } from "../../_types/Memory";
 import { getCurrentLocale } from "@/utils/getLocaleServer";
 import inMemoryTranslator from "../../_glossary/translator";
 import EditMemoryButton from "./edit-memory-button";

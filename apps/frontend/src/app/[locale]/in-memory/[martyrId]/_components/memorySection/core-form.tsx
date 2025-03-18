@@ -22,10 +22,10 @@ import { useCurrentLocale } from "@/utils/useCurrentLocale";
 import inMemoryTranslator from "../../_glossary/translator";
 import ChainOfMemoriesCarousel from "./chain-of-memories-carousel";
 import {
-  CoreMemoryFormSchema,
+  type CoreMemoryFormSchema,
   useCoreMemoryForm,
 } from "../../_hooks/useCoreForm";
-import { z } from "zod";
+import type { z } from "zod";
 
 interface AddMemoryFormProps {
   martyrName: string;

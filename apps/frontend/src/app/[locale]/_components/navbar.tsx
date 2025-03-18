@@ -9,7 +9,7 @@ import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import LanguageSwitcher from "./language-switcher/language-switcher";
 import translator from "../_glossary/translator";
-import { type SupportedLocale } from "@/lib/supportedLanguages";
+import type { SupportedLocale } from "@/lib/supportedLanguages";
 
 function Navbar({ locale }: { locale: SupportedLocale }) {
   const pathname = usePathname();
@@ -154,6 +154,7 @@ function Navbar({ locale }: { locale: SupportedLocale }) {
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
+            {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
             <svg
               className="pointer-events-none"
               width={18}
