@@ -100,5 +100,6 @@ export const translations_DE = createTranslation<Definition>({
   linkedin: "linkedin",
   twitter: "twitter",
   whatsapp: "whatsapp",
-  telegram: "telegram"
+  telegram: "telegram",
+  signInToShareMemory: "signInToShareMemory"
 });

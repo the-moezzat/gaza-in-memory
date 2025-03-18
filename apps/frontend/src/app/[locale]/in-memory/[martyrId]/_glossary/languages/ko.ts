@@ -100,5 +100,6 @@ export const translations_KO = createTranslation<Definition>({
   linkedin: "linkedin_ko",
   twitter: "twitter_ko",
   whatsapp: "whatsapp_ko",
-  telegram: "telegram_ko"
+  telegram: "telegram_ko",
+  signInToShareMemory: "signInToShareMemory_ko"
 });
